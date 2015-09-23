@@ -26,7 +26,7 @@ public class NewsService extends BaseService<News>implements INewsService {
 	 * 用户新闻列表
 	 */
 	@Override
-	public List<News> qryAll(String tableName, String type, int pageNo, int pageSize) {
+	public Map<String, Object> qryAll(String tableName, String type, int pageNo, int pageSize) {
 
 		String hql = "FROM News WHERE type= " + type + " and status>0 ORDER BY status DESC , id DESC";
 
@@ -73,7 +73,18 @@ public class NewsService extends BaseService<News>implements INewsService {
 			}
 		}
 
-		return newslist;
+		
+		long amount = dao.findCount("SELECT COUNT(*) "+hql);
+		Map<String,Object> map = new HashMap<>();
+		map.put("list", newslist);
+		if (amount==0) {
+			map.put("amount", 0);
+		}else if (amount <= pageSize) {
+			map.put("amount", 1);
+		}else {
+			map.put("amount", amount/pageSize+1);
+		}
+		return map;
 	}
 
 	/**
@@ -85,7 +96,7 @@ public class NewsService extends BaseService<News>implements INewsService {
 	 * @return
 	 */
 	@Override
-	public List<News> search(String keyword, int pageNo, int pageSize) {
+	public Map<String, Object> search(String keyword, int pageNo, int pageSize) {
 
 		keyword = "%" + keyword + "%";
 		int x = 0;
@@ -144,7 +155,17 @@ public class NewsService extends BaseService<News>implements INewsService {
 			}
 		}
 
-		return newslist;
+		long amount = dao.findCount("SELECT COUNT(*) "+hql);
+		Map<String,Object> map = new HashMap<>();
+		map.put("list", newslist);
+		if (amount==0) {
+			map.put("amount", 0);
+		}else if (amount <= pageSize) {
+			map.put("amount", 1);
+		}else {
+			map.put("amount", amount/pageSize+1);
+		}
+		return map;
 	}
 
 	/**
@@ -156,9 +177,21 @@ public class NewsService extends BaseService<News>implements INewsService {
 	 * @return
 	 */
 	@Override
-	public List<News> qryAllForAdmin(String tableName, String type, int pageNo, int pageSize) {
+	public Map<String, Object> qryAllForAdmin(String tableName, String type, int pageNo, int pageSize) {
 		String hql = "FROM News WHERE type=" + type + " ORDER BY status DESC , id DESC";
-		return dao.findByPage(hql, pageNo, pageSize);
+		List<News> newslist = dao.findByPage(hql, pageNo, pageSize);
+		
+		long amount = dao.findCount("SELECT COUNT(*) "+hql);
+		Map<String,Object> map = new HashMap<>();
+		map.put("list", newslist);
+		if (amount==0) {
+			map.put("amount", 0);
+		}else if (amount <= pageSize) {
+			map.put("amount", 1);
+		}else {
+			map.put("amount", amount/pageSize+1);
+		}
+		return map;
 	}
 
 	/**

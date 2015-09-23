@@ -1,7 +1,9 @@
 package com.eagle.service.impl;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,9 +32,20 @@ public class BaseService<T> implements IBase<T> {
 	}
 
 	@Override
-	public List<T> qryAll(String tableName,String type,int pageNo,int pageSize) {
+	public Map<String, Object> qryAll(String tableName,String type,int pageNo,int pageSize) {
 		String hql = "FROM "+tableName+" WHWEW type = "+type+" ORDER BY id DESC";
-		return dao.findByPage(hql, pageNo, pageSize);
+		List<T> list = dao.findByPage(hql, pageNo, pageSize);
+		long amount = dao.findCount("SELECT COUNT(*) "+hql);
+		Map<String,Object> map = new HashMap<>();
+		map.put("list", list);
+		if (amount==0) {
+			map.put("amount", 0);
+		}else if (amount <= pageSize) {
+			map.put("amount", 1);
+		}else {
+			map.put("amount", amount/pageSize+1);
+		}
+		return map;
 	}
 
 	@Override
