@@ -18,19 +18,17 @@ public class Slide implements java.io.Serializable {
 	private Integer id;
 	private String img;
 	private String link;
-	private String content;
+	private String title;
 	private Integer weight;
-	private String status;
 
 	public Slide() {
 	}
 
-	public Slide(String img, String link, String content, Integer weight, String status) {
+	public Slide(String img, String link, String title, Integer weight) {
 		this.img = img;
 		this.link = link;
-		this.content = content;
+		this.title = title;
 		this.weight = weight;
-		this.status = status;
 	}
 
 	@Id
@@ -63,13 +61,13 @@ public class Slide implements java.io.Serializable {
 		this.link = link;
 	}
 
-	@Column(name = "content", length = 65535)
-	public String getContent() {
-		return this.content;
+	@Column(name = "title", length = 65535)
+	public String getTitle() {
+		return this.title;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	@Column(name = "weight")
@@ -81,13 +79,5 @@ public class Slide implements java.io.Serializable {
 		this.weight = weight;
 	}
 
-	@Column(name = "status", length = 45)
-	public String getStatus() {
-		return this.status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
 
 }

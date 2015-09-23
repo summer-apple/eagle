@@ -14,13 +14,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.eagle.entity.About;
+import com.eagle.entity.Cooperation;
 import com.eagle.entity.Job;
 import com.eagle.entity.News;
+import com.eagle.entity.Slide;
 import com.eagle.entity.Topnews;
 import com.eagle.service.IJobService;
 import com.eagle.service.ITestService;
+import com.eagle.service.impl.CooperationService;
 import com.eagle.service.impl.JobService;
 import com.eagle.service.impl.NewsService;
+import com.eagle.service.impl.SlideService;
 
 
 @Controller 
@@ -32,6 +36,10 @@ public class TestAction {
 	private JobService js;
 	@Autowired
 	private NewsService ns;
+	@Autowired
+	private SlideService ss;
+	@Autowired
+	private CooperationService cs;
 	
 	Logger logger = Logger.getLogger(TestAction.class);
 	
@@ -76,6 +84,22 @@ public class TestAction {
 	public List<Topnews> getNewsList(HttpServletRequest request,Model model){
 		
 		List<Topnews> newslist = ns.getTopNews();
+		return newslist;
+	}
+	
+	@RequestMapping("/get-slide")
+	@ResponseBody
+	public List<Slide> getSlide(HttpServletRequest request,Model model){
+		
+		List<Slide> newslist = ss.getTopSlide();
+		return newslist;
+	}
+	
+	@RequestMapping("/get-coo")
+	@ResponseBody
+	public List<Cooperation> getCoo(HttpServletRequest request,Model model){
+		
+		List<Cooperation> newslist = cs.getTopCooperation("名誉学员");
 		return newslist;
 	}
 	
