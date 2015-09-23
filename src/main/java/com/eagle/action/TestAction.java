@@ -42,7 +42,7 @@ public class TestAction {
 		ModelAndView mv = new ModelAndView();
 		About about = ts.getAbout(id);
 		mv.addObject(about);
-		mv.setViewName("get-about");
+		mv.setViewName("dashboard/get-about");
 		return mv;
 	}
 	
