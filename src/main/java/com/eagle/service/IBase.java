@@ -10,6 +10,6 @@ public interface IBase<T> {
 	public Serializable add(T t);
 	public void update(T t);
 	public void delete(Class<T> Clazz,int id);
-	public List<T> qryAll(Class<T> Clazz);
+	public List<T> qryAll(String tableName,String type,int pageNo,int pageSize);
 	public T qryOne(Class<T> Clazz,int id);
 }

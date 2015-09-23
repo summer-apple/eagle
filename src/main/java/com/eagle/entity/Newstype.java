@@ -1,6 +1,5 @@
 package com.eagle.entity;
-
-// Generated 2015-9-20 14:24:31 by Hibernate Tools 4.3.1
+// Generated 2015-9-23 16:32:32 by Hibernate Tools 4.3.1.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +17,7 @@ public class Newstype implements java.io.Serializable {
 
 	private Integer id;
 	private String name;
+	private Integer weight;
 
 	public Newstype() {
 	}
@@ -28,6 +28,7 @@ public class Newstype implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
+
 	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;
@@ -45,5 +46,19 @@ public class Newstype implements java.io.Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	@Column(name = "weight")
+	public Integer getWeight() {
+		return weight;
+	}
+
+	public void setWeight(Integer weight) {
+		this.weight = weight;
+	}
+
+	
+
+
+
 
 }

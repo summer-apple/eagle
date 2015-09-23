@@ -1,6 +1,5 @@
 package com.eagle.entity;
-
-// Generated 2015-9-20 14:24:31 by Hibernate Tools 4.3.1
+// Generated 2015-9-23 16:32:32 by Hibernate Tools 4.3.1.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,6 +31,7 @@ public class Job implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
+
 	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;

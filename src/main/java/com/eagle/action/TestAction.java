@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +15,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.eagle.entity.About;
 import com.eagle.entity.Job;
+import com.eagle.entity.News;
+import com.eagle.entity.Topnews;
 import com.eagle.service.IJobService;
 import com.eagle.service.ITestService;
 import com.eagle.service.impl.JobService;
+import com.eagle.service.impl.NewsService;
 
 
 @Controller 
@@ -26,7 +30,10 @@ public class TestAction {
 	private ITestService ts;
 	@Autowired
 	private JobService js;
+	@Autowired
+	private NewsService ns;
 	
+	Logger logger = Logger.getLogger(TestAction.class);
 	
 	@RequestMapping("/get-abouta")
 	@ResponseBody
@@ -50,17 +57,26 @@ public class TestAction {
 	@ResponseBody
 	public List<Job> getJob(HttpServletRequest request,Model model){
 		
-		List<Job> joblist = js.qryAll(Job.class);
+		
+		List<Job> joblist = js.qryAll("Job","全职",0,20);
 		return joblist;
 	}
 	
 	
 	@RequestMapping("/get")
 	@ResponseBody
-	public Job get(HttpServletRequest request,Model model){
+	public List<Job> get(HttpServletRequest request,Model model){
+	
+		List<Job> joblist = js.qryAll("Job","全职", 1, 10);
+		return joblist;
+	}
+	
+	@RequestMapping("/get-newslist")
+	@ResponseBody
+	public List<Topnews> getNewsList(HttpServletRequest request,Model model){
 		
-		Job job = js.get(1);
-		return job;
+		List<Topnews> newslist = ns.getTopNews();
+		return newslist;
 	}
 	
 }

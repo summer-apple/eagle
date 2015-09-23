@@ -1,5 +1,7 @@
 package com.eagle.service.impl;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,4 +15,5 @@ public class JobService extends BaseService<Job> implements IJobService {
 	public Job get(int id) {
 		return dao.get(Job.class, id);
 	}
+	
 }

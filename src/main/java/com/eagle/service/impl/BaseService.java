@@ -30,8 +30,9 @@ public class BaseService<T> implements IBase<T> {
 	}
 
 	@Override
-	public List<T> qryAll(Class<T> Clazz) {
-		return dao.findAll(Clazz);
+	public List<T> qryAll(String tableName,String type,int pageNo,int pageSize) {
+		String hql = "FROM "+tableName+" WHWEW type = "+type+" ORDER BY id DESC";
+		return dao.findByPage(hql, pageNo, pageSize);
 	}
 
 	@Override
