@@ -54,16 +54,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="page-title">
 
 			<div class="title-env">
-					<h1 class="title">服务管理</h1>
-					<p class="description">query and create new services</p>
+					<h1 class="title">新闻类型管理</h1>
+					<p class="description">query and create new news type</p>
 				</div>
 
 				<div class="breadcrumb-env">
 
 					<ol class="breadcrumb bc-1">
-						<li><a href="dashboard/home"><i class="fa-home"></i>主页</a></li>
-						<li><a href="javascript:void(0);">服务&设施</a></li>
-						<li class="active"><strong>服务</strong></li>
+						<li><a href="javascript:void(0);"><i class="fa-home"></i>主页</a></li>
+						<li><a href="javascript:void(0);">新闻管理</a></li>
+						<li class="active"><strong>新闻类型管理</strong></li>
 					</ol>
 
 				</div>
@@ -75,37 +75,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 			<div class="panel panel-default">
-				
-				<div class="vspacer v3"></div>
-				
+		
 				<div class="row">
-					<div class="col-sm-10">
-						
-
-						<form class="form-inline" id="qry-form" action="" method="post">
-							<div class="form-group"> 
-								<input id="content" name="content" class="form-control" type="text" placeholder="关键字">
-							</div>
-							<div class="form-group">
-								<select class="form-control" id="type" name="type">
-									<option value="">服务类型</option>
-									<option value="0">免费</option>
-									<option value="1">收费</option>
-								</select>
-							</div>
-							<div class="form-group">
-								<button id="qry-btn" type="button" class="btn btn-primary btn-single btn-sm">查 询</button>
-							</div>
-						</form>
-
-
-
-
-						
- 
-					</div>
-					<div class="col-sm-2">
-						<a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class="btn btn-primary btn-single btn-sm">新建服务</a>
+					<div class="col-sm-12">
+						<a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class="btn btn-primary btn-single btn-sm add-new-btn">新建服务</a>
+						<h5>主页展示权重排名前五项的新闻类型</h5>
 					</div>
 				</div>
 
@@ -116,9 +90,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<table id="qry-table" class="table table-bordered table-striped table-condensed table-hover">
 										<thead>
 											<tr>
-												<th>服务ID</th>
-												<th>服务名称</th>
-												<th>服务类型</th>
+												<th>ID</th>
+												<th>名称</th>
+												<th>权重</th>
 												<th>操作</th>
 											</tr>
 										</thead>
@@ -134,10 +108,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 
 <!--主体部分结束-->
-			<!-- Main Footer -->
-			<!-- Choose between footer styles: "footer-type-1" or "footer-type-2" -->
-			<!-- Add class "sticky" to  always stick the footer to the end of page (if page contents is small) -->
-			<!-- Or class "fixed" to  always fix the footer to the end of page -->
 			<%@ include file="footer.jsp"%>
 		</div>
 
@@ -156,38 +126,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					<h4 class="modal-title">新增-编辑 服务</h4>
+					<h4 class="modal-title">新增-编辑 新闻类型</h4>
 				</div>
 				
 				<div class="modal-body">
 				
 				<form id="add-form" role="form" class="form-horizontal" action="" method="post">
-				
+					<input type="hidden" name="id" id="id" value="0">
 					<div class="row">
-						<div class="col-md-6">
+						<div class="col-md-12">
 							
 							<div class="form-group">
-								<label for="content" class="control-label">服务名称</label>
+								<label for="name" class="control-label">类型名称</label>
 								
-								<input name="content" type="text" class="form-control" id="content" placeholder="建议2或4个汉字...">
+								<input name="name" type="text" class="form-control" id="name" placeholder="建议4个汉字...">
 							</div>	
 							
 						</div>
-						<div class="col-md-2"></div>
-						<div class="col-md-4">
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							
 							<div class="form-group">
-								<label for="type" class="control-label">服务类型</label>
+								<label for="weight" class="control-label">权 重</label>
 								
-								<div class="radio">
-											<label><input type="radio" name="type" value="0" checked>免费</label>
-											<label><input type="radio" name="type" value="1">收费</label>
-								</div>
-							</div>
-			
+								<input name="weight" type="number" min="0" max="10" class="form-control" id="weight" placeholder="1-10数字，越小越靠前，首页展示前五个">
+						</div>
 							
 						</div>
+							
 					</div>
-
+					<div class="modal-footer">
+										<button type="button" class="btn btn-white cancel-btn" data-dismiss="modal">取 消</button>
+										<button id="add-btn" type="submit" class="btn btn-info">保 存</button>
+					</div>
 
 				</form>
 					
@@ -195,45 +167,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
 				</div>
 				
-				<div class="modal-footer">
-					<button type="button" class="btn btn-white" data-dismiss="modal">取 消</button>
-					<button id="add-btn" type="button" class="btn btn-info">保 存</button>
-				</div>
+				
 			</div>
 		</div>
 	</div>
 <!--新增表单结束-->
 
 	<%@ include file="script.jsp" %>
+	<script type="text/javascript" src="resources/js/jquery.form.js"></script>
+	<script type="text/javascript" src="resources/js/jquery-validate/jquery.validate.js"></script>
 	<script type="text/javascript">
 	$().ready(function(){
 //首次进入时刷新
 		qry();
-//点击查询时刷新
-		$("#qry-btn").click(function(){
-			qry();
-		});
 //查询方法
 		function qry(){
-            var params = $("#qry-form").serializeArray();
-            var j = {};
-            for (var item in params) {
-                j[params[item].name] = params[item].value;
-            }
             $.ajax({
-                url:'svs/qrySvs',
-                data: {data:JSON.stringify(j)},
+                url:'newstype/qry',
                 type:'post',
                 dataType:'json',
                 success:function(data){
                     $("#qry-table tbody").empty();
                 	$.each(data, function(i, item) {
                 		 $("#qry-table tbody").append(
-                		"<tr>"+
-						"	<td>"+item.id+"</td>"+
-						"	<td>"+item.content+"</td>"+
-						"	<td>"+item.typeValue+"</td>"+
-						"	<td><a class='btn btn-primary btn-single btn-sm' onclick=del("+item.id+")>删除</a></td>"+
+                		"<tr id='tr-"+ item.id +"'>"+
+						"	<td class='td-id'>"+item.id+"</td>"+
+						"	<td class='td-name'>"+item.name+"</td>"+
+						"	<td class='td-weight'>"+item.weight+"</td>"+
+						"	<td><a class='btn btn-primary btn-single btn-sm' onclick=edit("+item.id+")>编辑</a><a class='btn btn-primary btn-single btn-sm' onclick=del("+item.id+")>删除</a></td>"+
 						"</tr>"
                 		 );
                   	});
@@ -242,34 +203,72 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 
 //添加
+	$("#add-form").validate({
+							rules: {
+								name: {
+									required: true,
+									maxlength:8
+								},
+								
+								weight: {
+									required: true,
+									number:true,
+									max:10,
+									min:0
+								}
+							},
+							
+							messages: {
+								name: {
+									required: '必填项目',	
+									maxlength:'最多8个汉字'
+								},
+								
+								weight: {
+									required: '必填项目',
+									number:'必须为非负整数',
+									max:'最大值为10',
+									min:'最小值为0'
+								}
+							},
+							
+							// Form Processing via AJAX
+							submitHandler: function(form)
+							{
+								var $url ='';
 
-	$("#add-btn").click(function(){
-			var params = $("#add-form").serializeArray();
-            var j = {};
-            for (var item in params) {
-                j[params[item].name] = params[item].value;
-            }
-            $.ajax({
-                url:'svs/addSvs',
-                data: {data:JSON.stringify(j)},
-                type:'post',
-                dataType:'json',
-                success:function(data){
-                    if (data==true) {
-                    	alert("保存成功...");
-                    	qry();
-                    }else{
-                    	alert("该服务已存在...");
-                    	qry();
-                    };
-                }
-            });
-		});
+								if ($("#id").val()==0) {
+									$url ='newstype/add';
+								}else{
+									$url ='newstype/update';
+								}
+
+								$("#add-form").ajaxSubmit({
+					                url:$url,
+					                type:'post',
+					                dataType:'json',
+					                success:function(data){
+					                    if (data!=0) {
+					                    	alert("保存成功...");
+					                    	$("#add-form")[0].reset();
+					                    	$("#id").val(0);
+					                    	$(".cancel-btn").click();
+					                    	qry();
+					                    }else{
+					                    	alert("保存出错，该类型已存在...");
+					                    	qry();
+					                    };
+					                }
+					            });
+							}
+						});
+
+
 //删除
 
 	window.del = function(id){
 		$.ajax({
-                url:'svs/delSvs?id='+id,
+                url:'newstype/del?id='+id,
                 type:'post',
                 dataType:'json',
                 success:function(data){
@@ -283,6 +282,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 }
             });
 	}
+
+//编辑
+
+	window.edit = function(id){
+
+		$(".add-new-btn").click();
+
+		var item = $("#tr-"+id);
+		$("#id").val(id);
+		$("#name").val(item.find(".td-name").html());
+		$("#weight").val(item.find(".td-weight").html());
+	}
+
 
 	});
 	</script>

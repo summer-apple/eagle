@@ -7,4 +7,6 @@ import com.eagle.entity.Newstype;
 public interface INewstypeService extends IBase<Newstype> {
 
 	public List<Newstype> getTopType();
+	
+	public List<Newstype> qryAll();
 }

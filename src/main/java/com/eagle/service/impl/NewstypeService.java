@@ -54,6 +54,13 @@ public class NewstypeService extends BaseService<Newstype>implements INewstypeSe
 		}
 		
 	}
+
+	@Override
+	public List<Newstype> qryAll() {
+		String hql = "FROM Newstype ORDER BY weight,id";
+		List<Newstype> newstypelist = dao.findByPage(hql, 0, 100);
+		return newstypelist;
+	}
 	
 	
 	

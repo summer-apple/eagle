@@ -45,10 +45,16 @@ public class NewstypeAction {
 		return nts.update(newstype);
 	}
 	
-	@RequestMapping("/get-top-type")
+	@RequestMapping("/get-top")
 	@ResponseBody
 	public List<Newstype> add(HttpServletRequest request){
 		return nts.getTopType();
+	}
+	
+	@RequestMapping("/qry")
+	@ResponseBody
+	public List<Newstype> qry(HttpServletRequest request){
+		return nts.qryAll();
 	}
 	
 	
