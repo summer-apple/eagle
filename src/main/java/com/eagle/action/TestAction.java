@@ -1,6 +1,7 @@
 package com.eagle.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -63,20 +64,21 @@ public class TestAction {
 	
 	@RequestMapping("/get-job")
 	@ResponseBody
-	public List<Job> getJob(HttpServletRequest request,Model model){
+	public Map<String, Object> getJob(HttpServletRequest request,Model model){
 		
 		
-		List<Job> joblist = js.qryAll("Job","全职",0,20);
-		return joblist;
+		Map<String, Object> map = js.qryAll("Job","全职",0,20);
+		
+		return map;
 	}
 	
 	
 	@RequestMapping("/get")
 	@ResponseBody
-	public List<Job> get(HttpServletRequest request,Model model){
+	public Map<String, Object> get(HttpServletRequest request,Model model){
 	
-		List<Job> joblist = js.qryAll("Job","全职", 1, 10);
-		return joblist;
+		Map<String, Object> map = js.qryAll("Job","全职", 1, 10);
+		return map;
 	}
 	
 	@RequestMapping("/get-newslist")

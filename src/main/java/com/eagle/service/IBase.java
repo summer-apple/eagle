@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 @Service
 public interface IBase<T> {
 	public Serializable add(T t);
-	public void update(T t);
-	public void delete(Class<T> Clazz,int id);
+	public boolean update(T t);
+	public boolean delete(Class<T> Clazz,int id);
 	public Map<String, Object> qryAll(String tableName,String type,int pageNo,int pageSize);
 	public T qryOne(Class<T> Clazz,int id);
 }
