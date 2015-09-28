@@ -174,8 +174,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--新增表单结束-->
 
 	<%@ include file="script.jsp" %>
-	<script type="text/javascript" src="resources/js/jquery.form.js"></script>
-	<script type="text/javascript" src="resources/js/jquery-validate/jquery.validate.js"></script>
 	<script type="text/javascript">
 	$().ready(function(){
 //首次进入时刷新

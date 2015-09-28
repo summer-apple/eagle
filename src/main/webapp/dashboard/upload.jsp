@@ -18,9 +18,6 @@
 
 <script type="text/javascript">
     $(function(){
-      $("#tip-queue").click(function(){
-    	  $("#real-input:last").click();
-          });
   	  $('#file_upload').uploadifive({
   			'width'           : 100,                 // The width of the button
   			'height'          : 30,                 // The height of the button

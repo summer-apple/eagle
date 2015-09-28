@@ -38,15 +38,9 @@
 
 		<ul id="main-menu" class="main-menu">
 		
-		<li><a href="#"> <i class="linecons-params"></i> <span
+		<li><a href="dashboard/slide.jsp"> <i class="linecons-params"></i> <span
 					class="title">轮播管理</span>
-			</a>
-				<ul>
-					<li><a href="dashboard/slide.jsp"> <span class="title">轮播列表</span>
-					</a></li>
-					<li><a href="dashboard/edit-slide.jsp"> <span class="title">新建轮播</span>
-					</a></li>
-				</ul></li>
+			</a></li>
 
 			<li><a href="#"> <i class="linecons-database"></i> <span
 					class="title">新闻管理</span>
@@ -54,55 +48,23 @@
 				<ul>
 					<li><a href="dashboard/news.jsp"> <span class="title">新闻列表</span>
 					</a></li>
-					<li><a href="dashboard/add-news.jsp"> <span class="title">新建新闻</span>
-					</a></li>
 					<li><a href="dashboard/newstype.jsp"> <span class="title">新闻类型</span>
 					</a></li>
 				</ul></li>
 
 
-			<li><a href="#"> <i class="linecons-star"></i> <span
+			<li><a href="dashboard/cooperation.jsp"> <i class="linecons-star"></i> <span
 					class="title">合作管理</span>
-			</a>
-				<ul>
-					<li><a href="dashboard/member.jsp"> <span class="title">会员列表</span>
-					</a></li>
-					<li><a href="dashboard/coo-student.jsp"> <span class="title">名誉学员</span>
-					</a></li>
-					<li><a href="dashboard/edit-cooperation.jsp"> <span class="title">新建合作</span>
-					</a></li>
-				</ul></li>
+			</a></li>
 
 
-			<li><a href="#"> <i class="linecons-cog"></i> <span
+			<li><a href="dashboard/job.jsp"> <i class="linecons-cog"></i> <span
 					class="title">招聘管理</span>
-			</a>
-				<ul>
-					<li><a href="dashboard/job-estudent.jsp"> <span class="title">强鹰学员</span>
-					</a></li>
-					<li><a href="dashboard/job-hstudent.jsp"> <span class="title">名誉学员</span>
-					</a></li>
-					<li><a href="dashboard/employee.jsp"> <span class="title">强鹰专职</span>
-					</a></li>
-					<li><a href="dashboard/intern.jsp"> <span class="title">实习生</span>
-					</a></li>
-					<li><a href="dashboard/edit-job.jsp"> <span class="title">新建招聘</span>
-					</a></li>
-				</ul></li>
+			</a></li>
 
-			<li><a href="#"> <i class="linecons-mail"></i> <span
+			<li><a href="dashboard/about.jsp"> <i class="linecons-mail"></i> <span
 					class="title">关于管理</span>
-			</a>
-				<ul>
-					<li><a href="dashboard/a1.jsp"> <span class="title">时代强鹰</span>
-					</a></li>
-					<li><a href="dashboard/a2.jsp"> <span class="title">校园联盟</span>
-					</a></li>
-					<li><a href="dashboard/a3.jsp"> <span class="title">青年园</span>
-					</a></li>
-					<li><a href="dashboard/a4.jsp"> <span class="title">强鹰孵化器</span>
-					</a></li>
-				</ul></li>
+			</a></li>
 
 		</ul>
 

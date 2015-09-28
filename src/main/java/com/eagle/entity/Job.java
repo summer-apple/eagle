@@ -16,7 +16,10 @@ import javax.persistence.Table;
 public class Job implements java.io.Serializable {
 
 	private Integer id;
+
+	private String title;
 	private String type;
+	private String brief;
 	private String content;
 	private String attachment;
 
@@ -41,6 +44,15 @@ public class Job implements java.io.Serializable {
 		this.id = id;
 	}
 
+	@Column(name = "title", length = 100)
+	public String getTitle() {
+		return this.title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	@Column(name = "type", length = 45)
 	public String getType() {
 		return this.type;
@@ -48,6 +60,15 @@ public class Job implements java.io.Serializable {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	@Column(name = "brief", length = 300)
+	public String getBrief() {
+		return this.brief;
+	}
+
+	public void setBrief(String brief) {
+		this.brief = brief;
 	}
 
 	@Column(name = "content", length = 65535)

@@ -16,3 +16,6 @@
 
 <!-- JavaScripts initializations and stuff -->
 <script src="resources/js/xenon-custom.js"></script>
+
+	<script type="text/javascript" src="resources/js/jquery.form.js"></script>
+	<script type="text/javascript" src="resources/js/jquery-validate/jquery.validate.js"></script>

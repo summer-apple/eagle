@@ -9,6 +9,7 @@ import com.eagle.service.impl.SlideService;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -51,4 +52,9 @@ public class SlideAction {
 		return ss.getTopSlide();
 	}
 	
+	@RequestMapping("/qry")
+	@ResponseBody
+	public Map<String, Object> qry(HttpServletRequest request,int pageNo,int pageSize){
+		return ss.qryAll(pageNo,pageSize);
+	}
 }
