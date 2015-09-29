@@ -21,6 +21,7 @@ public class Cooperation implements java.io.Serializable {
 	private String headimg;
 	private String position;
 	private String content;
+	private Integer weight;
 
 	public Cooperation() {
 	}
@@ -89,5 +90,12 @@ public class Cooperation implements java.io.Serializable {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	@Column(name = "weight")
+	public Integer getWeight() {
+		return weight;
+	}
 
+	public void setWeight(Integer weight) {
+		this.weight = weight;
+	}
 }

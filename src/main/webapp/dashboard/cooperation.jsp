@@ -61,15 +61,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="page-title">
 
 			<div class="title-env">
-					<h1 class="title">招聘管理</h1>
-					<p class="description">query edit or create  job</p>
+					<h1 class="title">合作管理</h1>
+					<p class="description">query edit or create  cooperation</p>
 				</div>
 
 				<div class="breadcrumb-env">
 
 					<ol class="breadcrumb bc-1">
 						<li><a href="dashboard/home"><i class="fa-home"></i>主页</a></li>
-						<li class="active"><strong>查询招聘</strong></li>
+						<li class="active"><strong>查询合作</strong></li>
 					</ol>
 
 				</div>
@@ -80,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--主体部分开始-->
 			<div class="add-panel panel panel-default" style="display: none;">
 						<div class="panel-heading">
-							<h3 class="panel-title">新增招聘</h3>
+							<h3 class="panel-title">新增合作</h3>
 							<div class="panel-options">
 								<a href="#" data-toggle="panel">
 									<span class="collapse-icon">–</span>
@@ -121,14 +121,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</script>
 									<div class="col-sm-10">
 										<select name="type" class="form-control" id="type" style="display: none;">
-											<option value="强鹰学员">强鹰学员</option>
+											<option value="会员">会员</option>
 											<option value="名誉学员">名誉学员</option>
-											<option value="强鹰专职">强鹰专职</option>
-											<option value="实习生">实习生</option>
 										</select>
 									</div>
 								</div>
 								
+								
+								<div class="form-group">
+									<label class="col-sm-2 control-label">权&nbsp;&nbsp;&nbsp;重</label>
+									
+									<div class="col-sm-10">
+										<input name="weight" type="number" min="0" max="10" class="form-control" id="weight" placeholder="1-10数字，越小越靠前，首页展示前五个">
+									</div>
+								</div>
 								
 
 								<div class="form-group">
@@ -180,7 +186,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							
 						</div>
 					</div>
-<!--新增招聘表单结束-->
+<!--新增合作表单结束-->
 
 			<div class="panel panel-default">
 				
@@ -188,8 +194,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 				<div class="row">
 					<div class="col-sm-8">
-						<a href="javascript:void(0);" class="open-panel btn btn-primary btn-single btn-sm">新建招聘</a>
-						
+						<a href="javascript:void(0);" class="open-panel btn btn-primary btn-single btn-sm">新建合作</a>
+						<h5>主页展示权重排名前五项的新闻类型</h5>
 					</div>
 					<div class="col-sm-4">
 						
@@ -221,7 +227,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<input id="pageNo" name="pageNo" class="form-control" type="hidden" value="0" placeholder="页码">
 							</div>
 							<div class="form-group"> 
-								<input id="pageSize" name="pageSize" class="form-control" type="hidden" value="10" placeholder="每页招聘数">
+								<input id="pageSize" name="pageSize" class="form-control" type="hidden" value="10" placeholder="每页合作数">
 							</div>
 
 							<div class="form-group"> 
@@ -245,6 +251,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												<th>ID</th>
 												<th>类型</th>
 												<th>标题</th>
+												<th>权重</th>
 												<th>简介</th>
 												<th>附件</th>
 												<th>操作</th>
@@ -328,8 +335,9 @@ $("#qry-type").change(function(){
 						'	<td class="job-id">'+item.id+'</td>'+
 						'	<td class="job-type">'+item.type+'</td>'+
 						'	<td class="job-title">'+item.title+'</td>'+
-						'	<td class="job-brief" style="max-width:400px;">'+item.brief.substring(0,20)+'</a></td>'+
-						'	<td class="job-attachment">'+attachment(item.attachment)+'</td>'+
+						'	<td class="job-weight">'+item.weight+'</td>'+
+						'	<td class="job-brief" style="max-width:400px;">'+item.brief+'</a></td>'+
+						'	<td class="job-attachment">'+attachment(item.attachment+'</td>'+
 						'	<td style="min-width:115px;"><a class="edit-btn btn btn-primary btn-single btn-sm" onclick="edit('+item.id+')">编辑</a><a class="btn btn-primary btn-single btn-sm" onclick=del('+item.id+')>删除</a></td>'+
 						'</tr>'
                 		 );
@@ -343,6 +351,7 @@ $("#qry-type").change(function(){
 		}
 
 //页码方法
+
 	function initpage(amount){
 		$(".pagination").pagination(amount, { 
 						  prev_text: '&laquo;', 
@@ -358,15 +367,19 @@ $("#qry-type").change(function(){
 	}
 
 //附件方法
+
 	function attachment(attachment){
 		if (attachment!=null) {
-			return '<a href="'+attachment+'">'+attachment.substring(attachment.lastIndexOf("/")+1,attachment.lenght)+'</a>';
+			return '<a href="'+attachment+'">'+attachment+'</a>';
 		}else{
 			return "";
 		}
-	}	
+	}
+
+		
 
 //点击页码查询
+
 		window.page = function(no){
 			$("#pageNo").val(no);
 			 qry();
@@ -381,6 +394,13 @@ $("#qry-type").change(function(){
 									maxlength:20
 								},
 								
+								weight: {
+									required: true,
+									number:true,
+									max:10,
+									min:0
+								},
+								
 								brief: {
 									required: true,
 									maxlength:150
@@ -393,6 +413,12 @@ $("#qry-type").change(function(){
 									maxlength:'最多20个汉字'
 								},
 								
+								weight: {
+									required: '必填项目',
+									number:'必须为非负整数',
+									max:'最大值为10',
+									min:'最小值为0'
+								},
 
 								brief: {
 									required: '必填项目',
@@ -434,6 +460,7 @@ $("#qry-type").change(function(){
 							}
 						});
 //删除
+
 	window.del = function(id){
 		$.ajax({
                 url:'job/del?id='+id,
@@ -460,7 +487,7 @@ $("#qry-type").change(function(){
 //打开新增商店面板
 	$(".open-panel").click(function(){
 		$("#add-form")[0].reset();
-		$(".add-panel .panel-title").html("新增招聘");
+		$(".add-panel .panel-title").html("新增合作");
 		$("#add-btn").show();
 		$("#update-btn").hide();
 		$(".add-panel").show();
@@ -469,37 +496,25 @@ $("#qry-type").change(function(){
 //编辑
 	window.edit = function(id){
 		$("#add-form")[0].reset();
-		$(".add-panel .panel-title").html("更新招聘");
+		$(".add-panel .panel-title").html("更新合作");
 		
 		$("#add-btn").hide();
 		$("#update-btn").show();
 
-		$.ajax({
-                url:'job/get-one?id='+id,
-                type:'post',
-                dataType:'json',
-                success:function(data){
-                	$("#id").val(data.id);
-                	$("#title").val(data.title);
-                	$("#brief").val(data.brief);
-                	$("#content").val(data.content);
-                	$("#attachment").val(data.attachment);
-                	if (data.attachment!=null) {
-                		$(".file-show").html('<h5 class="file-name">'+data.attachment.substring(data.attachment.lastIndexOf("/")+1,data.attachment.lenght)+'  <a class="remove-file" href="javascript:void(0);"><span class="fa fa-close" style="color:#000;"></span></a></h5>');
-                	}
-                	
-                	$("#typeSelectBoxItText").attr("data-val",data.type).html(data.type);
-                	$("#type").val(data.type);
-                	//alert($("#add-form").find("#typeSelectBoxItOptions li[data-val='"+data.type+"']").attr("data-val"));
-                	//$("#add-form").find("#typeSelectBoxItOptions li[data-val='"+data.type+"']").click();
-                }
-            });
+		var item = $(".slide-"+id);
+		$("#id").val(id);
+		$("#title").val(item.find(".slide-title").html());
+		$("#weight").val(item.find(".slide-weight").html());
+		$("#img").val(item.find(".slide-img a img").attr("src"));
+		$("#link").val(item.find(".slide-link a").html());
+		$(".img-show").html('<img src="'+item.find(".slide-img a img").attr("src")+'" style="width:100%;">');
 		
 		$(".add-panel").show();
 	}//333
 
 
 //更新
+
 	$("#update-btn").click(function(){
 			var params = $("#add-form").serializeArray();
             var j = {};
@@ -523,13 +538,13 @@ $("#qry-type").change(function(){
             });
 		});
 
-	
+	});
 
 //添加图片
+
  	  $("#select-img-btn").click(function(){
     	  $("#uploadifive-file_upload").click();
           });
-
   	  $('#file_upload').uploadifive({
   			'width'           : 75,                 // The width of the button
   			'height'          : 30,                 // The height of the button
@@ -559,7 +574,7 @@ $("#qry-type").change(function(){
 		$(".file-show").html("");
 		$("#attachment").val("");
 	});
-});
+
 	</script>
 </body>
 </html>

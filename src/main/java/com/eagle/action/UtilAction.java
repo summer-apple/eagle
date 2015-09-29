@@ -35,9 +35,9 @@ public class UtilAction {
 
 	@RequestMapping("/upload-image")
 	@ResponseBody
-	public String uploadImg(HttpServletRequest request,@RequestParam MultipartFile image,String folder) {
+	public String uploadImg(HttpServletRequest request,@RequestParam MultipartFile file,String folder) {
 
-		String hz = image.getOriginalFilename().substring(image.getOriginalFilename().lastIndexOf("."));
+		String hz = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 		if (hz.toLowerCase().equals(".jpeg")) {
 			hz = ".jpg";
 		}
@@ -49,17 +49,17 @@ public class UtilAction {
 		String url = "resources/images/gallery/"+ folder +"/"+ filename;
 		logger.info("url=" + url);
 
-		if (!image.isEmpty()) {
+		if (!file.isEmpty()) {
 			try {
 				// 文件保存路径
 				String filePath = request.getSession().getServletContext()
 						.getRealPath("/")+url;
-				File file = new File(filePath);
-				if (!file.exists()) {
-					file.mkdirs();
+				File file1 = new File(filePath);
+				if (!file1.exists()) {
+					file1.mkdirs();
 				}
 				// 转存文件
-				image.transferTo(new File(filePath));
+				file.transferTo(new File(filePath));
 			} catch (IOException e) {
 				logger.error(e);
 			}

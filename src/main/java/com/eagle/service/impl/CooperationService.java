@@ -16,7 +16,7 @@ public class CooperationService extends BaseService<Cooperation>implements ICoop
 	
 	@Override
 	public List<Cooperation> getTopCooperation(String type) {
-		String hql = "FROM Cooperation WHERE type='"+type+"' ORDER BY id DESC";
+		String hql = "FROM Cooperation WHERE type='"+type+"' ORDER BY weight ASC, id DESC";
 		return dao.findByPage(hql, 0, 20);
 	}
 

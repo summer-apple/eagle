@@ -28,7 +28,7 @@ public class NewsService extends BaseService<News>implements INewsService {
 	@Override
 	public Map<String, Object> qryAll(String tableName, String type, int pageNo, int pageSize) {
 
-		String hql = "FROM News WHERE type= " + type + " and status>0 ORDER BY status DESC , id DESC";
+		String hql = "FROM News WHERE type= '" + type + "' and status>0 ORDER BY status DESC , id DESC";
 
 		List<News> newslist = dao.findByPage(hql, pageNo, pageSize);
 
@@ -178,7 +178,7 @@ public class NewsService extends BaseService<News>implements INewsService {
 	 */
 	@Override
 	public Map<String, Object> qryAllForAdmin(String tableName, String type, int pageNo, int pageSize) {
-		String hql = "FROM News WHERE type=" + type + " ORDER BY status DESC , id DESC";
+		String hql = "FROM News WHERE type='" + type + "' ORDER BY weight ASC , id DESC";
 		List<News> newslist = dao.findByPage(hql, pageNo, pageSize);
 		
 		long amount = dao.findCount("SELECT COUNT(*) "+hql);

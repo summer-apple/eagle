@@ -1,6 +1,7 @@
 package com.eagle.action;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.eagle.entity.News;
 import com.eagle.entity.Topnews;
-import com.eagle.entity.News;
 import com.eagle.service.impl.NewsService;
 
 @Controller
@@ -28,6 +28,7 @@ public class NewsAction {
 	@RequestMapping("/add")
 	@ResponseBody
 	public Serializable add(HttpServletRequest request, News news) {
+		news.setTime(new Date());
 		return ns.add(news);
 	}
 
@@ -41,6 +42,12 @@ public class NewsAction {
 	@ResponseBody
 	public Map<String, Object> qry(HttpServletRequest request, String type, int pageNo, int pageSize) {
 		return ns.qryAll("News", type, pageNo, pageSize);
+	}
+	
+	@RequestMapping("/qry-for-admin")
+	@ResponseBody
+	public Map<String, Object> qryForAdmin(HttpServletRequest request, String type, int pageNo, int pageSize) {
+		return ns.qryAllForAdmin("News", type, pageNo, pageSize);
 	}
 
 	@RequestMapping("/del")

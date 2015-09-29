@@ -38,9 +38,29 @@
 				});
 	})
 </script>
+<style type="text/css">
+	.img-warp{
+		width: 400px;
+		height: 200px;
+		border: 1px solid #CCC;
+		margin:50px;
+		overflow: hidden;
+	}
+	.img-warp img{
+		width: 100%;
+	}
+
+
+</style>
 </head>
 <body>
 
+	<div class="img-warp">
+		<img src="resources/attachment/20150928110920x96DSF6vec42Lb5F.jpg">
+	</div>
+
+
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	<input id="file_upload" type="file" name="upload" />
 	<div id="tip-queue" style="display:none;"></div>
 

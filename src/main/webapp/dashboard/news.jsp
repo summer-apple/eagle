@@ -25,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <%@ include file="css.jsp" %>
 <style type="text/css">
-	#uploadifive-file_upload{
+	#uploadifive-file_upload,#uploadifive-content_upload{
 		background-color: #000;
 		color: #FFF;
 	}
@@ -61,15 +61,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="page-title">
 
 			<div class="title-env">
-					<h1 class="title">招聘管理</h1>
-					<p class="description">query edit or create  stores</p>
+					<h1 class="title">新闻管理</h1>
+					<p class="description">query edit or create  news</p>
 				</div>
 
 				<div class="breadcrumb-env">
 
 					<ol class="breadcrumb bc-1">
 						<li><a href="dashboard/home"><i class="fa-home"></i>主页</a></li>
-						<li class="active"><strong>查询招聘</strong></li>
+						<li class="active"><strong>查询新闻</strong></li>
 					</ol>
 
 				</div>
@@ -80,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--主体部分开始-->
 			<div class="add-panel panel panel-default" style="display: none;">
 						<div class="panel-heading">
-							<h3 class="panel-title">新增招聘</h3>
+							<h3 class="panel-title">新增新闻</h3>
 							<div class="panel-options">
 								<a href="#" data-toggle="panel">
 									<span class="collapse-icon">–</span>
@@ -109,7 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="form-group">
 									<label class="col-sm-2 control-label" for="link">类&nbsp;&nbsp;&nbsp;型</label>
 									
-									<script type="text/javascript">
+									<!-- <script type="text/javascript">
 										jQuery(document).ready(function($)
 										{
 											$("#type").selectBoxIt().on('open', function()
@@ -118,13 +118,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
 											});
 										});
-									</script>
+									</script> -->
 									<div class="col-sm-10">
 										<select name="type" class="form-control" id="type" style="display: none;">
-											<option value="强鹰学员">强鹰学员</option>
-											<option value="名誉学员">名誉学员</option>
-											<option value="强鹰专职">强鹰专职</option>
-											<option value="实习生">实习生</option>
 										</select>
 									</div>
 								</div>
@@ -138,6 +134,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</div>
 								</div>
 								
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="headimg">首&nbsp;&nbsp;&nbsp;图</label>
+									
+									<div class="col-sm-10">
+										<input name="headimg" type="text" class="form-control" id="headimg" placeholder="首图必须上传" readonly>
+					
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="headimg"></label>
+									
+									<div class="col-sm-2">
+										<input id="file_upload" type="file" name="upload" style="display:none;" />
+										<div id="tip-queue" style="display:none;"></div>
+										
+									</div>
+									<div class="col-sm-4 img-show">
+										
+									</div>
+								</div>
 
 								<div class="form-group">
 									<label class="col-sm-2 control-label" for="content">概&nbsp;&nbsp;&nbsp;要</label>
@@ -147,9 +164,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									
 								</div>
 
+								
+
 								<div class="form-group">
 									<label class="col-sm-2 control-label" for="content">详&nbsp;&nbsp;&nbsp;情</label>
 									<div class="col-sm-10">
+										<input id="content_upload" type="file" name="upload" style="display:none;" />
+										<div id="tip-queue-2" style="display:none;"></div>
 										<textarea name="content" id="content" class="form-control ckeditor" rows="10">
 											Here we go ~
 										</textarea>
@@ -157,21 +178,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									
 								</div>
 								
-								<div class="form-group">
-									<label class="col-sm-2 control-label" for="img">附&nbsp;&nbsp;&nbsp;件</label>
-									
-									<div class="col-sm-2">
-
-										<input id="file_upload" type="file" name="upload" style="display:none;" />
-										<div id="tip-queue" style="display:none;"></div>
-										<input name="attachment" type="hidden" class="form-control" id="attachment">
-										<h5>多附件请打包上传</h5>
-									</div>
-									<div class="col-sm-8 file-show">
-										
-									</div>
-								</div>
-
 								
 								
 								<div class="form-group">
@@ -188,7 +194,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							
 						</div>
 					</div>
-<!--新增招聘表单结束-->
+<!--新增新闻表单结束-->
 
 			<div class="panel panel-default">
 				
@@ -196,8 +202,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 				<div class="row">
 					<div class="col-sm-8">
-						<a href="javascript:void(0);" class="open-panel btn btn-primary btn-single btn-sm">新建招聘</a>
-						<h5>主页展示权重排名前五项的新闻类型</h5>
+						<a href="javascript:void(0);" class="open-panel btn btn-primary btn-single btn-sm">新建新闻</a>
+						<h5>主页展示权重排名前十项的新闻类型</h5>
 					</div>
 					<div class="col-sm-4">
 						
@@ -206,7 +212,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="row">
 							<div class="form-group col-sm-12">
 									
-									<script type="text/javascript">
+									<!-- <script type="text/javascript">
 										jQuery(document).ready(function($)
 										{
 											$("#qry-type").selectBoxIt().on('open', function()
@@ -215,13 +221,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
 											});
 										});
-									</script>
+									</script> -->
 									<div class="col-sm-12">
 										<select name="type" class="form-control" id="qry-type" style="display: none;">
-											<option value="强鹰学员">强鹰学员</option>
-											<option value="名誉学员">名誉学员</option>
-											<option value="强鹰专职">强鹰专职</option>
-											<option value="实习生">实习生</option>
 										</select>
 									</div>
 								</div>
@@ -229,7 +231,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<input id="pageNo" name="pageNo" class="form-control" type="hidden" value="0" placeholder="页码">
 							</div>
 							<div class="form-group"> 
-								<input id="pageSize" name="pageSize" class="form-control" type="hidden" value="10" placeholder="每页招聘数">
+								<input id="pageSize" name="pageSize" class="form-control" type="hidden" value="10" placeholder="每页新闻数">
 							</div>
 
 							<div class="form-group"> 
@@ -255,7 +257,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												<th>标题</th>
 												<th>权重</th>
 												<th>简介</th>
-												<th>附件</th>
+												<th>首图</th>
+												<th>时间</th>
 												<th>操作</th>
 											</tr>
 										</thead>
@@ -309,6 +312,110 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<script type="text/javascript">
 	$().ready(function(){
+
+
+
+
+//日期转换方法
+(function($) {
+    $.extend({
+        myTime: {
+            /**
+             * 当前时间戳
+             * @return <int>        unix时间戳(秒)  
+             */
+            CurTime: function(){
+                return Date.parse(new Date())/1000;
+            },
+            /**              
+             * 日期 转换为 Unix时间戳
+             * @param <string> 2014-01-01 20:20:20  日期格式              
+             * @return <int>        unix时间戳(秒)              
+             */
+            DateToUnix: function(string) {
+                var f = string.split(' ', 2);
+                var d = (f[0] ? f[0] : '').split('-', 3);
+                var t = (f[1] ? f[1] : '').split(':', 3);
+                return (new Date(
+                        parseInt(d[0], 10) || null,
+                        (parseInt(d[1], 10) || 1) - 1,
+                        parseInt(d[2], 10) || null,
+                        parseInt(t[0], 10) || null,
+                        parseInt(t[1], 10) || null,
+                        parseInt(t[2], 10) || null
+                        )).getTime() / 1000;
+            },
+            /**              
+             * 时间戳转换日期              
+             * @param <int> unixTime    待时间戳(秒)              
+             * @param <bool> isFull    返回完整时间(Y-m-d 或者 Y-m-d H:i:s)              
+             * @param <int>  timeZone   时区              
+             */
+            UnixToDate: function(unixTime, isFull, timeZone) {
+                if (typeof (timeZone) == 'number')
+                {
+                    unixTime = parseInt(unixTime) + parseInt(timeZone) * 60 * 60;
+                }
+                var time = new Date(unixTime * 1000);
+                var ymdhis = "";
+                ymdhis += time.getUTCFullYear() + "-";
+                ymdhis += (time.getUTCMonth()+1) + "-";
+                ymdhis += time.getUTCDate();
+                if (isFull === true)
+                {
+                    ymdhis += " " + time.getUTCHours() + ":";
+                    ymdhis += time.getUTCMinutes() + ":";
+                    ymdhis += time.getUTCSeconds();
+                }
+                return ymdhis;
+            }
+        }
+    });
+})(jQuery);
+
+
+
+/* alert($.myTime.UnixToDate(1442592000,true,8)); */
+
+	function transTime(object,isFull){
+		if (object!=null) {
+			return $.myTime.UnixToDate(object/1000,isFull,8);
+		}else{
+			return "--";
+		}
+	}
+
+
+//获取新闻类型
+ 		$.ajax({
+                url:'newstype/qry',
+                type:'post',
+                dataType:'json',
+                success:function(data){
+                	$.each(data, function(i, item) {
+                		 $("#type,#qry-type").append(
+                			'<option value="'+item.id+'">'+item.name+'</option>'
+                		 );
+                  	});
+
+                  	$("#qry-type").selectBoxIt().on('open', function(){
+						$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+					});
+
+					$("#type").selectBoxIt().on('open', function(){
+						$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+					});
+
+
+					//首次进入时刷新
+					qry();
+					initpage($("#amount").val());
+
+                }
+            });
+
+
+
 //变更类型时刷新
 $("#qry-type").change(function(){
 	qry();
@@ -316,16 +423,14 @@ $("#qry-type").change(function(){
 });
 
 
-//首次进入时刷新
-		qry();
-		initpage($("#amount").val());
+
 
 
 
 //查询方法
 		function qry(){
             $.ajax({
-                url:'job/qry',
+                url:'news/qry-for-admin',
                 data: {'pageNo':$('#pageNo').val(),'pageSize':$('#pageSize').val(),'type':$("#qry-type").val()},
                 type:'post',
                 dataType:'json',
@@ -333,13 +438,14 @@ $("#qry-type").change(function(){
                     $("#qry-table tbody").empty();
                 	$.each(data.list, function(i, item) {
                 		 $("#qry-table tbody").append(
-                		'<tr class="job-'+item.id+'">'+
-						'	<td class="job-id">'+item.id+'</td>'+
-						'	<td class="job-type">'+item.type+'</td>'+
-						'	<td class="job-title">'+item.title+'</td>'+
-						'	<td class="job-weight">'+item.weight+'</td>'+
-						'	<td class="job-brief" style="max-width:400px;">'+item.brief+'</a></td>'+
-						'	<td class="job-attachment">'+attachment(item.attachment+'</td>'+
+                		'<tr class="news-'+item.id+'">'+
+						'	<td class="news-id">'+item.id+'</td>'+
+						'	<td class="news-type">'+item.typeValue+'</td>'+
+						'	<td class="news-title">'+item.title+'</td>'+
+						'	<td class="news-weight">'+item.weight+'</td>'+
+						'	<td class="news-brief" style="max-width:400px;">'+item.brief+'</a></td>'+
+						'	<td class="news-headimg"><a href="'+item.headimg+'"><img src="'+item.headimg+'" style="width:50px;"></a></td>'+
+						'	<td class="news-time">'+transTime(item.time,true)+'</td>'+
 						'	<td style="min-width:115px;"><a class="edit-btn btn btn-primary btn-single btn-sm" onclick="edit('+item.id+')">编辑</a><a class="btn btn-primary btn-single btn-sm" onclick=del('+item.id+')>删除</a></td>'+
 						'</tr>'
                 		 );
@@ -406,6 +512,10 @@ $("#qry-type").change(function(){
 								brief: {
 									required: true,
 									maxlength:150
+								},
+								
+								headimg: {
+									required: true
 								}
 							},
 							
@@ -425,6 +535,10 @@ $("#qry-type").change(function(){
 								brief: {
 									required: '必填项目',
 									maxlength:'最多150个汉字'
+								},
+								
+								headimg: {
+									required: '必填项目'
 								}
 							},
 							
@@ -434,9 +548,9 @@ $("#qry-type").change(function(){
 								var $url ='';
 
 								if ($("#id").val()==0) {
-									$url ='job/add';
+									$url ='news/add';
 								}else{
-									$url ='job/update';
+									$url ='news/update';
 								}
 
 								$("#add-form").ajaxSubmit({
@@ -448,7 +562,6 @@ $("#qry-type").change(function(){
 					                    	alert("保存成功...");
 					                    	$("#add-form")[0].reset();
 					                    	$("#id").val(0);
-					                    	$(".file-show").html("");
 					                    	qry();
 					                    	initpage($("#amount").val());
 					                    	$(".add-panel").hide();
@@ -489,7 +602,8 @@ $("#qry-type").change(function(){
 //打开新增商店面板
 	$(".open-panel").click(function(){
 		$("#add-form")[0].reset();
-		$(".add-panel .panel-title").html("新增招聘");
+		$(".img-show").html("	");
+		$(".add-panel .panel-title").html("新增新闻");
 		$("#add-btn").show();
 		$("#update-btn").hide();
 		$(".add-panel").show();
@@ -498,84 +612,89 @@ $("#qry-type").change(function(){
 //编辑
 	window.edit = function(id){
 		$("#add-form")[0].reset();
-		$(".add-panel .panel-title").html("更新招聘");
+		$(".add-panel .panel-title").html("更新新闻");
 		
 		$("#add-btn").hide();
 		$("#update-btn").show();
 
-		var item = $(".slide-"+id);
-		$("#id").val(id);
-		$("#title").val(item.find(".slide-title").html());
-		$("#weight").val(item.find(".slide-weight").html());
-		$("#img").val(item.find(".slide-img a img").attr("src"));
-		$("#link").val(item.find(".slide-link a").html());
-		$(".img-show").html('<img src="'+item.find(".slide-img a img").attr("src")+'" style="width:100%;">');
+		$.ajax({
+                url:'news/get-one?id='+id,
+                type:'post',
+                dataType:'json',
+                success:function(data){
+                	$("#id").val(data.id);
+                	$("#title").val(data.title);
+                	$("#brief").val(data.brief);
+                	$("#weight").val(data.weight);
+                	$("#content").val(data.content);
+                	$("#headimg").val(data.headimg);
+                	$(".img-show").html('<img src="'+data.headimg+'" style="width:100%;">');
+                	$("#typeSelectBoxItText").attr("data-val",data.type).html(data.typeValue);
+                	$("#type").val(data.type);
+                	//alert($("#add-form").find("#typeSelectBoxItOptions li[data-val='"+data.type+"']").attr("data-val"));
+                	//$("#add-form").find("#typeSelectBoxItOptions li[data-val='"+data.type+"']").click();
+                }
+            });
 		
 		$(".add-panel").show();
 	}//333
 
 
-//更新
 
-	$("#update-btn").click(function(){
-			var params = $("#add-form").serializeArray();
-            var j = {};
-            for (var item in params) {
-                j[params[item].name] = params[item].value;
-            }
-            $.ajax({
-                url:'store/updateStore',
-                data: {data:JSON.stringify(j)},
-                type:'post',
-                dataType:'json',
-                success:function(data){
-                    if (data==true) {
-                    	alert("更新成功...");
-                    	qry();
-                    }else{
-                    	alert("更新失败...");
-                    	qry();
-                    }
-                }
-            });
-		});
+//添加首图
 
-	});
-
-//添加图片
-
- 	  $("#select-img-btn").click(function(){
-    	  $("#uploadifive-file_upload").click();
-          });
   	  $('#file_upload').uploadifive({
   			'width'           : 75,                 // The width of the button
   			'height'          : 30,                 // The height of the button
   	        'auto' : true,   //取消自动上传 
-  	        'uploadScript' : 'util/upload-file', //处理上传文件Action路径 
+  	        'uploadScript' : 'util/upload-image', //处理上传文件Action路径 
   	        'fileObjName'  : 'file',        //文件对象
-	        'buttonText'   : '选择文件',   //按钮显示文字 
+	        'buttonText'   : '上传首图',   //按钮显示文字 
 	        'queueID'      : 'tip-queue', //drug and drop box's ID 
-	        //'fileType'     : 'image/jpg,image/jpeg,image/png',   //允许上传文件类型 
+	        'fileType'     : 'image/jpg,image/jpeg,image/png',   //允许上传文件类型 
 	        'fileSizeLimit'   : '20MB',                  // Maximum allowed size of files to upload
-	        'formData'     : {"folder":"attachment"},//The other data want to send
+	        'formData'     : {"folder":"news"},//The other data want to send
 	        'queueSizeLimit'  : 100,                  //The maximum number of files in drup and drop box 
             'simUploadLimit'  : 100,                  // The maximum number of files to upload at once
             'uploadLimit'     : 100,                  // The maximum number of files you can upload
 	        'onUploadComplete' : function(file, data) { //文件上传成功后执行 
+	        	var url = $.parseJSON(data); 
 	        	
-	        	var $obj = $.parseJSON($.parseJSON(data)); 
-	        	
-
-	        	$(".file-show").html('<h5 class="file-name">'+$obj.name+'  <a class="remove-file" href="javascript:void(0);"><span class="fa fa-close" style="color:#000;"></span></a></h5>');
-	        	$("#attachment").val($obj.url);
+	        	$(".img-show").html('<img src='+url+' style="width:100%;">');
+	        	$("#headimg").val(url);
 					}
 
 				});
 
-	$(".file-show").on("click",".remove-file",function(){
-		$(".file-show").html("");
-		$("#attachment").val("");
-	});
+//添加内容图片
+
+ 	  
+  	  $('#content_upload').uploadifive({
+  			'width'           : 75,                 // The width of the button
+  			'height'          : 30,                 // The height of the button
+  	        'auto' : true,   //取消自动上传 
+  	        'uploadScript' : 'util/upload-image', //处理上传文件Action路径 
+  	        'fileObjName'  : 'file',        //文件对象
+	        'buttonText'   : '上传新图片',   //按钮显示文字 
+	        'queueID'      : 'tip-queue-2', //drug and drop box's ID 
+	        'fileType'     : 'image/jpg,image/jpeg,image/png',   //允许上传文件类型 
+	        'fileSizeLimit'   : '20MB',                  // Maximum allowed size of files to upload
+	        'formData'     : {"folder":"news"},//The other data want to send
+	        'queueSizeLimit'  : 100,                  //The maximum number of files in drup and drop box 
+            'simUploadLimit'  : 100,                  // The maximum number of files to upload at once
+            'uploadLimit'     : 100,                  // The maximum number of files you can upload
+	        'onUploadComplete' : function(file, data) { //文件上传成功后执行 
+	        	var basePath = "<%=basePath%>";
+	        	var url = $.parseJSON(data); 
+	        	$("#cke_25").click();
+	        	setTimeout(function(){
+	        		$("#cke_72_textInput").val(basePath+url);
+	        	},1000);
+					}
+
+				});
+
+});	
 
 	</script>
 </body>

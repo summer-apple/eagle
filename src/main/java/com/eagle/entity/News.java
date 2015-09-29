@@ -28,24 +28,24 @@ public class News implements java.io.Serializable {
 	private String content;
 	private Date time;
 	private Integer type;
-	private Integer status;
 	private String typeValue;
 	private String nextTitle;
 	private String preTitle;
 	private String nextUrl;
 	private String preUrl;
+	private Integer weight;
 
 	public News() {
 	}
 
-	public News(String title, String headimg, String brief, String content, Date time, Integer type, Integer status) {
+	public News(String title, String headimg, String brief, String content, Date time, Integer type,Integer weight) {
 		this.title = title;
 		this.headimg = headimg;
 		this.brief = brief;
 		this.content = content;
 		this.time = time;
 		this.type = type;
-		this.status = status;
+		this.weight = weight;
 	}
 
 	@Id
@@ -97,7 +97,7 @@ public class News implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "time", length = 19)
+	@Column(name = "time", length = 19 , updatable=false)
 	public Date getTime() {
 		return this.time;
 	}
@@ -115,14 +115,6 @@ public class News implements java.io.Serializable {
 		this.type = type;
 	}
 
-	@Column(name = "status")
-	public Integer getStatus() {
-		return this.status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
 
 	@Formula("(SELECT newstype.name FROM newstype WHERE newstype.id = type)")
 	public String getTypeValue() {
@@ -168,5 +160,12 @@ public class News implements java.io.Serializable {
 	public void setPreUrl(String preUrl) {
 		this.preUrl = preUrl;
 	}
+	@Column(name = "weight")
+	public Integer getWeight() {
+		return weight;
+	}
 
+	public void setWeight(Integer weight) {
+		this.weight = weight;
+	}
 }
