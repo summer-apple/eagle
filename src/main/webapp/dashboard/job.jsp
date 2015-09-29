@@ -302,19 +302,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	$().ready(function(){
 //变更类型时刷新
 $("#qry-type").change(function(){
-	qry();
-		initpage($("#amount").val());
+	$("#pageNo").val(0);
+	qry(true);
 });
 
 
 //首次进入时刷新
-		qry();
-		initpage($("#amount").val());
+		qry(true);
 
 
 
 //查询方法
-		function qry(){
+		function qry(initPageFlag){
             $.ajax({
                 url:'job/qry',
                 data: {'pageNo':$('#pageNo').val(),'pageSize':$('#pageSize').val(),'type':$("#qry-type").val()},
@@ -335,6 +334,19 @@ $("#qry-type").change(function(){
                 		 );
 
                 		 $("#amount").val(data.amount);
+                		 if(initPageFlag){
+		                		$(".pagination").pagination(data.amount, { 
+								  prev_text: '&laquo;', 
+								  next_text: '&raquo;',
+								  ellipse_text:"...", 
+								  items_per_page: 1, 
+								  num_display_entries: 6, 
+								  current_page: 0, 
+								  num_edge_entries: 2,
+								  link_to:"javascript:void(0);"
+									
+								});
+		                	}
                   	});
                 }
             });
@@ -342,20 +354,6 @@ $("#qry-type").change(function(){
             
 		}
 
-//页码方法
-	function initpage(amount){
-		$(".pagination").pagination(amount, { 
-						  prev_text: '&laquo;', 
-						  next_text: '&raquo;',
-						  ellipse_text:"...", 
-						  items_per_page: 1, 
-						  num_display_entries: 6, 
-						  current_page: 0, 
-						  num_edge_entries: 2,
-						  link_to:"javascript:void(0);"
-							
-					});
-	}
 
 //附件方法
 	function attachment(attachment){
@@ -369,8 +367,7 @@ $("#qry-type").change(function(){
 //点击页码查询
 		window.page = function(no){
 			$("#pageNo").val(no);
-			 qry();
-			 initpage($("#amount").val());
+			 qry(false);
 		}
 		
 //添加
@@ -421,13 +418,10 @@ $("#qry-type").change(function(){
 					                    	$("#add-form")[0].reset();
 					                    	$("#id").val(0);
 					                    	$(".file-show").html("");
-					                    	qry();
-					                    	initpage($("#amount").val());
+					                    	qry(true);
 					                    	$(".add-panel").hide();
 					                    }else{
 					                    	alert("保存出错...");
-					                    	qry();
-					                    	initpage($("#amount").val());
 					                    };
 					                }
 					            });
@@ -442,8 +436,7 @@ $("#qry-type").change(function(){
                 success:function(data){
                 	if (data==true) {
                     	alert("删除成功...");
-                   		qry();
-                   		initpage($("#amount").val());
+                   		qry(true);
                     }else{
                     	alert("无法删除...");
 

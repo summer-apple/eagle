@@ -150,7 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="form-group">
 								<label for="weight" class="control-label">权 重</label>
 								
-								<input name="weight" type="number" min="0" max="10" class="form-control" id="weight" placeholder="1-10数字，越小越靠前，首页展示前五个">
+								<input name="weight" type="number" min="0" max="10" class="form-control" id="weight" placeholder="0-10数字，越小越靠前，首页展示前五个">
 						</div>
 							
 						</div>

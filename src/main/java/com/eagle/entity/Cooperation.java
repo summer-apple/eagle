@@ -82,7 +82,7 @@ public class Cooperation implements java.io.Serializable {
 		this.position = position;
 	}
 
-	@Column(name = "content", length = 45)
+	@Column(name = "content", length = 65535)
 	public String getContent() {
 		return this.content;
 	}

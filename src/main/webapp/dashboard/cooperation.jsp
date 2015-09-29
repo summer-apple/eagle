@@ -25,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <%@ include file="css.jsp" %>
 <style type="text/css">
-	#uploadifive-file_upload{
+	#uploadifive-file_upload,#uploadifive-content_upload{
 		background-color: #000;
 		color: #FFF;
 	}
@@ -98,13 +98,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<input name="id" type="hidden" id="id">
 
 								<div class="form-group">
-									<label class="col-sm-2 control-label" for="title">标&nbsp;&nbsp;&nbsp;题</label>
+									<label class="col-sm-2 control-label" for="name">姓&nbsp;&nbsp;&nbsp;名</label>
 									
 									<div class="col-sm-10">
-										<input name="title" type="text" class="form-control" id="title" placeholder="标题,20字以内">
+										<input name="name" type="text" class="form-control" id="name" placeholder="10字以内">
 									</div>
 								</div>
 								
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="position">职&nbsp;&nbsp;&nbsp;位</label>
+									
+									<div class="col-sm-10">
+										<input name="position" type="text" class="form-control" id="position" placeholder="16字以内">
+									</div>
+									
+								</div>
 
 								<div class="form-group">
 									<label class="col-sm-2 control-label" for="link">类&nbsp;&nbsp;&nbsp;型</label>
@@ -121,8 +129,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</script>
 									<div class="col-sm-10">
 										<select name="type" class="form-control" id="type" style="display: none;">
-											<option value="会员">会员</option>
 											<option value="名誉学员">名誉学员</option>
+											<option value="会员">会员</option>
 										</select>
 									</div>
 								</div>
@@ -132,22 +140,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<label class="col-sm-2 control-label">权&nbsp;&nbsp;&nbsp;重</label>
 									
 									<div class="col-sm-10">
-										<input name="weight" type="number" min="0" max="10" class="form-control" id="weight" placeholder="1-10数字，越小越靠前，首页展示前五个">
+										<input name="weight" type="number" min="0" max="10" class="form-control" id="weight" placeholder="0-10数字，越小越靠前，首页展示前五个">
+									</div>
+								</div>
+								
+								
+
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="headimg">头&nbsp;&nbsp;&nbsp;像</label>
+									
+									<div class="col-sm-2">
+										<input id="file_upload" type="file" name="upload" style="display:none;" />
+										<div id="tip-queue" style="display:none;"></div>
+									</div>
+									<div class="col-sm-4 img-show">
+										
+									</div>
+								</div>
+
+							
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="headimg"></label>
+									
+									<div class="col-sm-10">
+										<input name="headimg" type="text" class="form-control" id="headimg" placeholder="首图必须上传" readonly>
+					
 									</div>
 								</div>
 								
 
 								<div class="form-group">
-									<label class="col-sm-2 control-label" for="content">概&nbsp;&nbsp;&nbsp;要</label>
-									<div class="col-sm-10">
-										<textarea name="brief" id="brief" class="form-control" placeholder="内容概要，150字以内"></textarea>
-									</div>
-									
-								</div>
-
-								<div class="form-group">
 									<label class="col-sm-2 control-label" for="content">详&nbsp;&nbsp;&nbsp;情</label>
 									<div class="col-sm-10">
+										<input id="content_upload" type="file" name="upload" style="display:none;" />
+										<div id="tip-queue-2" style="display:none;"></div>
 										<textarea name="content" id="content" class="form-control ckeditor" rows="10">
 											Here we go ~
 										</textarea>
@@ -155,21 +181,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									
 								</div>
 								
-								<div class="form-group">
-									<label class="col-sm-2 control-label" for="img">附&nbsp;&nbsp;&nbsp;件</label>
-									
-									<div class="col-sm-2">
-
-										<input id="file_upload" type="file" name="upload" style="display:none;" />
-										<div id="tip-queue" style="display:none;"></div>
-										<input name="attachment" type="hidden" class="form-control" id="attachment">
-										<h5>多附件请打包上传</h5>
-									</div>
-									<div class="col-sm-8 file-show">
-										
-									</div>
-								</div>
-
 								
 								
 								<div class="form-group">
@@ -195,7 +206,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="row">
 					<div class="col-sm-8">
 						<a href="javascript:void(0);" class="open-panel btn btn-primary btn-single btn-sm">新建合作</a>
-						<h5>主页展示权重排名前五项的新闻类型</h5>
+						<h5>主页展示权重排名前二十项的合作</h5>
 					</div>
 					<div class="col-sm-4">
 						
@@ -216,10 +227,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</script>
 									<div class="col-sm-12">
 										<select name="type" class="form-control" id="qry-type" style="display: none;">
-											<option value="强鹰学员">强鹰学员</option>
 											<option value="名誉学员">名誉学员</option>
-											<option value="强鹰专职">强鹰专职</option>
-											<option value="实习生">实习生</option>
+											<option value="会员">会员</option>
 										</select>
 									</div>
 								</div>
@@ -250,10 +259,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<tr>
 												<th>ID</th>
 												<th>类型</th>
-												<th>标题</th>
+												<th>头像</th>
+												<th>姓名</th>
+												<th>职位</th>
 												<th>权重</th>
-												<th>简介</th>
-												<th>附件</th>
 												<th>操作</th>
 											</tr>
 										</thead>
@@ -307,23 +316,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<script type="text/javascript">
 	$().ready(function(){
-//变更类型时刷新
-$("#qry-type").change(function(){
-	qry();
-		initpage($("#amount").val());
-});
+
 
 
 //首次进入时刷新
-		qry();
-		initpage($("#amount").val());
+	qry(true);
+
+
+//变更类型时刷新
+$("#qry-type").change(function(){
+	$("#pageNo").val(0);
+	qry(true);
+});
+
+
+
 
 
 
 //查询方法
-		function qry(){
+		function qry(initPageFlag){
             $.ajax({
-                url:'job/qry',
+                url:'cooperation/qry',
                 data: {'pageNo':$('#pageNo').val(),'pageSize':$('#pageSize').val(),'type':$("#qry-type").val()},
                 type:'post',
                 dataType:'json',
@@ -331,18 +345,32 @@ $("#qry-type").change(function(){
                     $("#qry-table tbody").empty();
                 	$.each(data.list, function(i, item) {
                 		 $("#qry-table tbody").append(
-                		'<tr class="job-'+item.id+'">'+
-						'	<td class="job-id">'+item.id+'</td>'+
-						'	<td class="job-type">'+item.type+'</td>'+
-						'	<td class="job-title">'+item.title+'</td>'+
-						'	<td class="job-weight">'+item.weight+'</td>'+
-						'	<td class="job-brief" style="max-width:400px;">'+item.brief+'</a></td>'+
-						'	<td class="job-attachment">'+attachment(item.attachment+'</td>'+
+                		'<tr class="cooperation-'+item.id+'">'+
+						'	<td class="cooperation-id">'+item.id+'</td>'+
+						'	<td class="cooperation-type">'+item.type+'</td>'+
+						'	<td class="cooperation-headimg"><a href="'+item.headimg+'"><img src="'+item.headimg+'" style="width:50px;"></a></td>'+
+						'	<td class="cooperation-name">'+item.name+'</td>'+
+						'	<td class="cooperation-position">'+item.position+'</a></td>'+
+						'	<td class="cooperation-weight">'+item.weight+'</td>'+
 						'	<td style="min-width:115px;"><a class="edit-btn btn btn-primary btn-single btn-sm" onclick="edit('+item.id+')">编辑</a><a class="btn btn-primary btn-single btn-sm" onclick=del('+item.id+')>删除</a></td>'+
 						'</tr>'
                 		 );
 
                 		 $("#amount").val(data.amount);
+
+		                	if(initPageFlag){
+		                		$(".pagination").pagination(data.amount, { 
+								  prev_text: '&laquo;', 
+								  next_text: '&raquo;',
+								  ellipse_text:"...", 
+								  items_per_page: 1, 
+								  num_display_entries: 6, 
+								  current_page: 0, 
+								  num_edge_entries: 2,
+								  link_to:"javascript:void(0);"
+									
+								});
+		                	}
                   	});
                 }
             });
@@ -350,48 +378,21 @@ $("#qry-type").change(function(){
             
 		}
 
-//页码方法
 
-	function initpage(amount){
-		$(".pagination").pagination(amount, { 
-						  prev_text: '&laquo;', 
-						  next_text: '&raquo;',
-						  ellipse_text:"...", 
-						  items_per_page: 1, 
-						  num_display_entries: 6, 
-						  current_page: 0, 
-						  num_edge_entries: 2,
-						  link_to:"javascript:void(0);"
-							
-					});
-	}
-
-//附件方法
-
-	function attachment(attachment){
-		if (attachment!=null) {
-			return '<a href="'+attachment+'">'+attachment+'</a>';
-		}else{
-			return "";
-		}
-	}
-
-		
 
 //点击页码查询
 
 		window.page = function(no){
 			$("#pageNo").val(no);
-			 qry();
-			 initpage($("#amount").val());
+			 qry(false);
 		}
 		
 //添加
 	$("#add-form").validate({
 							rules: {
-								title: {
+								name: {
 									required: true,
-									maxlength:20
+									maxlength:10
 								},
 								
 								weight: {
@@ -401,16 +402,20 @@ $("#qry-type").change(function(){
 									min:0
 								},
 								
-								brief: {
+								position: {
 									required: true,
-									maxlength:150
+									maxlength:16
+								},
+								
+								headimg: {
+									required: true
 								}
 							},
 							
 							messages: {
-								title: {
+								name: {
 									required: '必填项目',	
-									maxlength:'最多20个汉字'
+									maxlength:'最多10个汉字'
 								},
 								
 								weight: {
@@ -420,9 +425,13 @@ $("#qry-type").change(function(){
 									min:'最小值为0'
 								},
 
-								brief: {
+								position: {
 									required: '必填项目',
-									maxlength:'最多150个汉字'
+									maxlength:'最多16个汉字'
+								},
+								
+								headimg: {
+									required: '必填项目'
 								}
 							},
 							
@@ -432,9 +441,9 @@ $("#qry-type").change(function(){
 								var $url ='';
 
 								if ($("#id").val()==0) {
-									$url ='job/add';
+									$url ='cooperation/add';
 								}else{
-									$url ='job/update';
+									$url ='cooperation/update';
 								}
 
 								$("#add-form").ajaxSubmit({
@@ -446,14 +455,10 @@ $("#qry-type").change(function(){
 					                    	alert("保存成功...");
 					                    	$("#add-form")[0].reset();
 					                    	$("#id").val(0);
-					                    	$(".file-show").html("");
-					                    	qry();
-					                    	initpage($("#amount").val());
+					                    	qry(true);
 					                    	$(".add-panel").hide();
 					                    }else{
 					                    	alert("保存出错...");
-					                    	qry();
-					                    	initpage($("#amount").val());
 					                    };
 					                }
 					            });
@@ -463,14 +468,13 @@ $("#qry-type").change(function(){
 
 	window.del = function(id){
 		$.ajax({
-                url:'job/del?id='+id,
+                url:'cooperation/del?id='+id,
                 type:'post',
                 dataType:'json',
                 success:function(data){
                 	if (data==true) {
                     	alert("删除成功...");
-                   		qry();
-                   		initpage($("#amount").val());
+                   		qry(true);
                     }else{
                     	alert("无法删除...");
 
@@ -487,6 +491,7 @@ $("#qry-type").change(function(){
 //打开新增商店面板
 	$(".open-panel").click(function(){
 		$("#add-form")[0].reset();
+		$(".img-show").html("");
 		$(".add-panel .panel-title").html("新增合作");
 		$("#add-btn").show();
 		$("#update-btn").hide();
@@ -501,79 +506,84 @@ $("#qry-type").change(function(){
 		$("#add-btn").hide();
 		$("#update-btn").show();
 
-		var item = $(".slide-"+id);
-		$("#id").val(id);
-		$("#title").val(item.find(".slide-title").html());
-		$("#weight").val(item.find(".slide-weight").html());
-		$("#img").val(item.find(".slide-img a img").attr("src"));
-		$("#link").val(item.find(".slide-link a").html());
-		$(".img-show").html('<img src="'+item.find(".slide-img a img").attr("src")+'" style="width:100%;">');
+		$.ajax({
+                url:'cooperation/get-one?id='+id,
+                type:'post',
+                dataType:'json',
+                success:function(data){
+                	$("#id").val(data.id);
+                	$("#name").val(data.name);
+                	$("#position").val(data.position);
+                	$("#weight").val(data.weight);
+                	$("#content").val(data.content);
+                	$("#headimg").val(data.headimg);
+                	$(".img-show").html('<img src="'+data.headimg+'" style="width:100%;">');
+                	$("#typeSelectBoxItText").attr("data-val",data.type).html(data.type);
+                	$("#type").val(data.type);
+                	//alert($("#add-form").find("#typeSelectBoxItOptions li[data-val='"+data.type+"']").attr("data-val"));
+                	//$("#add-form").find("#typeSelectBoxItOptions li[data-val='"+data.type+"']").click();
+                }
+            });
 		
 		$(".add-panel").show();
 	}//333
 
 
-//更新
 
-	$("#update-btn").click(function(){
-			var params = $("#add-form").serializeArray();
-            var j = {};
-            for (var item in params) {
-                j[params[item].name] = params[item].value;
-            }
-            $.ajax({
-                url:'store/updateStore',
-                data: {data:JSON.stringify(j)},
-                type:'post',
-                dataType:'json',
-                success:function(data){
-                    if (data==true) {
-                    	alert("更新成功...");
-                    	qry();
-                    }else{
-                    	alert("更新失败...");
-                    	qry();
-                    }
-                }
-            });
-		});
+//添加首图
 
-	});
-
-//添加图片
-
- 	  $("#select-img-btn").click(function(){
-    	  $("#uploadifive-file_upload").click();
-          });
   	  $('#file_upload').uploadifive({
   			'width'           : 75,                 // The width of the button
   			'height'          : 30,                 // The height of the button
   	        'auto' : true,   //取消自动上传 
-  	        'uploadScript' : 'util/upload-file', //处理上传文件Action路径 
+  	        'uploadScript' : 'util/upload-image', //处理上传文件Action路径 
   	        'fileObjName'  : 'file',        //文件对象
-	        'buttonText'   : '选择文件',   //按钮显示文字 
+	        'buttonText'   : '上传首图',   //按钮显示文字 
 	        'queueID'      : 'tip-queue', //drug and drop box's ID 
-	        //'fileType'     : 'image/jpg,image/jpeg,image/png',   //允许上传文件类型 
+	        'fileType'     : 'image/jpg,image/jpeg,image/png',   //允许上传文件类型 
 	        'fileSizeLimit'   : '20MB',                  // Maximum allowed size of files to upload
-	        'formData'     : {"folder":"attachment"},//The other data want to send
+	        'formData'     : {"folder":"cooperation"},//The other data want to send
 	        'queueSizeLimit'  : 100,                  //The maximum number of files in drup and drop box 
             'simUploadLimit'  : 100,                  // The maximum number of files to upload at once
             'uploadLimit'     : 100,                  // The maximum number of files you can upload
 	        'onUploadComplete' : function(file, data) { //文件上传成功后执行 
+	        	var url = $.parseJSON(data); 
 	        	
-	        	var $obj = $.parseJSON($.parseJSON(data)); 
-	        	
-
-	        	$(".file-show").html('<h5 class="file-name">'+$obj.name+'  <a class="remove-file" href="javascript:void(0);"><span class="fa fa-close" style="color:#000;"></span></a></h5>');
-	        	$("#attachment").val($obj.url);
+	        	$(".img-show").html('<img src='+url+' style="width:100%;">');
+	        	$("#headimg").val(url);
 					}
 
 				});
 
-	$(".file-show").on("click",".remove-file",function(){
-		$(".file-show").html("");
-		$("#attachment").val("");
-	});
+//添加内容图片
+
+ 	  
+  	  $('#content_upload').uploadifive({
+  			'width'           : 75,                 // The width of the button
+  			'height'          : 30,                 // The height of the button
+  	        'auto' : true,   //取消自动上传 
+  	        'uploadScript' : 'util/upload-image', //处理上传文件Action路径 
+  	        'fileObjName'  : 'file',        //文件对象
+	        'buttonText'   : '上传详情图片',   //按钮显示文字 
+	        'queueID'      : 'tip-queue-2', //drug and drop box's ID 
+	        'fileType'     : 'image/jpg,image/jpeg,image/png',   //允许上传文件类型 
+	        'fileSizeLimit'   : '20MB',                  // Maximum allowed size of files to upload
+	        'formData'     : {"folder":"cooperation"},//The other data want to send
+	        'queueSizeLimit'  : 100,                  //The maximum number of files in drup and drop box 
+            'simUploadLimit'  : 100,                  // The maximum number of files to upload at once
+            'uploadLimit'     : 100,                  // The maximum number of files you can upload
+	        'onUploadComplete' : function(file, data) { //文件上传成功后执行 
+	        	var basePath = "<%=basePath%>";
+	        	var url = $.parseJSON(data); 
+	        	$("#cke_25").click();
+	        	setTimeout(function(){
+	        		$("#cke_72_textInput").val(basePath+url);
+	        	},1000);
+					}
+
+				});
+
+});	
 
 	</script>
 </body>

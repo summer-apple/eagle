@@ -242,11 +242,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 	$().ready(function(){
 //首次进入时刷新
-		qry();
-		initpage($("#amount").val());
+		qry(true);
 
 //查询方法
-		function qry(){
+		function qry(initPageFlag){
             $.ajax({
                 url:'slide/qry',
                 data: {'pageNo':$('#pageNo').val(),'pageSize':$('#pageSize').val()},
@@ -265,8 +264,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						'	<td style="min-width:115px;"><a class="edit-btn btn btn-primary btn-single btn-sm" onclick="edit('+item.id+')">编辑</a><a class="btn btn-primary btn-single btn-sm" onclick=del('+item.id+')>删除</a></td>'+
 						'</tr>'
                 		 );
+ 						
+ 						$("#amount").val(data.amount);
 
-                		 $("#amount").val(data.amount);
+		                	if(initPageFlag){
+		                		$(".pagination").pagination(data.amount, { 
+								  prev_text: '&laquo;', 
+								  next_text: '&raquo;',
+								  ellipse_text:"...", 
+								  items_per_page: 1, 
+								  num_display_entries: 6, 
+								  current_page: 0, 
+								  num_edge_entries: 2,
+								  link_to:"javascript:void(0);"
+									
+								});
+		                	}
                   	});
                 }
             });
@@ -274,21 +287,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             
 		}
 
-//页码方法
 
-	function initpage(amount){
-		$(".pagination").pagination(amount, { 
-						  prev_text: '&laquo;', 
-						  next_text: '&raquo;',
-						  ellipse_text:"...", 
-						  items_per_page: 1, 
-						  num_display_entries: 6, 
-						  current_page: 0, 
-						  num_edge_entries: 2,
-						  link_to:"javascript:void(0);"
-							
-					});
-	}
 
 		
 
@@ -296,8 +295,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		window.page = function(no){
 			$("#pageNo").val(no);
-			 qry();
-			 initpage($("#amount").val());
+			 qry(false);
 		}
 		
 //添加
@@ -369,13 +367,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					                    	$("#add-form")[0].reset();
 					                    	$("#id").val(0);
 					                    	$(".img-show").html("");
-					                    	qry();
-					                    	initpage($("#amount").val());
+					                    	qry(true);
 					                    	$(".add-panel").hide();
 					                    }else{
 					                    	alert("保存出错...");
-					                    	qry();
-					                    	initpage($("#amount").val());
+					                    	qry(true);
 					                    };
 					                }
 					            });
@@ -391,8 +387,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 success:function(data){
                 	if (data==true) {
                     	alert("删除成功...");
-                   		qry();
-                   		initpage($("#amount").val());
+                   		qry(true);
                     }else{
                     	alert("无法删除...");
 
@@ -435,32 +430,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}//333
 
 
-//更新
 
-	$("#update-btn").click(function(){
-			var params = $("#add-form").serializeArray();
-            var j = {};
-            for (var item in params) {
-                j[params[item].name] = params[item].value;
-            }
-            $.ajax({
-                url:'store/updateStore',
-                data: {data:JSON.stringify(j)},
-                type:'post',
-                dataType:'json',
-                success:function(data){
-                    if (data==true) {
-                    	alert("更新成功...");
-                    	qry();
-                    }else{
-                    	alert("更新失败...");
-                    	qry();
-                    }
-                }
-            });
-		});
 
-	});
+
 
 //添加图片
 
@@ -490,6 +462,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					}
 
 				});
+});
 	</script>
 </body>
 </html>

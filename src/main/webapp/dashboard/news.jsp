@@ -10,7 +10,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 
-<!DOCTYPE html>
 <html lang="en">
 <head>
 <base href="<%=basePath%>">
@@ -130,21 +129,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<label class="col-sm-2 control-label">权&nbsp;&nbsp;&nbsp;重</label>
 									
 									<div class="col-sm-10">
-										<input name="weight" type="number" min="0" max="10" class="form-control" id="weight" placeholder="1-10数字，越小越靠前，首页展示前五个">
+										<input name="weight" type="number" min="0" max="10" class="form-control" id="weight" placeholder="0-10数字，0为置顶标志，越小越靠前，首页展示前五个">
 									</div>
 								</div>
 								
-								<div class="form-group">
-									<label class="col-sm-2 control-label" for="headimg">首&nbsp;&nbsp;&nbsp;图</label>
-									
-									<div class="col-sm-10">
-										<input name="headimg" type="text" class="form-control" id="headimg" placeholder="首图必须上传" readonly>
-					
-									</div>
-								</div>
 
 								<div class="form-group">
-									<label class="col-sm-2 control-label" for="headimg"></label>
+									<label class="col-sm-2 control-label" for="headimg">首&nbsp;&nbsp;&nbsp;图</label>
 									
 									<div class="col-sm-2">
 										<input id="file_upload" type="file" name="upload" style="display:none;" />
@@ -153,6 +144,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</div>
 									<div class="col-sm-4 img-show">
 										
+									</div>
+								</div>
+
+
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="headimg"></label>
+
+									<div class="col-sm-10">
+										<input name="headimg" type="text" class="form-control" id="headimg" placeholder="首图必须上传" readonly>
+					
 									</div>
 								</div>
 
@@ -203,7 +204,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="row">
 					<div class="col-sm-8">
 						<a href="javascript:void(0);" class="open-panel btn btn-primary btn-single btn-sm">新建新闻</a>
-						<h5>主页展示权重排名前十项的新闻类型</h5>
+						<h5>主页展示权重排名前十项的新闻类型,权重0为置顶标志</h5>
 					</div>
 					<div class="col-sm-4">
 						
@@ -408,8 +409,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 					//首次进入时刷新
-					qry();
-					initpage($("#amount").val());
+					qry(true);
 
                 }
             });
@@ -418,8 +418,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 //变更类型时刷新
 $("#qry-type").change(function(){
-	qry();
-		initpage($("#amount").val());
+	$("#pageNo").val(0);
+	qry(true);
 });
 
 
@@ -428,7 +428,7 @@ $("#qry-type").change(function(){
 
 
 //查询方法
-		function qry(){
+		function qry(initPageFlag){
             $.ajax({
                 url:'news/qry-for-admin',
                 data: {'pageNo':$('#pageNo').val(),'pageSize':$('#pageSize').val(),'type':$("#qry-type").val()},
@@ -436,6 +436,7 @@ $("#qry-type").change(function(){
                 dataType:'json',
                 success:function(data){
                     $("#qry-table tbody").empty();
+                    
                 	$.each(data.list, function(i, item) {
                 		 $("#qry-table tbody").append(
                 		'<tr class="news-'+item.id+'">'+
@@ -449,19 +450,10 @@ $("#qry-type").change(function(){
 						'	<td style="min-width:115px;"><a class="edit-btn btn btn-primary btn-single btn-sm" onclick="edit('+item.id+')">编辑</a><a class="btn btn-primary btn-single btn-sm" onclick=del('+item.id+')>删除</a></td>'+
 						'</tr>'
                 		 );
+                	$("#amount").val(data.amount);
 
-                		 $("#amount").val(data.amount);
-                  	});
-                }
-            });
-            
-            
-		}
-
-//页码方法
-
-	function initpage(amount){
-		$(".pagination").pagination(amount, { 
+                	if(initPageFlag){
+                		$(".pagination").pagination(data.amount, { 
 						  prev_text: '&laquo;', 
 						  next_text: '&raquo;',
 						  ellipse_text:"...", 
@@ -471,27 +463,23 @@ $("#qry-type").change(function(){
 						  num_edge_entries: 2,
 						  link_to:"javascript:void(0);"
 							
-					});
-	}
+						});
+                	}
 
-//附件方法
-
-	function attachment(attachment){
-		if (attachment!=null) {
-			return '<a href="'+attachment+'">'+attachment+'</a>';
-		}else{
-			return "";
+                		
+                  	});
+                }
+            });
+            
+            
 		}
-	}
 
-		
 
 //点击页码查询
 
 		window.page = function(no){
 			$("#pageNo").val(no);
-			 qry();
-			 initpage($("#amount").val());
+			 qry(false);
 		}
 		
 //添加
@@ -562,13 +550,10 @@ $("#qry-type").change(function(){
 					                    	alert("保存成功...");
 					                    	$("#add-form")[0].reset();
 					                    	$("#id").val(0);
-					                    	qry();
-					                    	initpage($("#amount").val());
+					                    	qry(true);
 					                    	$(".add-panel").hide();
 					                    }else{
 					                    	alert("保存出错...");
-					                    	qry();
-					                    	initpage($("#amount").val());
 					                    };
 					                }
 					            });
@@ -584,8 +569,7 @@ $("#qry-type").change(function(){
                 success:function(data){
                 	if (data==true) {
                     	alert("删除成功...");
-                   		qry();
-                   		initpage($("#amount").val());
+                   		qry(true);
                     }else{
                     	alert("无法删除...");
 
@@ -675,7 +659,7 @@ $("#qry-type").change(function(){
   	        'auto' : true,   //取消自动上传 
   	        'uploadScript' : 'util/upload-image', //处理上传文件Action路径 
   	        'fileObjName'  : 'file',        //文件对象
-	        'buttonText'   : '上传新图片',   //按钮显示文字 
+	        'buttonText'   : '上传详情图片',   //按钮显示文字 
 	        'queueID'      : 'tip-queue-2', //drug and drop box's ID 
 	        'fileType'     : 'image/jpg,image/jpeg,image/png',   //允许上传文件类型 
 	        'fileSizeLimit'   : '20MB',                  // Maximum allowed size of files to upload
