@@ -152,13 +152,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div class="col-sm-2">
 										<input id="file_upload" type="file" name="upload" style="display:none;" />
 										<div id="tip-queue" style="display:none;"></div>
-									</div>
-									<div class="col-sm-4 img-show">
+										<br>
 										
 									</div>
+									<div class="col-sm-4 img-preview-warp">
+										<div id="img-preview" class="img-preview" style="    display: inline-block; overflow: hidden;line-height: 1;">
+										</div>
+
+									</div>
+									<div class="col-sm-4 img-show-warp">
+										<div class="img-show">
+										
+										</div>	
+									</div>
+
+									
+		
 								</div>
 
-							
+								
 								<div class="form-group">
 									<label class="col-sm-2 control-label" for="headimg"></label>
 									
@@ -300,6 +312,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<link rel="stylesheet" href="resources/js/select2/select2.css">
 	<link rel="stylesheet" href="resources/js/select2/select2-bootstrap.css">
+	<link rel="stylesheet" href="resources/js/cropper/cropper.min.css">
 
 	<%@ include file="script.jsp" %>
 	<script type="text/javascript" src="resources/js/jquery.pagination.js"></script>
@@ -311,6 +324,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="resources/js/jquery-ui/jquery-ui.min.js"></script>
 	<script src="resources/js/selectboxit/jquery.selectBoxIt.min.js"></script>
 	<script src="resources/js/multiselect/js/jquery.multi-select.js"></script>
+
+	<script src="resources/js/cropper/cropper.min.js"></script>
 
 	<script type="text/javascript">
 	$().ready(function(){
@@ -454,6 +469,7 @@ $("#qry-type").change(function(){
 					                    	$("#add-form")[0].reset();
 					                    	$("#id").val(0);
 					                    	qry(true);
+					                    	$(".img-preview-warp").hide();
 					                    	$(".add-panel").hide();
 					                    }else{
 					                    	alert("保存出错...");
@@ -489,7 +505,10 @@ $("#qry-type").change(function(){
 //打开新增商店面板
 	$(".open-panel").click(function(){
 		$("#add-form")[0].reset();
-		$(".img-show").html("");
+		$("#img-preview").html("");
+		$(".img-show-warp").html("");
+		$(".img-show-warp").show();
+		
 		$(".add-panel .panel-title").html("新增合作");
 		$("#add-btn").show();
 		$("#update-btn").hide();
@@ -515,7 +534,10 @@ $("#qry-type").change(function(){
                 	$("#weight").val(data.weight);
                 	$("#content").val(data.content);
                 	$("#headimg").val(data.headimg);
-                	$(".img-show").html('<img src="'+data.headimg+'" style="width:100%;">');
+
+                	$(".img-preview-warp").hide();
+                	$(".img-show-warp").html('<div class="img-show"><img src="'+data.headimg+'" style="width:100%;">').show();
+
                 	$("#typeSelectBoxItText").attr("data-val",data.type).html(data.type);
                 	$("#type").val(data.type);
                 	//alert($("#add-form").find("#typeSelectBoxItOptions li[data-val='"+data.type+"']").attr("data-val"));
@@ -546,9 +568,84 @@ $("#qry-type").change(function(){
             'uploadLimit'     : 100,                  // The maximum number of files you can upload
 	        'onUploadComplete' : function(file, data) { //文件上传成功后执行 
 	        	var url = $.parseJSON(data); 
-	        	
+	        	$(".img-show-warp").html('<div class="img-show"></div>').show();
 	        	$(".img-show").html('<img src='+url+' style="width:100%;">');
+	        	$(".img-show").after('<br><a id="crop-img" href="javascript:void(0);" class="btn btn-primary btn-single btn-sm"> 裁 剪 </a>');
+	        	$(".img-preview-warp").show();
+
 	        	$("#headimg").val(url);
+
+
+//裁剪
+
+						var preview_size = [200, 200],
+							aspect_ratio = preview_size[0] / preview_size[1],
+								
+							$image = $(".img-show img"),
+							$x = 0,
+							$y = 0,
+							$w = 0,
+							$h = 0;
+						
+						// Plugin Initialization
+						$image.cropper({
+							aspectRatio: aspect_ratio,
+							preview: '#img-preview',
+							done: function(data)
+							{
+								$x = data.x;
+								$y = data.y;
+								$w = data.width;
+								$h = data.height;
+							}
+						});
+						
+						// Preview Image Setup (based on defined crop width and height
+						$("#img-preview").css({
+							width: preview_size[0],
+							height: preview_size[1]
+						});
+							
+						$("#crop-img").on('click', function(ev)
+						{
+							ev.preventDefault();
+							$.ajax({
+								url:'util/crop',
+								data:{"x":$x,"y":$y,"w":$w,"h":$h,"url":$("#headimg").val()},
+								dataType:'json',
+								type:'post',
+								success:function(data){
+									
+									var url = $("#headimg").val();
+
+									if (data=="success") {
+										var newurl = url+"?t="+Math.floor(Math.random()*9999+1);
+										$("[src='"+url+"']").attr("src",newurl);
+										$("#img-preview img").attr("src",url);
+										
+										$(".img-show-warp").hide();
+									}
+									
+									
+
+								}
+							});
+						});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 					}
 
 				});
@@ -562,7 +659,7 @@ $("#qry-type").change(function(){
   	        'auto' : true,   //取消自动上传 
   	        'uploadScript' : 'util/upload-image', //处理上传文件Action路径 
   	        'fileObjName'  : 'file',        //文件对象
-	        'buttonText'   : '上传详情图片',   //按钮显示文字 
+	        'buttonText'   : ' 上传详情图片 ',   //按钮显示文字 
 	        'queueID'      : 'tip-queue-2', //drug and drop box's ID 
 	        'fileType'     : 'image/jpg,image/jpeg,image/png',   //允许上传文件类型 
 	        'fileSizeLimit'   : '20MB',                  // Maximum allowed size of files to upload
@@ -575,9 +672,6 @@ $("#qry-type").change(function(){
 							var url = basePath + $.parseJSON(data);
 							$("#content").val($("#content").val()+'<img alt="" data-cke-saved-src="'+url+'" src="'+url+'">');
 	        	}
-	        	
-			}
-
 		});
 
 });	
