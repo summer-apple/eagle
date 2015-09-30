@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="description" content="Xenon Boostrap Admin Panel" />
 <meta name="author" content="" />
 
-<title>Villa - Dashboard</title>
+<title>Eagle - Dashboard</title>
 
 <%@ include file="css.jsp" %>
 <style type="text/css">
@@ -200,8 +200,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--新增合作表单结束-->
 
 			<div class="panel panel-default">
-				
-				<div class="vspacer v3"></div>
 				
 				<div class="row">
 					<div class="col-sm-8">
@@ -574,14 +572,13 @@ $("#qry-type").change(function(){
             'uploadLimit'     : 100,                  // The maximum number of files you can upload
 	        'onUploadComplete' : function(file, data) { //文件上传成功后执行 
 	        	var basePath = "<%=basePath%>";
-	        	var url = $.parseJSON(data); 
-	        	$("#cke_25").click();
-	        	setTimeout(function(){
-	        		$("#cke_72_textInput").val(basePath+url);
-	        	},1000);
-					}
+							var url = basePath + $.parseJSON(data);
+							$("#content").val($("#content").val()+'<img alt="" data-cke-saved-src="'+url+'" src="'+url+'">');
+	        	}
+	        	
+			}
 
-				});
+		});
 
 });	
 

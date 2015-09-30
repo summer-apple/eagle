@@ -21,16 +21,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="description" content="Xenon Boostrap Admin Panel" />
 <meta name="author" content="" />
 
-<title>Villa - Dashboard</title>
+<title>Eagle - Dashboard</title>
 
 <%@ include file="css.jsp" %>
 <style type="text/css">
-	#uploadifive-file_upload{
-		background-color: #000;
-		color: #FFF;
-	}
-
-
+#uploadifive-file_upload, #uploadifive-content_upload {
+	background-color: #000;
+	color: #FFF;
+}
 </style>
 
 
@@ -142,11 +140,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="form-group">
 									<label class="col-sm-2 control-label" for="content">详&nbsp;&nbsp;&nbsp;情</label>
 									<div class="col-sm-10">
-										<textarea name="content" id="content" class="form-control ckeditor" rows="10">
-											Here we go ~
-										</textarea>
+										<input id="content_upload" type="file" name="upload"
+											style="display: none;" />
+										<div id="tip-queue-2" style="display: none;"></div>
+										<textarea name="content" id="content"
+											class="form-control ckeditor" rows="10">
+													Here we go ~
+												</textarea>
 									</div>
-									
+
 								</div>
 								
 								<div class="form-group">
@@ -491,34 +493,9 @@ $("#qry-type").change(function(){
 		$(".add-panel").show();
 	}//333
 
-
-//更新
-	$("#update-btn").click(function(){
-			var params = $("#add-form").serializeArray();
-            var j = {};
-            for (var item in params) {
-                j[params[item].name] = params[item].value;
-            }
-            $.ajax({
-                url:'store/updateStore',
-                data: {data:JSON.stringify(j)},
-                type:'post',
-                dataType:'json',
-                success:function(data){
-                    if (data==true) {
-                    	alert("更新成功...");
-                    	qry();
-                    }else{
-                    	alert("更新失败...");
-                    	qry();
-                    }
-                }
-            });
-		});
-
 	
 
-//添加图片
+//添加附件
  	  $("#select-img-btn").click(function(){
     	  $("#uploadifive-file_upload").click();
           });
@@ -552,6 +529,33 @@ $("#qry-type").change(function(){
 		$(".file-show").html("");
 		$("#attachment").val("");
 	});
+
+
+
+	//添加内容图片
+
+ 	  
+  	  $('#content_upload').uploadifive({
+  			'width'           : 75,                 // The width of the button
+  			'height'          : 30,                 // The height of the button
+  	        'auto' : true,   //取消自动上传 
+  	        'uploadScript' : 'util/upload-image', //处理上传文件Action路径 
+  	        'fileObjName'  : 'file',        //文件对象
+	        'buttonText'   : '上传详情图片',   //按钮显示文字 
+	        'queueID'      : 'tip-queue-2', //drug and drop box's ID 
+	        'fileType'     : 'image/jpg,image/jpeg,image/png',   //允许上传文件类型 
+	        'fileSizeLimit'   : '20MB',                  // Maximum allowed size of files to upload
+	        'formData'     : {"folder":"news"},//The other data want to send
+	        'queueSizeLimit'  : 100,                  //The maximum number of files in drup and drop box 
+            'simUploadLimit'  : 100,                  // The maximum number of files to upload at once
+            'uploadLimit'     : 100,                  // The maximum number of files you can upload
+	        'onUploadComplete' : function(file, data) { //文件上传成功后执行 
+	        				var basePath = "<%=basePath%>";
+							var url = basePath + $.parseJSON(data);
+							$("#content").val($("#content").val()+'<img alt="" data-cke-saved-src="'+url+'" src="'+url+'">');
+						}
+
+					});
 });
 	</script>
 </body>

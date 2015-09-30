@@ -36,7 +36,7 @@ public class AboutAction {
 	}
 	
 	
-	@RequestMapping("/get-about")
+	@RequestMapping("/get-one")
 	@ResponseBody
 	public About qry(HttpServletRequest request,int id){
 		return as.qryOne(About.class, id);

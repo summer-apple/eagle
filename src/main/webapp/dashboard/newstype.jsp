@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="description" content="Xenon Boostrap Admin Panel" />
 <meta name="author" content="" />
 
-<title>Villa - Dashboard</title>
+<title>Eagle - Dashboard</title>
 
 <%@ include file="css.jsp" %>
 
