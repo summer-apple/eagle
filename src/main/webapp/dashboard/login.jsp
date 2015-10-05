@@ -56,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						// Validation and Ajax action
 						$("form#login").validate({
 							rules: {
-								name: {
+								username: {
 									required: true
 								},
 								
@@ -66,7 +66,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							},
 							
 							messages: {
-								name: {
+								username: {
 									required: 'Please enter your username.'
 								},
 								
@@ -100,9 +100,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 						<p>Dear user, log in to access the admin area!</p>
 						
-						<c:if test="${!empty result}">
+						<c:if test="${empty admin && flag==true}">
 							<p>
-								<span class="text-danger">${result}</span>
+								<span class="text-danger">用户名或密码错误！</span>
 							</p>
 						</c:if>
 					</div>
@@ -110,7 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
 					<div class="form-group">
 						<label class="control-label" for="username">Username</label>
-						<input type="text" class="form-control input-dark" name="name" id="username" autocomplete="off" />
+						<input type="text" class="form-control input-dark" name="username" id="username" autocomplete="off" />
 					</div>
 					
 					<div class="form-group">

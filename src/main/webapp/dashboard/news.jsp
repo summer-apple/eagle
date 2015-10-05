@@ -673,7 +673,6 @@ $("#qry-type").change(function(){
 							$("#content").val($("#content").val()+'<img alt="" data-cke-saved-src="'+url+'" src="'+url+'">');
 	        	}
 	        	
-			}
 
 		});
 
