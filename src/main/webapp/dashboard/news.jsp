@@ -199,14 +199,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 			<div class="panel panel-default">
 				
-				<div class="vspacer v3"></div>
-				
 				<div class="row">
-					<div class="col-sm-8">
-						<a href="javascript:void(0);" class="open-panel btn btn-primary btn-single btn-sm">新建新闻</a>
-						<h5>主页展示权重排名前十项的新闻类型,权重0为置顶标志</h5>
-					</div>
-					<div class="col-sm-4">
+				<div class="col-sm-4">
 						
 	
 						<form class="form-inline" id="qry-form" action="" method="post">
@@ -242,11 +236,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</form>
  
 					</div>
+					<div class="col-sm-8">
+						<a href="javascript:void(0);" class="open-panel btn btn-primary btn-single btn-sm" style="float:left; margin-right:10px;">新建新闻</a>
+						<h5>主页展示权重排名前十项的新闻类型,权重0为置顶标志</h5>
+					</div>
+					
 					
 				
 				</div>
 
-				<div class="vspacer v3"></div>
 				
 				<div class="row">
 					<div class="col-sm-12">

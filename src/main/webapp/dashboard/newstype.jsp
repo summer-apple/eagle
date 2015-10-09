@@ -78,12 +78,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 				<div class="row">
 					<div class="col-sm-12">
-						<a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class="btn btn-primary btn-single btn-sm add-new-btn">新建服务</a>
+						<a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class="btn btn-primary btn-single btn-sm add-new-btn" style="float:left; margin-right:10px;">新建服务</a>
 						<h5>主页展示权重排名前五项的新闻类型</h5>
 					</div>
-				</div>
+				</div>	
 
-				<div class="vspacer v3"></div>
+				<br>
 				
 				<div class="row">
 					<div class="col-sm-12">

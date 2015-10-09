@@ -9,10 +9,11 @@
 
 			<!-- logo -->
 			<div class="logo">
-				<a href="#" class="logo-expanded"> <img
-					src="resources/images/logo@2x.png" width="80" alt="" />
-				</a> <a href="dashboard-1.html" class="logo-collapsed"> <img
-					src="resources/images/logo-collapsed@2x.png" width="40" alt="" />
+				<a href="" class="logo-expanded"> 
+					<img src="resources/images/logo@2x.png" width="80" alt="" />
+				</a> 
+				<a href="" class="logo-collapsed"> 
+					<img src="resources/images/logo-collapsed@2x.png" width="40" alt="" />
 				</a>
 			</div>
 
@@ -24,12 +25,6 @@
 				</a>
 			</div>
 
-			<!-- This will open the popup with user profile settings, you can use for any purpose, just be creative -->
-			<div class="settings-icon">
-				<a href="#" data-toggle="settings-pane" data-animate="true"> <i
-					class="linecons-cog"></i>
-				</a>
-			</div>
 
 
 		</header>

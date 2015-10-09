@@ -79,7 +79,7 @@
 			<div class="add-panel panel panel-default">
 				<div class="row">
 
-					<div class="col-sm-8"></div>
+					
 					<div class="col-sm-4">
 
 
@@ -112,7 +112,7 @@
 						</form>
 
 					</div>
-
+					<div class="col-sm-8"></div>
 
 				</div>
 

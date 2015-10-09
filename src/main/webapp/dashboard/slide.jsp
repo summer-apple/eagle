@@ -130,6 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<input id="file_upload" type="file" name="upload" style="display:none;" />
 										<div id="tip-queue" style="display:none;"></div>
 										<input name="img" type="hidden" class="form-control" id="img">
+										<div>建议500*300像素</div>
 									</div>
 									<div class="col-sm-8 img-show">
 										
@@ -156,11 +157,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 			<div class="panel panel-default">
 				
-				<div class="vspacer v3"></div>
-				
 				<div class="row">
 					<div class="col-sm-10">
-						<a href="javascript:void(0);" class="open-panel btn btn-primary btn-single btn-sm">新建轮播</a>
+						<a href="javascript:void(0);" class="open-panel btn btn-primary btn-single btn-sm" style="float:left; margin-right:10px;">新建轮播</a>
 						<h5>主页展示权重排名前五项的新闻类型</h5>
 					</div>
 
@@ -186,7 +185,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 				</div>
 
-				<div class="vspacer v3"></div>
+				<br>
 				
 				<div class="row">
 					<div class="col-sm-12">
@@ -444,7 +443,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			'height'          : 30,                 // The height of the button
   	        'auto' : true,   //取消自动上传 
   	        'uploadScript' : 'util/upload-image', //处理上传文件Action路径 
-  	        'fileObjName'  : 'image',        //文件对象
+  	        'fileObjName'  : 'file',        //文件对象
 	        'buttonText'   : '选择文件',   //按钮显示文字 
 	        'queueID'      : 'tip-queue', //drug and drop box's ID 
 	        'fileType'     : 'image/jpg,image/jpeg,image/png',   //允许上传文件类型 

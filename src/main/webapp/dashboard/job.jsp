@@ -107,23 +107,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="form-group">
 									<label class="col-sm-2 control-label" for="link">类&nbsp;&nbsp;&nbsp;型</label>
 									
-									<script type="text/javascript">
-										jQuery(document).ready(function($)
-										{
-											$("#type").selectBoxIt().on('open', function()
-											{
-												// Adding Custom Scrollbar
-												$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
-											});
-										});
-									</script>
 									<div class="col-sm-10">
-										<select name="type" class="form-control" id="type" style="display: none;">
-											<option value="强鹰学员">强鹰学员</option>
-											<option value="名誉学员">名誉学员</option>
-											<option value="强鹰专职">强鹰专职</option>
-											<option value="实习生">实习生</option>
-										</select>
+										<input name="type" type="text" class="form-control" id="type" placeholder="类型" readonly>
 									</div>
 								</div>
 								
@@ -184,15 +169,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 <!--新增招聘表单结束-->
 
-			<div class="panel panel-default">
-				
-				<div class="vspacer v3"></div>
+			<div class="qry-panel panel panel-default">
 				
 				<div class="row">
-					<div class="col-sm-8">
-						<a href="javascript:void(0);" class="open-panel btn btn-primary btn-single btn-sm">新建招聘</a>
-						
-					</div>
+					
 					<div class="col-sm-4">
 						
 	
@@ -212,10 +192,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</script>
 									<div class="col-sm-12">
 										<select name="type" class="form-control" id="qry-type" style="display: none;">
-											<option value="强鹰学员">强鹰学员</option>
-											<option value="名誉学员">名誉学员</option>
 											<option value="强鹰专职">强鹰专职</option>
 											<option value="实习生">实习生</option>
+											<option value="强鹰学员">强鹰学员</option>
+											<option value="名誉学员">名誉学员</option>
+											
 										</select>
 									</div>
 								</div>
@@ -233,11 +214,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</form>
  
 					</div>
-					
+					<div class="col-sm-8">
+						<a href="javascript:void(0);" class="open-panel btn btn-primary btn-single btn-sm">新建招聘</a>
+						
+					</div>
 				
 				</div>
 
-				<div class="vspacer v3"></div>
 				
 				<div class="row">
 					<div class="col-sm-12">
@@ -306,6 +289,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 $("#qry-type").change(function(){
 	$("#pageNo").val(0);
 	qry(true);
+
+	var $qrytype = $("#qry-type").val();
+	if($qrytype=="强鹰学员" || $qrytype=="名誉学员"){
+
+		if($qrytype=="强鹰学员"){
+			$("#type").val("强鹰学员");
+		}else{
+			$("#type").val("名誉学员");
+		}
+
+		$(".open-panel").hide();
+
+	}else{
+
+		if($qrytype=="强鹰专职"){
+			$("#type").val("强鹰专职");
+		}else{
+			$("#type").val("实习生");
+		}
+
+		$(".open-panel").show();
+	}
+
 });
 
 
@@ -324,16 +330,23 @@ $("#qry-type").change(function(){
                 success:function(data){
                     $("#qry-table tbody").empty();
                 	$.each(data.list, function(i, item) {
-                		 $("#qry-table tbody").append(
-                		'<tr class="job-'+item.id+'">'+
-						'	<td class="job-id">'+item.id+'</td>'+
-						'	<td class="job-type">'+item.type+'</td>'+
-						'	<td class="job-title">'+item.title+'</td>'+
-						'	<td class="job-brief" style="max-width:400px;">'+item.brief.substring(0,20)+'</a></td>'+
-						'	<td class="job-attachment">'+attachment(item.attachment)+'</td>'+
-						'	<td style="min-width:115px;"><a class="edit-btn btn btn-primary btn-single btn-sm" onclick="edit('+item.id+')">编辑</a><a class="btn btn-primary btn-single btn-sm" onclick=del('+item.id+')>删除</a></td>'+
-						'</tr>'
-                		 );
+
+                		var $str = '<tr class="job-'+item.id+'">'+
+									'	<td class="job-id">'+item.id+'</td>'+
+									'	<td class="job-type">'+item.type+'</td>'+
+									'	<td class="job-title">'+item.title+'</td>'+
+									'	<td class="job-brief" style="max-width:400px;">'+item.brief.substring(0,20)+'</a></td>'+
+									'	<td class="job-attachment">'+attachment(item.attachment)+'</td>';
+
+						if (item.type=="强鹰专职" || item.type=="实习生") {
+							$str += '	<td style="min-width:115px;"><a class="edit-btn btn btn-primary btn-single btn-sm" onclick="edit('+item.id+')">编辑</a><a class="del-btn btn btn-primary btn-single btn-sm" onclick=del('+item.id+')>删除</a></td>'+
+								'</tr>';
+						}else{
+							$str += '	<td style="min-width:115px;"><a class="edit-btn btn btn-primary btn-single btn-sm" onclick="edit('+item.id+')">编辑</a></td>'+
+								'</tr>';
+						}
+
+                		 $("#qry-table tbody").append($str);
 
                 		 $("#amount").val(data.amount);
                 		 if(initPageFlag){
