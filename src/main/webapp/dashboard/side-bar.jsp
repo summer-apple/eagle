@@ -17,14 +17,7 @@
 				</a>
 			</div>
 
-			<!-- This will toggle the mobile menu and will be visible only on mobile devices -->
-			<div class="mobile-menu-toggle visible-xs">
-				<a href="#" data-toggle="user-info-menu"> <i class="fa-bell-o"></i>
-					<span class="badge badge-success">7</span>
-				</a> <a href="#" data-toggle="mobile-menu"> <i class="fa-bars"></i>
-				</a>
-			</div>
-
+			
 
 
 		</header>
