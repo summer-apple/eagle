@@ -17,5 +17,5 @@ src: url('fonts/msyh/msyh.ttf'),
 }
 
 *{
-font-family:myFirstFont;
+font-family:myFirstFont !important;
 }
