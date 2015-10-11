@@ -1,13 +1,3 @@
-/**
- *
- * Apply your custom CSS here
- *
-*/
-label#verify-code-error {
-  left: 140px;
-}
-
-
 @font-face
 {
 font-family: myFirstFont;
@@ -16,6 +6,6 @@ src: url('fonts/msyh/msyh.ttf'),
      url('fonts/msyh/msyh.eot'); /* IE9+ */
 }
 
-*:not(.fa,i){
+*:not(.fa){
 font-family:myFirstFont !important;
 }
