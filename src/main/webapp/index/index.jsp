@@ -110,6 +110,9 @@ nav ul{
 .input-border{
     border: 1px solid #DDD !important;
 }
+.input-width{
+	width: 100px !important;
+}
 
 .search-icon {
     position: absolute;
@@ -118,7 +121,12 @@ nav ul{
     color: #CCC;
 }
 
-
+.sub-btn {
+    position: absolute;
+    top: 34px;
+    right: 15px;
+    color: #999;
+}
 
 
 
@@ -177,39 +185,48 @@ section{
 		});
 
 		//搜索框
-		$("#key").mouseover(function(){
-			$("#key").addClass("input-border");
+		var $key = $("#key");
+		var $icon = $(".search-icon");
+
+		$key.mouseover(function(){
+			$key.addClass("input-border");
 		}).blur(function(){
-			$("#key").css("width","25px").removeClass("input-border").val("");
+			if ($key.val()=="") {
+				$key.removeClass("input-width").removeClass("input-border");
+				$(".sub-btn").removeClass("sub-btn").addClass("search-icon");
+			}
 		}).mouseleave(function(){
-			if(!$("#key").is(":focus")){
-				$("#key").removeClass("input-border");
+			if(!$key.is(":focus") && $key.val()==""){
+				$key.removeClass("input-border");
 			}
 			
 		}).click(function(){
-			$("#key").css("width","100px").addClass("input-border");
+			$key.addClass("input-width").addClass("input-border");
+			$icon.addClass("sub-btn").removeClass("search-icon");
 		});
 
-		if(!$("#key").is(":focus")){//无焦点
+		if($key.width()==25){//无焦点
 
-			$("#key").val("");
+			$key.val("");
 
-			$(".search-icon").click(function(){
-				$("#key").addClass("input-border").css("width","100px").focus();
+			$icon.click(function(){
+				$key.addClass("input-border").addClass("input-width").focus();
+				$icon.addClass("sub-btn").removeClass("search-icon");
 			}).mouseover(function(){
-				$("#key").addClass("input-border");
+				$key.addClass("input-border");
 			}).mouseleave(function(){
-				$("#key").removeClass("input-border");
+				$key.removeClass("input-border");
 			});
 		}else{//有焦点
-			$(".search-icon").click(function(){
-				$("#key").css("width","100px").focus();
-			}).mouseleave(function(){
-				$("#key").removeClass("input-border");
-			});
+			
 		}
 
 
+			$(document).on("click",".sub-btn",function(){
+				if ($key.val()!="") {
+					$("#search-form").submit();
+				}
+			});
 		
 
 
@@ -279,8 +296,8 @@ section{
 				
 
 				<input id="key" type="text">
-				<span class="search-icon fa fa-search"></span>
 
+				<span class="search-icon fa fa-search"></span>
 
 			</form>
 		</div>
