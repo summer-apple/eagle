@@ -28,7 +28,7 @@ public class NewsService extends BaseService<News>implements INewsService {
 	@Override
 	public Map<String, Object> qryAll(String tableName, String type, int pageNo, int pageSize) {
 
-		String hql = "FROM News WHERE type= '" + type + "' and status>0 ORDER BY status DESC , id DESC";
+		String hql = "FROM News WHERE type= '" + type + "'  ORDER BY weight ASC,id DESC";
 
 		List<News> newslist = dao.findByPage(hql, pageNo, pageSize);
 
@@ -81,6 +81,8 @@ public class NewsService extends BaseService<News>implements INewsService {
 			map.put("amount", 0);
 		}else if (amount <= pageSize) {
 			map.put("amount", 1);
+		}else if (amount%pageSize==0) {
+			map.put("amount", amount/pageSize);
 		}else {
 			map.put("amount", amount/pageSize+1);
 		}
@@ -97,74 +99,79 @@ public class NewsService extends BaseService<News>implements INewsService {
 	 */
 	@Override
 	public Map<String, Object> search(String keyword, int pageNo, int pageSize) {
-
+		Map<String,Object> map = new HashMap<>();
+		map.put("key", keyword);
+		
 		keyword = "%" + keyword + "%";
 		int x = 0;
-		String hql = "FROM News WHERE 1=1 ";
+		String hql = "FROM News WHERE ";
 
 		StringBuilder sb = new StringBuilder(hql);
 		List<Object> values = new ArrayList<Object>();
 
-		sb.append(" and title like ?" + String.valueOf(x));
+		sb.append(" title like ?" + String.valueOf(x));
 		values.add(keyword);
 		x++;
 
-		sb.append(" or title like ?" + String.valueOf(x));
+		sb.append(" or brief like ?" + String.valueOf(x));
 		values.add(keyword);
 		x++;
 
-		sb.append(" or title like ?" + String.valueOf(x));
+		sb.append(" or content like ?" + String.valueOf(x));
 		values.add(keyword);
 		x++;
 
-		sb.append(" and status>0 ORDER BY status DESC , id DESC");
+		sb.append(" ORDER BY weight ASC,id DESC");
 
 		List<News> newslist = dao.findByPage(sb.toString(), pageNo, pageSize, values);
 
-		for (int i = 0; i < newslist.size(); i++) {
+//		for (int i = 0; i < newslist.size(); i++) {
+//
+//			News n = newslist.get(i);
+//
+//			if (i == 0) {// 第一条
+//
+//				News next = newslist.get(i + 1);
+//				n.setNextTitle("【" + next.getTypeValue() + "】" + next.getTitle());
+//				n.setNextUrl("news/get-news?id=" + next.getId());
+//
+//				n.setPreTitle("已经是第一篇");
+//				n.setPreUrl("news/get-news?id=" + n.getId());
+//
+//			} else if (i == newslist.size() - 1) {// 最后一条
+//
+//				News pre = newslist.get(i - 1);
+//				n.setPreTitle("【" + pre.getTypeValue() + "】" + pre.getTitle());
+//				n.setPreUrl("news/get-news?id=" + pre.getId());
+//
+//				n.setNextTitle("已经是最后一篇");
+//				n.setNextUrl("news/get-news?id=" + n.getId());
+//
+//			} else {// 中间
+//
+//				News pre = newslist.get(i - 1);
+//				News next = newslist.get(i + 1);
+//				n.setNextTitle("【" + next.getTypeValue() + "】" + next.getTitle());
+//				n.setNextUrl("news/get-news?id=" + next.getId());
+//				n.setPreTitle("【" + pre.getTypeValue() + "】" + pre.getTitle());
+//				n.setPreUrl("news/get-news?id=" + pre.getId());
+//
+//			}
+//		}
 
-			News n = newslist.get(i);
-
-			if (i == 0) {// 第一条
-
-				News next = newslist.get(i + 1);
-				n.setNextTitle("【" + next.getTypeValue() + "】" + next.getTitle());
-				n.setNextUrl("news/get-news?id=" + next.getId());
-
-				n.setPreTitle("已经是第一篇");
-				n.setPreUrl("news/get-news?id=" + n.getId());
-
-			} else if (i == newslist.size() - 1) {// 最后一条
-
-				News pre = newslist.get(i - 1);
-				n.setPreTitle("【" + pre.getTypeValue() + "】" + pre.getTitle());
-				n.setPreUrl("news/get-news?id=" + pre.getId());
-
-				n.setNextTitle("已经是最后一篇");
-				n.setNextUrl("news/get-news?id=" + n.getId());
-
-			} else {// 中间
-
-				News pre = newslist.get(i - 1);
-				News next = newslist.get(i + 1);
-				n.setNextTitle("【" + next.getTypeValue() + "】" + next.getTitle());
-				n.setNextUrl("news/get-news?id=" + next.getId());
-				n.setPreTitle("【" + pre.getTypeValue() + "】" + pre.getTitle());
-				n.setPreUrl("news/get-news?id=" + pre.getId());
-
-			}
-		}
-
-		long amount = dao.findCount("SELECT COUNT(*) "+hql);
-		Map<String,Object> map = new HashMap<>();
+		long amount = dao.findCount("SELECT COUNT(*) "+sb.toString(),values);
+		
 		map.put("list", newslist);
 		if (amount==0) {
 			map.put("amount", 0);
 		}else if (amount <= pageSize) {
 			map.put("amount", 1);
-		}else {
+		}else if (amount%pageSize==0) {
+			map.put("amount", amount/pageSize);
+		}else{
 			map.put("amount", amount/pageSize+1);
 		}
+		map.put("resultcount", amount);
 		return map;
 	}
 
@@ -188,6 +195,8 @@ public class NewsService extends BaseService<News>implements INewsService {
 			map.put("amount", 0);
 		}else if (amount <= pageSize) {
 			map.put("amount", 1);
+		}else if (amount%pageSize==0) {
+			map.put("amount", amount/pageSize);
 		}else {
 			map.put("amount", amount/pageSize+1);
 		}
@@ -208,7 +217,7 @@ public class NewsService extends BaseService<News>implements INewsService {
 
 			int typeid = newstypelist.get(i).getId();
 
-			String hql = "FROM News WHERE type= " + typeid + " and status>0 ORDER BY status DESC , id DESC";
+			String hql = "FROM News WHERE type= " + typeid + "  ORDER BY weight ASC,id DESC";
 
 			topnews.setTypeid(typeid);
 			topnews.setName(newstypelist.get(i).getName());

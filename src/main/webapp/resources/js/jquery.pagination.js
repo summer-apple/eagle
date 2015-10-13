@@ -83,7 +83,7 @@ jQuery.fn.pagination = function(maxentries, opts){
 				if(page_id == current_page){
 					var lnk = jQuery("<li class='active'><span class='current'>"+(appendopts.text)+"</span></li>");
 				}else{
-					var lnk = jQuery("<li><a onclick='page("+(appendopts.text)+")' class='page-no-link'>"+(appendopts.text)+"</a></li>");
+					var lnk = jQuery("<li><a class='page-no-link'>"+(appendopts.text)+"</a></li>");
 						 lnk.children().bind("click", getClickHandler(page_id))
 						.attr('href', opts.link_to.replace(/__id__/,page_id));		
 				}
