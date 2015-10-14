@@ -30,6 +30,7 @@ body{
     background-color: #FFF;
     clear: both;
     margin-bottom: 30px;
+    min-height: 500px;
 }
 a,a:hover {
 	text-decoration: none;

@@ -44,6 +44,9 @@
 	color: #888;
 	margin-bottom: 80px;
 }
+.content-warp a{
+	color: #888;
+}
 .content-title{
 	height: 60px;
 	width: 97%;
@@ -92,14 +95,10 @@
 	</div>
 	<div class="content-warp">
 		<div class="content-title">
-			搜索关键字“<span class="key-word">${key}</span>”，一共有<span class="result-count">5000</span>个结果。
+			搜索关键字“<span class="key-word">${key}</span>”，一共有<span class="result-count">0</span>个结果。
 		</div>
 		<div class="content-body">
-			<div class="result-warp">
-				<div class="result-title"><strong>习近平访英部分食谱曝光  不吃参鲍鱼翅</strong></div>
-				<div class="result-content">据BBC报道，英方认为习近平此访是引入资金的大好机会，因此英国政府甚至地方政府都非常重视这次访问，务必做到任何细节都不能有所差池。英国外交大臣哈蒙德7日表示，英国政府正在为习近平的来访精心准备，“我们非常期待中国国家主席的国事访问。
-				</div>
-			</div>
+			
 		</div>
 	</div>
 
@@ -139,37 +138,42 @@ qry(true);
                 success:function(data){
                     $(".content-body").empty();
                     
-                	$.each(data.list, function(i, item) {
+                    if (data.resultcount==0) {
+                    	$(".content-title").html("对不起，没有搜做到\"<span class='key-word'>"+data.key+"</span>\"相关的内容");
+                    }else{
+                    	$.each(data.list, function(i, item) {
 
                 		var $str = '<div class="result-warp">'+
-									'<div class="result-title"><strong>'+item.title+'</strong></div>'+
-									'<div class="result-content">'+item.brief+'</div></div>'
+									'<div class="result-title"><strong><a href="index/news?id='+item.id+'">'+item.title+'</a></strong></div>'+
+									'<div class="result-content"><a href="index/news?id='+item.id+'">'+item.brief+'</a></div></div>'
 
 
                 		 $(".content-body").append($str);
                 		 $("#amount").val(data.amount);
                 		 $(".result-count").html(data.resultcount);
 
-                	if(initPageFlag){
-                		$(".pagination").pagination(data.amount, { 
-						  prev_text: '&laquo;', 
-						  next_text: '&raquo;',
-						  ellipse_text:"...", 
-						  items_per_page: 1, 
-						  num_display_entries: 6, 
-						  current_page: 0, 
-						  num_edge_entries: 2,
-						  link_to:"javascript:void(0);",
-						  callback:pageSelectCallback,
-						  callback:pageSelectCallback
-							
-						});
-                	}
+	                	if(initPageFlag){
+	                		$(".pagination").pagination(data.amount, { 
+							  prev_text: '&laquo;', 
+							  next_text: '&raquo;',
+							  ellipse_text:"...", 
+							  items_per_page: 1, 
+							  num_display_entries: 6, 
+							  current_page: 0, 
+							  num_edge_entries: 2,
+							  link_to:"javascript:void(0);",
+							  callback:pageSelectCallback,
+							  callback:pageSelectCallback
+								
+							});
+	                	}
 
                 		
-                  	});
+                  		});
  
-					$(".result-warp").textSearch($(".key-word").html());
+						$(".result-warp").textSearch($(".key-word").html());
+                    }
+                	
 
                 }
             });
