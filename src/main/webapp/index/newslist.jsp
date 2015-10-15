@@ -24,21 +24,12 @@
 <div class="main">
 	<div class="menu-warp">
 		<div class="menu-label">
-			<span class="lb-zh">加入强鹰</span><br>
-			<span class="lb-en">Join</span>
+			<span class="lb-zh">强鹰动态</span><br>
+			<span class="lb-en">News</span>
 		</div>
-		<div class="menu-item">
-			<a href="index/job.jsp?id=1">名誉学员</a>
-		</div>
-		<div class="menu-item">
-			<a href="index/job.jsp?id=2">强鹰学员</a>
-		</div>
-		<div class="menu-item">
-			<a href="index/joblist.jsp?type=3">强鹰专职</a>
-		</div>
-		<div class="menu-item">
-			<a href="index/joblist.jsp?type=4">强鹰实习生</a>
-		</div>
+
+		
+		
 	</div>
 	<div class="content-warp">
 		<div class="content-title">
@@ -46,9 +37,22 @@
 		</div>
 		<div class="content-body">
 			<!-- ajax 添加-->
-		</div>
-		<div class="row send-email">
-			<div class="col-sm-12"><span class="fa fa-caret-right"></span>如果您对以上岗位感兴趣，请发送您的简历到eliteeagle@163.com</div>
+
+			<div class="result-warp">
+				<div class="result-headimg">
+					<img src="#">
+				</div>
+				<div class="result-title">
+					<a href="index/news.jsp?id=10">
+						<span class="fa fa-caret-right"></span>
+						<strong>习近平访英部分食谱曝光  不吃参鲍鱼翅</strong>
+					</a>
+				</div>
+				<div class="result-content">
+					<a href="index/news?id=10">习近平访英部分食谱曝光  不吃参鲍鱼翅,babab鲍鱼翅,babab鲍鱼翅,babab鲍鱼翅,babab鲍鱼翅,b鲍鱼翅,babab鲍鱼翅,babababab鲍鱼翅,bababbab</a>
+				</div>
+			</div>
+
 		</div>
 	</div>
 
@@ -88,27 +92,34 @@ function getUrlParam(name) {
 			
 	var $type = getUrlParam("type");
 	var $typeValue = "";
-	if ($type==1) {
-		$typeValue = "名誉学员";
-	}else if ($type==2) {
-		$typeValue = "强鹰学员";
-	}
-	else if ($type==3) {
-		$typeValue = "强鹰专职";
-	}
-	else if ($type==4) {
-		$typeValue = "强鹰实习生";
-	}
+
+//获取类型
+	    $.ajax({
+                url:'newstype/qry',
+                type:'post',
+                dataType:'json',
+                success:function(data){ 
+                $.each(data, function(i, item){
+                		var $str = '<div class="menu-item"><a href="index/newslist.jsp?type='+item.id+'" title="'+item.id+'">'+item.name+'</a></div>';         
+                		$(".menu-warp").append($str);
+                  	});
+
+                $typeValue = $(".menu-item a[title="+$type+"]").html();
+				$(".content-title").html("<span class='content-title-line'></span>"+$typeValue);
+				qry(true);
+                }
+            });
 
 
-	$(".content-title").html("<span class='content-title-line'></span>"+$typeValue+"招聘");
-	qry(true);
+
+
+
 
 //查询方法
 		function qry(initPageFlag){
             $.ajax({
-                url:'job/qry',
-                data: {'pageNo':$('#pageNo').val(),'pageSize':$('#pageSize').val(),'type':$typeValue},
+                url:'news/qry',
+                data: {'pageNo':$('#pageNo').val(),'pageSize':$('#pageSize').val(),'type':$type},
                 type:'post',
                 dataType:'json',
                 success:function(data){
@@ -118,7 +129,8 @@ function getUrlParam(name) {
                     $.each(data.list, function(i, item) {
 			
                 		var $str = '<div class="result-warp">'+
-									'<div class="result-title"><a href="index/job.jsp?id='+item.id+'"><span class="fa fa-caret-right"></span><strong>'+item.title+'</strong></a></div>'+
+                					'<div class="result-headimg"><img src="'+item.headimg+'"></div>'+
+									'<div class="result-title"><a href="index/job.jsp?id='+item.id+'"></span><strong>'+item.title+'</strong></a></div>'+
 									'<div class="result-content"><a href="index/news?id='+item.id+'">'+item.brief+'</a></div></div>'
 
 

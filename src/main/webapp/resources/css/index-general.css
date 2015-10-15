@@ -144,7 +144,9 @@ nav ul{
     right: 15px;
     color: #999;
 }
-/**以上为 header**/
+/**
+***********以上为 header
+**/
 
 footer{
 	height: 240px;
@@ -225,3 +227,135 @@ footer{
 /**
 **************以上为footer
 **/
+
+
+
+
+.menu-warp{
+    width: 250px;
+    height: auto;
+    float: left;
+    margin-top: 20px;
+}
+.menu-label{
+    width: 210px;
+    height: 45px;
+    background-color: #09C;
+    padding-right: 15px;
+    text-align: right;
+    margin-bottom: 45px;
+}
+.menu-item {
+    width: 210px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    background-color: #E4E4E4;
+    margin-bottom: 5px;
+}
+.menu-item a{
+    display:block;
+    width:100%;
+    height:100%;
+    background-color: #E4E4E4;
+}
+.menu-item a:hover{
+    display:block;
+    width:100%;
+    height:100%;
+    background-color: #A1A0A0;
+    color: #FFF;
+}
+.menu-item-selected a{
+    background-color: #A1A1A1;
+    color: #FFF;
+}
+.menu-label .lb-zh{
+    color: #FFF;
+    font-size:15px;
+    text-align: right;
+    line-height: 27px;
+}
+.menu-label .lb-en{
+    color: #DDD;
+    text-align: right;
+}
+
+.content-warp{
+    width: 950px;
+    height: auto;
+    float: left;
+    text-align: left;
+    color: #888;
+    margin-bottom: 80px;
+}
+.content-warp a{
+    color: #888;
+}
+.content-title{
+    height: 60px;
+    width: 97%;
+    font-size: 17px;
+    line-height: 65px;
+    text-align: left;
+    border-bottom: 1px dashed #999;
+}
+.content-title-line{
+    border-left:4px solid #09C;
+    height: 50px; 
+    margin-right:5px;
+
+}
+.content-body{
+    height: auto;
+}
+.result-warp{
+    height: 100px;
+    width: 97%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #999;
+    clear: both;
+}
+.result-headimg{
+    height: 100px;
+    min-width: 120px;
+    float: left;
+}
+.result-headimg img{
+    width: 100%;
+    height: 80%;
+    padding-right: 10px;
+}
+.result-title{
+    height: 35px;
+    line-height: 30px;
+    font-size: 17px;
+}
+.result-title a {
+    color: #09C;
+}
+.result-title span{
+    font-size: 20px;
+}
+.result-content{
+    font-size: 15px;
+}
+.send-email{
+    text-align: left;
+    margin-top: 15px;
+    color: #333;
+}
+/**
+************以上list
+**/
+
+.content-body-inner{
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 10px;
+    padding-right: 50px;
+}
+.attachment-link:hover{
+    color:#666;
+}
