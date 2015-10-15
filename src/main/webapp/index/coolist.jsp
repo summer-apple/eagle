@@ -24,20 +24,14 @@
 <div class="main">
 	<div class="menu-warp">
 		<div class="menu-label">
-			<span class="lb-zh">加入强鹰</span><br>
-			<span class="lb-en">Join</span>
+			<span class="lb-zh">合作伙伴</span><br>
+			<span class="lb-en">Thunder</span>
 		</div>
 		<div class="menu-item">
-			<a href="index/job.jsp?id=1">名誉学员</a>
+			<a href="index/coolist.jsp?type=1">会员</a>
 		</div>
 		<div class="menu-item">
-			<a href="index/job.jsp?id=2">强鹰学员</a>
-		</div>
-		<div class="menu-item">
-			<a href="index/joblist.jsp?type=3">强鹰专职</a>
-		</div>
-		<div class="menu-item">
-			<a href="index/joblist.jsp?type=4">强鹰实习生</a>
+			<a href="index/coolist.jsp?type=2">名誉学员</a>
 		</div>
 	</div>
 	<div class="content-warp">
@@ -46,9 +40,15 @@
 		</div>
 		<div class="content-body">
 			<!-- ajax 添加-->
-		</div>
-		<div class="row send-email">
-			<div class="col-sm-12"><span class="fa fa-caret-right"></span>如果您对以上岗位感兴趣，请发送您的简历到eliteeagle@163.com</div>
+			<div class="coo-warp">
+				<a href="cooperation.jsp?id=17">
+					<div class="coo-name">阿斯顿飞</div>
+					<div class="coo-position">阿斯顿飞</div>
+					<div class="coo-headimg">
+						<img src="resources/imgaes/gallery/ddd.jpg">
+					</div>
+				</a>
+			</div>
 		</div>
 	</div>
 
@@ -89,25 +89,19 @@ function getUrlParam(name) {
 	var $type = getUrlParam("type");
 	var $typeValue = "";
 	if ($type==1) {
-		$typeValue = "名誉学员";
+		$typeValue = "会员";
 	}else if ($type==2) {
-		$typeValue = "强鹰学员";
-	}
-	else if ($type==3) {
-		$typeValue = "强鹰专职";
-	}
-	else if ($type==4) {
-		$typeValue = "强鹰实习生";
+		$typeValue = "名誉学员";
 	}
 
 
-	$(".content-title").html("<span class='content-title-line'></span>"+$typeValue+"招聘");
+	$(".content-title").html("<span class='content-title-line'></span>"+$typeValue);
 	qry(true);
 
 //查询方法
 		function qry(initPageFlag){
             $.ajax({
-                url:'job/qry',
+                url:'cooperation/qry',
                 data: {'pageNo':$('#pageNo').val(),'pageSize':$('#pageSize').val(),'type':$typeValue},
                 type:'post',
                 dataType:'json',
@@ -117,9 +111,23 @@ function getUrlParam(name) {
                    
                     $.each(data.list, function(i, item) {
 			
-                		var $str = '<div class="result-warp">'+
-									'<div class="result-title"><a href="index/job.jsp?id='+item.id+'"><span class="fa fa-caret-right"></span><strong>'+item.title+'</strong></a></div>'+
-									'<div class="result-content"><a href="index/news?id='+item.id+'">'+item.brief+'</a></div></div>'
+                		var $str = '<div class="coo-warp">'+
+										'<a href="cooperation.jsp?id='+item.id+'">'+
+
+											'<div class="coo-name">'+
+												item.name+
+											'</div>'+
+
+											'<div class="coo-position">'+
+												item.position+
+											'</div>'+
+
+											'<div class="coo-headimg">'+
+												'<img src="'+item.headimg+'">'+
+											'</div>'+
+											
+										'</a>'+
+									'</div>';
 
 
                 		 $(".content-body").append($str);
