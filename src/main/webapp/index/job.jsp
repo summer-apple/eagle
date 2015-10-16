@@ -112,60 +112,7 @@ function getUrlParam(name) {
 		}
 	}
 
-// //查询方法
-// 		function qry(initPageFlag){
-//             $.ajax({
-//                 url:'job/qry',
-//                 data: {'pageNo':$('#pageNo').val(),'pageSize':$('#pageSize').val(),'type':$typeValue},
-//                 type:'post',
-//                 dataType:'json',
-//                 success:function(data){
-//                     $(".content-body").empty();
-                    
-                   
-//                     $.each(data.list, function(i, item) {
-			
-//                 		var $str = '<div class="result-warp">'+
-// 									'<div class="result-title"><a href="index/job.jsp?id='+item.id+'"><span class="fa fa-caret-right"></span><strong>'+item.title+'</strong></a></div>'+
-// 									'<div class="result-content"><a href="index/news?id='+item.id+'">'+item.brief+'</a></div></div>'
 
-
-//                 		 $(".content-body").append($str);
-
-// 	                	if(initPageFlag){
-// 	                		$(".pagination").pagination(data.amount, { 
-// 							  prev_text: '&laquo;', 
-// 							  next_text: '&raquo;',
-// 							  ellipse_text:"...", 
-// 							  items_per_page: 1, 
-// 							  num_display_entries: 6, 
-// 							  current_page: 0, 
-// 							  num_edge_entries: 2,
-// 							  link_to:"javascript:void(0);",
-// 							  callback:pageSelectCallback,
-// 							  callback:pageSelectCallback
-								
-// 							});
-// 	                	}
-
-                		
-//                   		});
- 
-//                 }
-//             });
-            
-            
-// 		}
-
-
-// //点击页码查询
-
-// 		function pageSelectCallback(current_page, aa){
-// 			$("#pageNo").val(current_page+1);
-// 			 qry(false);
-// 		}
-		
-	
 		
 
 	});
