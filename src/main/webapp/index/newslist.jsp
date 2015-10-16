@@ -104,6 +104,7 @@ function getUrlParam(name) {
                 		$(".menu-warp").append($str);
                   	});
 
+                $(".menu-item a[title="+$type+"]").parent().addClass("menu-item-selected");
                 $typeValue = $(".menu-item a[title="+$type+"]").html();
 				$(".content-title").html("<span class='content-title-line'></span>"+$typeValue);
 				qry(true);
@@ -130,8 +131,15 @@ function getUrlParam(name) {
 			
                 		var $str = '<div class="result-warp">'+
                 					'<div class="result-headimg"><img src="'+item.headimg+'"></div>'+
-									'<div class="result-title"><a href="index/job.jsp?id='+item.id+'"></span><strong>'+item.title+'</strong></a></div>'+
-									'<div class="result-content"><a href="index/news?id='+item.id+'">'+item.brief+'</a></div></div>'
+									'<div class="result-title"><a href="index/news.jsp?id='+item.id+'"></span><strong>';
+
+						if (item.weight==0) {
+							$str = $str +'<span class="top-flag">[顶] </span>'	+ item.id+' '+item.typeValue+' '+item.title+'</strong></a></div>'+
+									'<div class="result-content"><a href="index/news?id='+item.id+'">'+item.brief+'</a></div></div>';
+						}else{
+							$str = $str	+ item.id+' '+item.typeValue+' ' + item.title+'</strong></a></div>'+
+									'<div class="result-content"><a href="index/news?id='+item.id+'">'+item.brief+'</a></div></div>';
+						}
 
 
                 		 $(".content-body").append($str);

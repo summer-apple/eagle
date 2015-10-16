@@ -338,6 +338,9 @@ footer{
 .result-title span{
     font-size: 20px;
 }
+.top-flag{
+    color: #F00;
+}
 .result-content{
     font-size: 15px;
 }

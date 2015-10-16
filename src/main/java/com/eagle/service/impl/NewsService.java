@@ -32,47 +32,6 @@ public class NewsService extends BaseService<News>implements INewsService {
 
 		List<News> newslist = dao.findByPage(hql, pageNo, pageSize);
 
-		for (int i = 0; i < newslist.size(); i++) {
-
-			News n = newslist.get(i);
-
-			if (newslist.size() == 1) {
-
-				n.setPreTitle("已经是第一篇");
-				n.setPreUrl("news/get-news?id=" + n.getId());
-				n.setNextTitle("已经是最后一篇");
-				n.setNextUrl("news/get-news?id=" + n.getId());
-
-			} else if (i == 0) {// 第一条
-
-				News next = newslist.get(i + 1);
-				n.setNextTitle("【" + next.getTypeValue() + "】" + next.getTitle());
-				n.setNextUrl("news/get-news?id=" + next.getId());
-
-				n.setPreTitle("已经是第一篇");
-				n.setPreUrl("news/get-news?id=" + n.getId());
-
-			} else if (i == newslist.size() - 1) {// 最后一条
-
-				News pre = newslist.get(i - 1);
-				n.setPreTitle("【" + pre.getTypeValue() + "】" + pre.getTitle());
-				n.setPreUrl("news/get-news?id=" + pre.getId());
-
-				n.setNextTitle("已经是最后一篇");
-				n.setNextUrl("news/get-news?id=" + n.getId());
-
-			} else {// 中间
-
-				News pre = newslist.get(i - 1);
-				News next = newslist.get(i + 1);
-				n.setNextTitle("【" + next.getTypeValue() + "】" + next.getTitle());
-				n.setNextUrl("news/get-news?id=" + next.getId());
-				n.setPreTitle("【" + pre.getTypeValue() + "】" + pre.getTitle());
-				n.setPreUrl("news/get-news?id=" + pre.getId());
-
-			}
-		}
-
 		
 		long amount = dao.findCount("SELECT COUNT(*) "+hql);
 		Map<String,Object> map = new HashMap<>();
@@ -124,40 +83,6 @@ public class NewsService extends BaseService<News>implements INewsService {
 		sb.append(" ORDER BY weight ASC,id DESC");
 
 		List<News> newslist = dao.findByPage(sb.toString(), pageNo, pageSize, values);
-
-//		for (int i = 0; i < newslist.size(); i++) {
-//
-//			News n = newslist.get(i);
-//
-//			if (i == 0) {// 第一条
-//
-//				News next = newslist.get(i + 1);
-//				n.setNextTitle("【" + next.getTypeValue() + "】" + next.getTitle());
-//				n.setNextUrl("news/get-news?id=" + next.getId());
-//
-//				n.setPreTitle("已经是第一篇");
-//				n.setPreUrl("news/get-news?id=" + n.getId());
-//
-//			} else if (i == newslist.size() - 1) {// 最后一条
-//
-//				News pre = newslist.get(i - 1);
-//				n.setPreTitle("【" + pre.getTypeValue() + "】" + pre.getTitle());
-//				n.setPreUrl("news/get-news?id=" + pre.getId());
-//
-//				n.setNextTitle("已经是最后一篇");
-//				n.setNextUrl("news/get-news?id=" + n.getId());
-//
-//			} else {// 中间
-//
-//				News pre = newslist.get(i - 1);
-//				News next = newslist.get(i + 1);
-//				n.setNextTitle("【" + next.getTypeValue() + "】" + next.getTitle());
-//				n.setNextUrl("news/get-news?id=" + next.getId());
-//				n.setPreTitle("【" + pre.getTypeValue() + "】" + pre.getTitle());
-//				n.setPreUrl("news/get-news?id=" + pre.getId());
-//
-//			}
-//		}
 
 		long amount = dao.findCount("SELECT COUNT(*) "+sb.toString(),values);
 		
@@ -228,5 +153,57 @@ public class NewsService extends BaseService<News>implements INewsService {
 
 		return topnewslist;
 	}
+
+/**
+ * 获取单条新闻
+ */
+	@Override
+	public News qryOne(Class<News> Clazz, int id) {
+		News news = super.qryOne(Clazz, id);
+		
+		//prev
+		String hql1 = "FROM News WHERE type = "+news.getType()+" and weight <= "+news.getWeight()+" ORDER BY weight DESC,id ASC";
+		List<News> list1 = dao.find(hql1);
+		
+		News prev=null;
+		News next=null;
+		
+		for(int i=0;i<list1.size();i++){
+			if (list1.get(i).getId()==id && i<list1.size()-1) {
+				prev = list1.get(i+1);
+			}else {
+				continue;
+			}
+		}
+		
+		if (prev!=null) {
+			news.setPreTitle(prev.getTitle());
+			news.setPreUrl("index/news.jsp?id="+prev.getId());
+		}
+		
+		
+		//next
+		String hql2 = "FROM News WHERE type = "+news.getType()+" and weight >= "+news.getWeight()+" ORDER BY weight ASC,id DESC";
+		List<News> list2 = dao.find(hql2);
+		
+		for(int i=0;i<list2.size();i++){
+			if (list2.get(i).getId()==id && i<list2.size()-1) {
+				next = list2.get(i+1);
+			}else {
+				continue;
+			}
+		}
+		
+		if (next!=null) {
+			news.setNextTitle(next.getTitle());
+			news.setNextUrl("index/news.jsp?id="+next.getId());
+		}
+		
+		return news;
+				
+				
+	}
+	
+	
 
 }
