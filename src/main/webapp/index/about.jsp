@@ -11,8 +11,14 @@
 	<base href="<%=basePath%>">
 	<title>Eagle</title>
 	<style type="text/css">
-
-
+.school-warp{
+	display: none;
+}
+.school-warp ul {
+    float: left;
+    margin: 75px;
+    text-align: center;
+}
 
 </style>
 <%@include file="css.jsp"%>
@@ -49,7 +55,54 @@
 				<!-- ajax 添加-->
 			</div>
 		</div>
-		
+		<div class="school-warp">
+			<div class="content-title">
+				<span class='content-title-line'></span>校园联盟·合作高校
+			</div>
+			<ul class="u1">
+				
+			<li><strong>浙江（共12所）</strong></li>
+				<li>杭州电子科技大学</li>
+				<li>宁波诺丁汉大学</li>
+				<li>浙江大学</li>
+				<li>浙江大学城市学院</li>
+				<li>浙江工商大学</li>
+				<li>浙江工业大学</li>
+				<li>浙江万里学院</li>
+				<li>中国计量学院</li>
+				<li>宁波大学科技学院</li>
+				<li>浙江传媒学院</li>
+				<li>宁波大学</li>
+				<li>浙江理工大学</li>
+			</ul>
+			<ul class="u2">
+			<li><strong>西北（共14所）</strong></li>
+				<li>西安交通大学</li>
+				<li>西安外国语大学</li>
+				<li>西北工业大学</li>
+				<li>西北农林科技大学</li>
+				<li>陕西科技大学</li>
+				<li>西北大学</li>
+				<li>西安欧亚学院</li>
+				<li>长安大学</li>
+				<li>陕西师范大学</li>
+				<li>西北民族大学</li>
+				<li>兰州商学院</li>
+				<li>西安理工大学</li>
+				<li>西北师范大学</li>
+				<li>兰州大学</li>
+			</ul>
+			<ul class="u3">
+			<li><strong>华南（共26所）</strong></li>
+				<li>北京理工大学珠海学院</li>
+				<li>北京师范大学-香港浸会大学联合国际学院</li>
+				<li>北京师范大学珠海分校</li>
+				<li>福州大学</li>
+				<li>广东白云学院</li>
+				<li>广东工业大学</li>
+				<li>广东金融学院</li>
+			</ul>
+		</div>
 	</div>
 
 
@@ -95,14 +148,18 @@ function getUrlParam(name) {
             dataType:'json',
             success:function(data){
             		if (data.id==1) {
-            			$(".content-title").remove();
+            			$(".content-title:eq(0)").remove();
             		}else if (data.id==2) {
-            			$(".content-title").html("<span class='content-title-line'></span>"+data.title+"·浙江大学求是强鹰俱乐部");
+            			$(".content-title:eq(0)").html("<span class='content-title-line'></span>"+data.title+"·浙江大学求是强鹰俱乐部");
             		}else{
-            			$(".content-title").html("<span class='content-title-line'></span>"+data.title);
+            			$(".content-title:eq(0)").html("<span class='content-title-line'></span>"+data.title);
             		}
                 	
                     $(".content-body-inner").html(data.content);
+
+                    if (data.id==2) {
+                    	$(".school-warp").show();
+                    }
                 }
            });
 
