@@ -29,6 +29,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	background-color: #000;
 	color: #FFF;
 }
+.content-line #uploadifive-file_upload,.content-line #uploadifive-content_upload {
+	display: none !important;
+}
+.edui-btn-image{
+	display: none !important;
+}
+#editor,.edui-container{
+	width: 100% !important;
+}
 </style>
 
 
@@ -124,14 +133,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 								<div class="form-group">
 									<label class="col-sm-2 control-label" for="content">详&nbsp;&nbsp;&nbsp;情</label>
-									<div class="col-sm-10">
+									<div class="col-sm-10 content-line">
 										<input id="content_upload" type="file" name="upload"
 											style="display: none;" />
 										<div id="tip-queue-2" style="display: none;"></div>
-										<textarea name="content" id="content"
-											class="form-control ckeditor" rows="10">
-													Here we go ~
-												</textarea>
+										<textarea name="content" id="content" style="display:none;"></textarea>
+										<div style="width: 100% !important:;">
+											<script type="text/plain" id="editor"></script>
+										</div>
 									</div>
 
 								</div>
@@ -193,7 +202,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div class="col-sm-12">
 										<select name="type" class="form-control" id="qry-type" style="display: none;">
 											<option value="强鹰专职">强鹰专职</option>
-											<option value="实习生">实习生</option>
+											<option value="强鹰实习生">强鹰实习生</option>
 											<option value="强鹰学员">强鹰学员</option>
 											<option value="名誉学员">名誉学员</option>
 											
@@ -275,16 +284,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<%@ include file="script.jsp" %>
 	<script type="text/javascript" src="resources/js/jquery.pagination.js"></script>
 	<script src="resources/js/jquery.uploadifive.js"></script>
-	<script src="resources/js/ckeditor/ckeditor.js"></script>
-	<script src="resources/js/ckeditor/adapters/jquery.js"></script>
+<!-- 	<script src="resources/js/ckeditor/ckeditor.js"></script>
+	<script src="resources/js/ckeditor/adapters/jquery.js"></script> -->
 
 	<script src="resources/js/select2/select2.min.js"></script>
 	<script src="resources/js/jquery-ui/jquery-ui.min.js"></script>
 	<script src="resources/js/selectboxit/jquery.selectBoxIt.min.js"></script>
 	<script src="resources/js/multiselect/js/jquery.multi-select.js"></script>
 
+	<link type="text/css"
+		href="resources/js/umeditor/themes/default/css/umeditor.min.css"
+		rel="stylesheet" />
+	<script type="text/javascript" src="resources/js/umeditor/umeditor.config.js"></script>
+	<script type="text/javascript" src="resources/js/umeditor/umeditor.min.js"></script>
+
 	<script type="text/javascript">
 	$().ready(function(){
+
+		var um = UM.getEditor('editor');
+
+
 //变更类型时刷新
 $("#qry-type").change(function(){
 	$("#pageNo").val(0);
@@ -306,7 +325,7 @@ $("#qry-type").change(function(){
 		if($qrytype=="强鹰专职"){
 			$("#type").val("强鹰专职");
 		}else{
-			$("#type").val("实习生");
+			$("#type").val("强鹰实习生");
 		}
 
 		$(".open-panel").show();
@@ -338,7 +357,7 @@ $("#qry-type").change(function(){
 									'	<td class="job-brief" style="max-width:400px;">'+item.brief.substring(0,20)+'</a></td>'+
 									'	<td class="job-attachment">'+attachment(item.attachment)+'</td>';
 
-						if (item.type=="强鹰专职" || item.type=="实习生") {
+						if (item.type=="强鹰专职" || item.type=="强鹰实习生") {
 							$str += '	<td style="min-width:115px;"><a class="edit-btn btn btn-primary btn-single btn-sm" onclick="edit('+item.id+')">编辑</a><a class="del-btn btn btn-primary btn-single btn-sm" onclick=del('+item.id+')>删除</a></td>'+
 								'</tr>';
 						}else{
@@ -358,7 +377,8 @@ $("#qry-type").change(function(){
 								  num_display_entries: 6, 
 								  current_page: 0, 
 								  num_edge_entries: 2,
-								  link_to:"javascript:void(0);"
+								  link_to:"javascript:void(0);",
+						  callback:pageSelectCallback
 									
 								});
 		                	}
@@ -380,11 +400,23 @@ $("#qry-type").change(function(){
 	}	
 
 //点击页码查询
-		window.page = function(no){
-			$("#pageNo").val(no);
+		function pageSelectCallback(current_page, aa){
+			$("#pageNo").val(current_page+1);
 			 qry(false);
 		}
 		
+
+		//上传图片图标		
+		setTimeout(function(){
+						var $s = '<div class="edui-btn" unselectable="on" onmousedown="return false" data-original-title="图片"> <div unselectable="on" class="edui-icon-image edui-icon"></div><div class="edui-tooltip" unselectable="on" onmousedown="return false"><div class="edui-tooltip-arrow" unselectable="on" onmousedown="return false"></div><div class="edui-tooltip-inner" unselectable="on" onmousedown="return false"></div></div><div class="edui-tooltip" unselectable="on" onmousedown="return false" style="z-index: 1000; display: none; top: 22px; left: -7px;"><div class="edui-tooltip-arrow" unselectable="on" onmousedown="return false"></div><div class="edui-tooltip-inner" unselectable="on" onmousedown="return false">图片</div></div></div>';
+
+						$(".edui-btn-toolbar").append($s);
+					},3000);
+
+					$(document).on("click",".edui-icon-image",function(){
+						$(".content-line #real-input:last").click();
+					});
+
 //添加
 	$("#add-form").validate({
 							rules: {
@@ -415,6 +447,7 @@ $("#qry-type").change(function(){
 							// Form Processing via AJAX
 							submitHandler: function(form)
 							{
+								$("#content").val($("#editor").html());
 								var $url ='';
 
 								if ($("#id").val()==0) {
@@ -491,9 +524,12 @@ $("#qry-type").change(function(){
                 	$("#title").val(data.title);
                 	$("#brief").val(data.brief);
                 	$("#content").val(data.content);
+                	$("#editor").html(data.content);
                 	$("#attachment").val(data.attachment);
                 	if (data.attachment!=null) {
                 		$(".file-show").html('<h5 class="file-name">'+data.attachment.substring(data.attachment.lastIndexOf("/")+1,data.attachment.lenght)+'  <a class="remove-file" href="javascript:void(0);"><span class="fa fa-close" style="color:#000;"></span></a></h5>');
+                	}else{
+                		$(".file-show").html("");
                 	}
                 	
                 	$("#typeSelectBoxItText").attr("data-val",data.type).html(data.type);
@@ -565,7 +601,9 @@ $("#qry-type").change(function(){
 	        'onUploadComplete' : function(file, data) { //文件上传成功后执行 
 	        				var basePath = "<%=basePath%>";
 							var url = basePath + $.parseJSON(data);
-							$("#content").val($("#content").val()+'<img alt="" data-cke-saved-src="'+url+'" src="'+url+'">');
+							$("#editor").append('<img alt="" data-cke-saved-src="'+url+'" src="'+url+'">');
+							$(".content-line #real-input:first").remove();
+
 						}
 
 					});

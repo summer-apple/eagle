@@ -35,6 +35,8 @@ public class CooperationService extends BaseService<Cooperation>implements ICoop
 			map.put("amount", 0);
 		}else if (amount <= pageSize) {
 			map.put("amount", 1);
+		}else if (amount%pageSize==0) {
+			map.put("amount", amount/pageSize);
 		}else {
 			map.put("amount", amount/pageSize+1);
 		}

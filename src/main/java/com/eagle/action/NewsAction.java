@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.eagle.entity.News;
 import com.eagle.entity.Topnews;
@@ -68,4 +69,16 @@ public class NewsAction {
 		return ns.getTopNews();
 	}
 
+	@RequestMapping("/search")
+	@ResponseBody
+	public Map<String,Object> search(HttpServletRequest request,String key,int pageNo, int pageSize) {
+		return ns.search(key, pageNo, pageSize);
+	}
+	
+	@RequestMapping("/search-mask")
+	public ModelAndView searchMask(ModelAndView mv ,HttpServletRequest request,String key) {
+		mv.addObject("key",key);
+		mv.setViewName("index/search");
+		return mv;
+	}
 }

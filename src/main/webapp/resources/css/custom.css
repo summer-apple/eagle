@@ -16,6 +16,6 @@ src: url('fonts/msyh/msyh.ttf'),
      url('fonts/msyh/msyh.eot'); /* IE9+ */
 }
 
-*{
+*:not(.fa,i){
 font-family:myFirstFont !important;
 }

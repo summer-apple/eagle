@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script src="resources/js/jquery-1.11.1.min.js" type="text/javascript"></script>
     <script src="resources/js/ajaxfileupload.js" type="text/javascript"></script>
     <script type="text/javascript">
-       window.location.href="dashboard/slide.jsp";
+       window.location.href="index/index.jsp";
     </script>
 </head>
 <body>
