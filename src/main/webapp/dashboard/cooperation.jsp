@@ -380,7 +380,8 @@ $("#qry-type").change(function(){
 								  num_display_entries: 6, 
 								  current_page: 0, 
 								  num_edge_entries: 2,
-								  link_to:"javascript:void(0);"
+								  link_to:"javascript:void(0);",
+						  callback:pageSelectCallback
 									
 								});
 		                	}
@@ -395,8 +396,8 @@ $("#qry-type").change(function(){
 
 //点击页码查询
 
-		window.page = function(no){
-			$("#pageNo").val(no);
+		function pageSelectCallback(current_page, aa){
+			$("#pageNo").val(current_page+1);
 			 qry(false);
 		}
 		

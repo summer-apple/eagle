@@ -140,7 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div class="col-sm-2">
 										<input id="file_upload" type="file" name="upload" style="display:none;" />
 										<div id="tip-queue" style="display:none;"></div>
-										
+										<div>建议120*100像素</div>
 									</div>
 									<div class="col-sm-4 img-show">
 										
@@ -459,7 +459,8 @@ $("#qry-type").change(function(){
 						  num_display_entries: 6, 
 						  current_page: 0, 
 						  num_edge_entries: 2,
-						  link_to:"javascript:void(0);"
+						  link_to:"javascript:void(0);",
+						  callback:pageSelectCallback
 							
 						});
                 	}
@@ -475,8 +476,8 @@ $("#qry-type").change(function(){
 
 //点击页码查询
 
-		window.page = function(no){
-			$("#pageNo").val(no);
+		function pageSelectCallback(current_page, aa){
+			$("#pageNo").val(current_page+1);
 			 qry(false);
 		}
 		
