@@ -25,12 +25,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <%@ include file="css.jsp" %>
 <style type="text/css">
-	#uploadifive-file_upload,#uploadifive-content_upload{
-		background-color: #000;
-		color: #FFF;
-	}
-
-
+#uploadifive-file_upload, #uploadifive-content_upload {
+	background-color: #000;
+	color: #FFF;
+}
+.content-line #uploadifive-file_upload,.content-line #uploadifive-content_upload {
+	display: none !important;
+}
+.edui-btn-image{
+	display: none !important;
+}
+#editor,.edui-container{
+	width: 100% !important;
+}
 </style>
 
 
@@ -183,12 +190,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 								<div class="form-group">
 									<label class="col-sm-2 control-label" for="content">详&nbsp;&nbsp;&nbsp;情</label>
-									<div class="col-sm-10">
+									<div class="col-sm-10 content-line">
 										<input id="content_upload" type="file" name="upload" style="display:none;" />
 										<div id="tip-queue-2" style="display:none;"></div>
-										<textarea name="content" id="content" class="form-control ckeditor" rows="10">
-											Here we go ~
-										</textarea>
+										<textarea name="content" id="content" style="display:none;"></textarea>
+										<div style="width: 100% !important:;">
+											<script type="text/plain" id="editor"></script>
+										</div>
 									</div>
 									
 								</div>
@@ -317,8 +325,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<%@ include file="script.jsp" %>
 	<script type="text/javascript" src="resources/js/jquery.pagination.js"></script>
 	<script src="resources/js/jquery.uploadifive.js"></script>
-	<script src="resources/js/ckeditor/ckeditor.js"></script>
-	<script src="resources/js/ckeditor/adapters/jquery.js"></script>
+<!-- 	<script src="resources/js/ckeditor/ckeditor.js"></script>
+	<script src="resources/js/ckeditor/adapters/jquery.js"></script> -->
 
 	<script src="resources/js/select2/select2.min.js"></script>
 	<script src="resources/js/jquery-ui/jquery-ui.min.js"></script>
@@ -327,10 +335,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<script src="resources/js/cropper/cropper.min.js"></script>
 
+
+
+	<link type="text/css"
+		href="resources/js/umeditor/themes/default/css/umeditor.min.css"
+		rel="stylesheet" />
+	<script type="text/javascript" src="resources/js/umeditor/umeditor.config.js"></script>
+	<script type="text/javascript" src="resources/js/umeditor/umeditor.min.js"></script>
+
+
 	<script type="text/javascript">
 	$().ready(function(){
 
-
+var um = UM.getEditor('editor');
 
 //首次进入时刷新
 	qry(true);
@@ -400,7 +417,20 @@ $("#qry-type").change(function(){
 			$("#pageNo").val(current_page+1);
 			 qry(false);
 		}
-		
+	
+
+//上传图片图标		
+		setTimeout(function(){
+						var $s = '<div class="edui-btn" unselectable="on" onmousedown="return false" data-original-title="图片"> <div unselectable="on" class="edui-icon-image edui-icon"></div><div class="edui-tooltip" unselectable="on" onmousedown="return false"><div class="edui-tooltip-arrow" unselectable="on" onmousedown="return false"></div><div class="edui-tooltip-inner" unselectable="on" onmousedown="return false"></div></div><div class="edui-tooltip" unselectable="on" onmousedown="return false" style="z-index: 1000; display: none; top: 22px; left: -7px;"><div class="edui-tooltip-arrow" unselectable="on" onmousedown="return false"></div><div class="edui-tooltip-inner" unselectable="on" onmousedown="return false">图片</div></div></div>';
+
+						$(".edui-btn-toolbar").append($s);
+					},3000);
+
+					$(document).on("click",".edui-icon-image",function(){
+						$(".content-line #real-input:last").click();
+					});
+
+
 //添加
 	$("#add-form").validate({
 							rules: {
@@ -452,6 +482,7 @@ $("#qry-type").change(function(){
 							// Form Processing via AJAX
 							submitHandler: function(form)
 							{
+								$("#content").val($("#editor").html());
 								var $url ='';
 
 								if ($("#id").val()==0) {
@@ -534,6 +565,7 @@ $("#qry-type").change(function(){
                 	$("#position").val(data.position);
                 	$("#weight").val(data.weight);
                 	$("#content").val(data.content);
+                	$("#editor").html(data.content);
                 	$("#headimg").val(data.headimg);
 
                 	$(".img-preview-warp").hide();
@@ -669,9 +701,10 @@ $("#qry-type").change(function(){
             'simUploadLimit'  : 100,                  // The maximum number of files to upload at once
             'uploadLimit'     : 100,                  // The maximum number of files you can upload
 	        'onUploadComplete' : function(file, data) { //文件上传成功后执行 
-	        	var basePath = "<%=basePath%>";
-							var url = basePath + $.parseJSON(data);
-							$("#content").val($("#content").val()+'<img alt="" data-cke-saved-src="'+url+'" src="'+url+'">');
+	        			var basePath = "<%=basePath%>";
+						var url = basePath + $.parseJSON(data);
+						$("#editor").append('<img alt="" data-cke-saved-src="'+url+'" src="'+url+'">');
+						$(".content-line #real-input:first").remove();
 	        	}
 		});
 

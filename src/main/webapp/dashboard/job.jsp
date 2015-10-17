@@ -29,6 +29,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	background-color: #000;
 	color: #FFF;
 }
+.content-line #uploadifive-file_upload,.content-line #uploadifive-content_upload {
+	display: none !important;
+}
+.edui-btn-image{
+	display: none !important;
+}
+#editor,.edui-container{
+	width: 100% !important;
+}
 </style>
 
 
@@ -124,14 +133,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 								<div class="form-group">
 									<label class="col-sm-2 control-label" for="content">详&nbsp;&nbsp;&nbsp;情</label>
-									<div class="col-sm-10">
+									<div class="col-sm-10 content-line">
 										<input id="content_upload" type="file" name="upload"
 											style="display: none;" />
 										<div id="tip-queue-2" style="display: none;"></div>
-										<textarea name="content" id="content"
-											class="form-control ckeditor" rows="10">
-													Here we go ~
-												</textarea>
+										<textarea name="content" id="content" style="display:none;"></textarea>
+										<div style="width: 100% !important:;">
+											<script type="text/plain" id="editor"></script>
+										</div>
 									</div>
 
 								</div>
@@ -275,16 +284,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<%@ include file="script.jsp" %>
 	<script type="text/javascript" src="resources/js/jquery.pagination.js"></script>
 	<script src="resources/js/jquery.uploadifive.js"></script>
-	<script src="resources/js/ckeditor/ckeditor.js"></script>
-	<script src="resources/js/ckeditor/adapters/jquery.js"></script>
+<!-- 	<script src="resources/js/ckeditor/ckeditor.js"></script>
+	<script src="resources/js/ckeditor/adapters/jquery.js"></script> -->
 
 	<script src="resources/js/select2/select2.min.js"></script>
 	<script src="resources/js/jquery-ui/jquery-ui.min.js"></script>
 	<script src="resources/js/selectboxit/jquery.selectBoxIt.min.js"></script>
 	<script src="resources/js/multiselect/js/jquery.multi-select.js"></script>
 
+	<link type="text/css"
+		href="resources/js/umeditor/themes/default/css/umeditor.min.css"
+		rel="stylesheet" />
+	<script type="text/javascript" src="resources/js/umeditor/umeditor.config.js"></script>
+	<script type="text/javascript" src="resources/js/umeditor/umeditor.min.js"></script>
+
 	<script type="text/javascript">
 	$().ready(function(){
+
+		var um = UM.getEditor('editor');
+
+
 //变更类型时刷新
 $("#qry-type").change(function(){
 	$("#pageNo").val(0);
@@ -386,6 +405,18 @@ $("#qry-type").change(function(){
 			 qry(false);
 		}
 		
+
+		//上传图片图标		
+		setTimeout(function(){
+						var $s = '<div class="edui-btn" unselectable="on" onmousedown="return false" data-original-title="图片"> <div unselectable="on" class="edui-icon-image edui-icon"></div><div class="edui-tooltip" unselectable="on" onmousedown="return false"><div class="edui-tooltip-arrow" unselectable="on" onmousedown="return false"></div><div class="edui-tooltip-inner" unselectable="on" onmousedown="return false"></div></div><div class="edui-tooltip" unselectable="on" onmousedown="return false" style="z-index: 1000; display: none; top: 22px; left: -7px;"><div class="edui-tooltip-arrow" unselectable="on" onmousedown="return false"></div><div class="edui-tooltip-inner" unselectable="on" onmousedown="return false">图片</div></div></div>';
+
+						$(".edui-btn-toolbar").append($s);
+					},3000);
+
+					$(document).on("click",".edui-icon-image",function(){
+						$(".content-line #real-input:last").click();
+					});
+
 //添加
 	$("#add-form").validate({
 							rules: {
@@ -416,6 +447,7 @@ $("#qry-type").change(function(){
 							// Form Processing via AJAX
 							submitHandler: function(form)
 							{
+								$("#content").val($("#editor").html());
 								var $url ='';
 
 								if ($("#id").val()==0) {
@@ -492,9 +524,12 @@ $("#qry-type").change(function(){
                 	$("#title").val(data.title);
                 	$("#brief").val(data.brief);
                 	$("#content").val(data.content);
+                	$("#editor").html(data.content);
                 	$("#attachment").val(data.attachment);
                 	if (data.attachment!=null) {
                 		$(".file-show").html('<h5 class="file-name">'+data.attachment.substring(data.attachment.lastIndexOf("/")+1,data.attachment.lenght)+'  <a class="remove-file" href="javascript:void(0);"><span class="fa fa-close" style="color:#000;"></span></a></h5>');
+                	}else{
+                		$(".file-show").html("");
                 	}
                 	
                 	$("#typeSelectBoxItText").attr("data-val",data.type).html(data.type);
@@ -566,7 +601,9 @@ $("#qry-type").change(function(){
 	        'onUploadComplete' : function(file, data) { //文件上传成功后执行 
 	        				var basePath = "<%=basePath%>";
 							var url = basePath + $.parseJSON(data);
-							$("#content").val($("#content").val()+'<img alt="" data-cke-saved-src="'+url+'" src="'+url+'">');
+							$("#editor").append('<img alt="" data-cke-saved-src="'+url+'" src="'+url+'">');
+							$(".content-line #real-input:first").remove();
+
 						}
 
 					});

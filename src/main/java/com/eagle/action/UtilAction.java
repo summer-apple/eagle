@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.eagle.entity.Uploader;
 import com.eagle.service.impl.UtilService;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonObjectFormatVisitor;
 
@@ -43,96 +42,11 @@ public class UtilAction {
 
 	Logger logger = Logger.getLogger(UtilAction.class);
 
-	
-	
-	@RequestMapping("/ue-upload")
-	@ResponseBody
-	public void ueUpload(HttpServletRequest request,HttpServletResponse response,@RequestParam MultipartFile upfile) throws Exception {	
-//				
-//	    Uploader up = new Uploader(request);
-//	    up.setSavePath("../resources/images/gallery/fuckue");
-//	    String[] fileType = { ".png" , ".jpg" , ".jpeg"};
-//	    up.setAllowFiles(fileType);
-//	    up.setMaxSize(10000); //单位KB
-//	    up.upload();
-//	
-//	    String callback = request.getParameter("callback");
-//	
-//	    String result = "{\"name\":\""+ up.getFileName() +"\", \"originalName\": \""+ up.getOriginalName() +"\", \"size\": "+ up.getSize() +", \"state\": \""+ up.getState() +"\", \"type\": \""+ up.getType() +"\", \"url\": \""+ up.getUrl() +"\"}";
-//	
-//	    result = result.replaceAll( "\\\\", "\\\\" );
-//	
-//	    if( callback == null ){
-//	        response.getWriter().print( result );
-//	    }else{
-//	        response.getWriter().print("<script>"+ callback +"(" + result + ")</script>");
-//	    }
-		
-		
-		String hz = upfile.getOriginalFilename().substring(upfile.getOriginalFilename().lastIndexOf("."));
-		if (hz.toLowerCase().equals(".jpeg")) {
-			hz = ".jpg";
-		}
-		String filename = new SimpleDateFormat("yyyyMMddhhmmss")
-				.format(new Date())
-				+ us.getRandomString(16)
-				+ hz;
-		logger.info("filename=" + filename);
-		String url = "resources/images/gallery/"+ "fuckue" +"/"+ filename;
-		logger.info("url=" + url);
-
-		if (!upfile.isEmpty()) {
-			try {
-				// 文件保存路径
-				String filePath = request.getSession().getServletContext()
-						.getRealPath("/")+url;
-				File file1 = new File(filePath);
-				if (!file1.exists()) {
-					file1.mkdirs();
-				}
-				// 转存文件
-				upfile.transferTo(new File(filePath));
-			} catch (IOException e) {
-				logger.error(e);
-			}
-		}
-		
-		 response.getWriter().print( "<script>alert('"+ url +"');</script>" );
-//	    String callback = request.getParameter("callback");
-//	
-//	    String result = "{\"name\":\""+ filename +"\", \"originalName\": \""+upfile.getOriginalFilename() +"\", \"size\": "+ upfile.getSize() +", \"state\": \""+ "SUCCESS" +"\", \"type\": \""+ hz.substring(1, hz.length()) +"\", \"url\": \""+ url +"\"}";
-//	
-//	    result = result.replaceAll( "\\\\", "\\\\" );
-//	
-//	    if( callback == null ){
-//	        response.getWriter().print( "<script>alert(" + result + ");</script>" );
-//	    }else{
-//	        response.getWriter().print("<script>"+ callback +"(" + result + ")</script>");
-//	    }
-		
-		
-		
-		
-	}
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@RequestMapping("/upload-image")
 	@ResponseBody
-	public String uploadImg(HttpServletRequest request,@RequestParam MultipartFile upfile,String folder) {
+	public String uploadImg(HttpServletRequest request,@RequestParam MultipartFile file,String folder) {
 
-		String hz = upfile.getOriginalFilename().substring(upfile.getOriginalFilename().lastIndexOf("."));
+		String hz = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 		if (hz.toLowerCase().equals(".jpeg")) {
 			hz = ".jpg";
 		}
@@ -144,7 +58,7 @@ public class UtilAction {
 		String url = "resources/images/gallery/"+ folder +"/"+ filename;
 		logger.info("url=" + url);
 
-		if (!upfile.isEmpty()) {
+		if (!file.isEmpty()) {
 			try {
 				// 文件保存路径
 				String filePath = request.getSession().getServletContext()
@@ -154,7 +68,7 @@ public class UtilAction {
 					file1.mkdirs();
 				}
 				// 转存文件
-				upfile.transferTo(new File(filePath));
+				file.transferTo(new File(filePath));
 			} catch (IOException e) {
 				logger.error(e);
 			}

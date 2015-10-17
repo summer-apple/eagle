@@ -25,18 +25,15 @@
 
 <%@ include file="css.jsp"%>
 <style type="text/css">
-#uploadifive-file_upload, #uploadifive-content_upload {
-	background-color: #000;
-	color: #FFF;
+#uploadifive-file_upload, #uploadifive-content_upload,.edui-btn-image {
+	display: none !important;
+}
+#editor,.edui-container{
+	width: 100% !important;
 }
 </style>
 
 
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
 
 
 </head>
@@ -45,11 +42,6 @@
 
 
 	<div class="page-container">
-		<!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
-
-		<!-- Add "fixed" class to make the sidebar fixed always to the browser viewport. -->
-		<!-- Adding class "toggle-others" will keep only one menu item open at a time. -->
-		<!-- Adding class "collapsed" collapse sidebar root elements and show only icons. -->
 
 		<%@ include file="side-bar.jsp"%>
 		<div class="main-content">
@@ -79,7 +71,7 @@
 			<div class="add-panel panel panel-default">
 				<div class="row">
 
-					
+
 					<div class="col-sm-4">
 
 
@@ -88,21 +80,29 @@
 								<div class="form-group col-sm-12">
 
 									<script type="text/javascript">
-										jQuery(document).ready(function($)
-										{
-											$("#qry-type").selectBoxIt().on('open', function()
-											{
-												// Adding Custom Scrollbar
-												$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
-											});
-										});
+										jQuery(document)
+												.ready(
+														function($) {
+															$("#qry-type")
+																	.selectBoxIt()
+																	.on(
+																			'open',
+																			function() {
+																				// Adding Custom Scrollbar
+																				$(
+																						this)
+																						.data(
+																								'selectBoxSelectBoxIt').list
+																						.perfectScrollbar();
+																			});
+														});
 									</script>
 									<div class="col-sm-12">
 										<select name="type" class="form-control" id="qry-type"
 											style="display: none;">
 											<option value="1">时代强鹰</option>
 											<option value="2">校园联盟</option>
-											<option value="3">强鹰青年圈</option>
+											<option value="3">青年园</option>
 											<option value="4">强鹰孵化器</option>
 										</select>
 									</div>
@@ -128,13 +128,15 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" for="content">详&nbsp;&nbsp;&nbsp;情</label>
 							<div class="col-sm-10">
+
 								<input id="content_upload" type="file" name="upload"
 									style="display: none;" />
 								<div id="tip-queue-2" style="display: none;"></div>
-								<textarea name="content" id="content"
-									class="form-control ckeditor" rows="10">
-											Here we go ~
-										</textarea>
+								<textarea name="content" id="content" style="display:none;"></textarea>
+										<div style="width: 100% !important:;">
+											<script type="text/plain" id="editor"></script>
+										</div>
+
 							</div>
 
 						</div>
@@ -157,11 +159,13 @@
 			<!--新增关于表单结束-->
 
 
+
+
+
+
+
+
 			<!--主体部分结束-->
-			<!-- Main Footer -->
-			<!-- Choose between footer styles: "footer-type-1" or "footer-type-2" -->
-			<!-- Add class "sticky" to  always stick the footer to the end of page (if page contents is small) -->
-			<!-- Or class "fixed" to  always fix the footer to the end of page -->
 			<%@ include file="footer.jsp"%>
 		</div>
 
@@ -179,52 +183,74 @@
 		href="resources/js/select2/select2-bootstrap.css">
 
 	<%@ include file="script.jsp"%>
-	<script type="text/javascript" src="resources/js/jquery.pagination.js"></script>
 	<script src="resources/js/jquery.uploadifive.js"></script>
-	<script src="resources/js/ckeditor/ckeditor.js"></script>
-	<script src="resources/js/ckeditor/adapters/jquery.js"></script>
-
 	<script src="resources/js/select2/select2.min.js"></script>
 	<script src="resources/js/jquery-ui/jquery-ui.min.js"></script>
 	<script src="resources/js/selectboxit/jquery.selectBoxIt.min.js"></script>
 	<script src="resources/js/multiselect/js/jquery.multi-select.js"></script>
 
+
+
+	<link type="text/css"
+		href="resources/js/umeditor/themes/default/css/umeditor.min.css"
+		rel="stylesheet" />
+	<script type="text/javascript"
+		src="resources/js/umeditor/umeditor.config.js"></script>
+	<script type="text/javascript"
+		src="resources/js/umeditor/umeditor.min.js"></script>
 	<script type="text/javascript">
-	$().ready(function(){
-
-//载入时
-		edit();
-
-//类型改变时
-		$("#qry-type").change(function(){
-			edit();
-		});
-
-//编辑
-		function edit(){
-			var id = $('#qry-type').val();
-			$.ajax({
-		                url:'about/get-one?id='+id,
-		                type:'post',
-		                dataType:'json',
-		                success:function(data){
-		                	$("#id").val(data.id);
-		                	$("#title").val(data.title);
-		                	$("#content").val(data.content);
-		                	$("#typeSelectBoxItText").attr("data-val",data.id).html(data.title);
-		                }
-		            });
-		}
-		
-		
+		$().ready(function() {
 
 		
+
+					var um = UM.getEditor('editor');
+
+
+					//载入时
+					edit();
+
+					//类型改变时
+					$("#qry-type").change(function() {
+						edit();
+					});
+
+					//编辑
+					function edit() {
+						var id = $('#qry-type').val();
+						$.ajax({
+							url : 'about/get-one?id=' + id,
+							type : 'post',
+							dataType : 'json',
+							success : function(data) {
+								$("#id").val(data.id);
+								$("#title").val(data.title);
+								$("#editor").html(data.content);
+								$("#content").val(data.content);
+								$("#typeSelectBoxItText").attr("data-val",data.id).html(data.title);
+							}
+						});
+					}
+
+
+					setTimeout(function(){
+						var $s = '<div class="edui-btn" unselectable="on" onmousedown="return false" data-original-title="图片"> <div unselectable="on" class="edui-icon-image edui-icon"></div><div class="edui-tooltip" unselectable="on" onmousedown="return false"><div class="edui-tooltip-arrow" unselectable="on" onmousedown="return false"></div><div class="edui-tooltip-inner" unselectable="on" onmousedown="return false"></div></div><div class="edui-tooltip" unselectable="on" onmousedown="return false" style="z-index: 1000; display: none; top: 22px; left: -7px;"><div class="edui-tooltip-arrow" unselectable="on" onmousedown="return false"></div><div class="edui-tooltip-inner" unselectable="on" onmousedown="return false">图片</div></div></div>';
+
+						$(".edui-btn-toolbar").append($s);
+					},3000);
+
+					$(document).on("click",".edui-icon-image",function(){
+						$("#real-input:last").click();
+					});
+					
+
+				
+
 //更新
 	$("#add-form").validate({
 							// Form Processing via AJAX
 							submitHandler: function(form)
 							{
-
+								$("#content").val($("#editor").html());
 								$("#add-form").ajaxSubmit({
 					                url:'about/update',
 					                type:'post',
@@ -239,8 +265,6 @@
 					            });
 							}
 						});
-
-
 
 
 //添加内容图片
@@ -263,12 +287,12 @@
 	        'onUploadComplete' : function(file, data) { //文件上传成功后执行 
 	        				var basePath = "<%=basePath%>";
 							var url = basePath + $.parseJSON(data);
-							$("#content").val($("#content").val()+'<img alt="" data-cke-saved-src="'+url+'" src="'+url+'">');
+							$("#editor").append('<img alt="" data-cke-saved-src="'+url+'" src="'+url+'">');
+							$("#real-input:first").remove();
 						}
 
 					});
-
-				});
+});
 	</script>
 </body>
 </html>
