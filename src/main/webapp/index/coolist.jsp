@@ -28,10 +28,10 @@
 			<span class="lb-en">Thunder</span>
 		</div>
 		<div class="menu-item">
-			<a href="index/coolist.jsp?type=1">会员</a>
+			<a href="index/coolist.jsp?type=1" title="1">会员</a>
 		</div>
 		<div class="menu-item">
-			<a href="index/coolist.jsp?type=2">名誉学员</a>
+			<a href="index/coolist.jsp?type=2" title="2">名誉学员</a>
 		</div>
 	</div>
 	<div class="content-warp">
@@ -93,7 +93,7 @@ function getUrlParam(name) {
 	}else if ($type==2) {
 		$typeValue = "名誉学员";
 	}
-
+	$(".menu-item a[title="+$type+"]").parent().addClass("menu-item-selected");
 
 	$(".content-title").html("<span class='content-title-line'></span>"+$typeValue);
 	qry(true);
@@ -112,7 +112,7 @@ function getUrlParam(name) {
                     $.each(data.list, function(i, item) {
 			
                 		var $str = '<div class="coo-warp">'+
-										'<a href="cooperation.jsp?id='+item.id+'">'+
+										'<a href="index/cooperation.jsp?id='+item.id+'">'+
 
 											'<div class="coo-name">'+
 												item.name+

@@ -50,6 +50,57 @@
 					$("#search-form").submit();
 				}
 			});
+
+
+
+
+
+//获取新闻导航栏类型
+	$.ajax({
+		url:"newstype/qry",
+		type:"post",
+		dataType:"json",
+		success:function(data){
+			$.each(data,function(i,item){
+				$("#news-type-group").append('<li><a href="index/newslist.jsp?type='+item.id+'">'+item.name+'</a></li>');
+			});
+		}
+	})
+
+
+//返回顶部按钮
+	  $('.back-top').click(function(event) {//设置返回顶层按钮滚动
+	        event.preventDefault();
+	        var link = this;
+	        $.smoothScroll({
+	          scrollTarget: link.hash
+	        });
+	 });
+	
+	
+	$(document).scroll(function(){
+		
+		if($(document).scrollTop()<300){
+			$(".back-top").hide();
+		}
+
+		if($(document).scrollTop()>300){
+			
+			//alert($(document).scrollTop());
+			
+			var $height = $(window).height();
+			var $width = $(document).width();
+			
+			//alert($height);
+			
+			$(".back-top").css({
+				"top":$height-70,
+				"left":$width-75
+			}).show();
+		}
+		
+		
+	});
 		
 
 

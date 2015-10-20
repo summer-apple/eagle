@@ -28,10 +28,10 @@
 			<span class="lb-en">Thunder</span>
 		</div>
 		<div class="menu-item">
-			<a href="index/coolist.jsp?type=1">会员</a>
+			<a href="index/coolist.jsp?type=1" title="1">会员</a>
 		</div>
 		<div class="menu-item">
-			<a href="index/coolist.jsp?type=2">名誉学员</a>
+			<a href="index/coolist.jsp?type=2" title="2">名誉学员</a>
 		</div>
 	</div>
 	<div class="content-warp">
@@ -85,6 +85,11 @@ function getUrlParam(name) {
             type:'post',
             dataType:'json',
             success:function(data){
+            		var $type=1;
+            		if (data.type=="名誉学员") {
+            			$type = 2;
+            		}
+            		$(".menu-item a[title="+$type+"]").parent().addClass("menu-item-selected");
                     $(".content-body-inner").html(data.content);
                 }
            });

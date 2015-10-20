@@ -28,16 +28,16 @@
 			<span class="lb-en">Join</span>
 		</div>
 		<div class="menu-item">
-			<a href="index/job.jsp?id=1">名誉学员</a>
+			<a href="index/job.jsp?id=1" title="1">名誉学员</a>
 		</div>
 		<div class="menu-item">
-			<a href="index/job.jsp?id=2">强鹰学员</a>
+			<a href="index/job.jsp?id=2" title="2">强鹰学员</a>
 		</div>
 		<div class="menu-item">
-			<a href="index/joblist.jsp?type=3">强鹰专职</a>
+			<a href="index/joblist.jsp?type=3" title="3">强鹰专职</a>
 		</div>
 		<div class="menu-item">
-			<a href="index/joblist.jsp?type=4">强鹰实习生</a>
+			<a href="index/joblist.jsp?type=4" title="4">强鹰实习生</a>
 		</div>
 	</div>
 	<div class="content-warp">
@@ -99,7 +99,7 @@ function getUrlParam(name) {
 	else if ($type==4) {
 		$typeValue = "强鹰实习生";
 	}
-
+	$(".menu-item a[title="+$type+"]").parent().addClass("menu-item-selected");
 
 	$(".content-title").html("<span class='content-title-line'></span>"+$typeValue+"招聘");
 	qry(true);

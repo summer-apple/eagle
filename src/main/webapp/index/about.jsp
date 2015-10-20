@@ -34,16 +34,16 @@
 			<span class="lb-en">About</span>
 		</div>
 		<div class="menu-item">
-			<a href="index/about.jsp?id=1">时代强鹰</a>
+			<a href="index/about.jsp?id=1" title="1">时代强鹰</a>
 		</div>
 		<div class="menu-item">
-			<a href="index/about.jsp?id=2">校园联盟</a>
+			<a href="index/about.jsp?id=2" title="2">校园联盟</a>
 		</div>
 		<div class="menu-item">
-			<a href="index/about.jsp?id=3">强鹰青年圈</a>
+			<a href="index/about.jsp?id=3" title="3">强鹰青年圈</a>
 		</div>
 		<div class="menu-item">
-			<a href="index/about.jsp?id=4">强鹰孵化器</a>
+			<a href="index/about.jsp?id=4" title="4">强鹰孵化器</a>
 		</div>
 	</div>
 	<div class="content-warp">
@@ -141,6 +141,7 @@ function getUrlParam(name) {
 			
 	var $id = getUrlParam("id");
 
+	$(".menu-item a[title="+$id+"]").parent().addClass("menu-item-selected");
 
 	$.ajax({
             url:'about/get-one?id='+$id,

@@ -12,10 +12,10 @@
 				<div class="foot-nav-btn-group">
 					<a href="javascript:void(0);">关于强鹰</a>
 					<ul class="foot-dropdown">
-						<li><a href="#">时代强鹰</a></li>
-						<li><a href="#">校园联盟</a></li>
-						<li><a href="#">强鹰青年圈</a></li>
-						<li><a href="#">强鹰孵化器</a></li>
+						<li><a href="index/about.jsp?id=1">时代强鹰</a></li>
+						<li><a href="index/about.jsp?id=2">校园联盟</a></li>
+						<li><a href="index/about.jsp?id=3">强鹰青年圈</a></li>
+						<li><a href="index/about.jsp?id=4">强鹰孵化器</a></li>
 					</ul>
 				</div>
 			</li>
@@ -33,8 +33,8 @@
 				<div class="foot-nav-btn-group">
 					<a href="javascript:void(0);">合作伙伴</a>
 					<ul class="foot-dropdown">
-						<li><a href="#">会员</a></li>
-						<li><a href="#">名誉学员</a></li>
+						<li><a href="index/coolist.jsp?type=1">会员</a></li>
+						<li><a href="index/coolist.jsp?type=2">名誉学员</a></li>
 					</ul>
 				</div>
 			</li>
@@ -42,10 +42,10 @@
 				<div class="foot-nav-btn-group">
 					<a href="javascript:void(0);">加入强鹰</a>
 					<ul class="foot-dropdown">
-						<li><a href="#">强鹰专职</a></li>
-						<li><a href="#">强鹰实习生</a></li>
-						<li><a href="#">名誉学员</a></li>
-						<li><a href="#">学员</a></li>
+						<li><a href="index/joblist.jsp?type=3">强鹰专职</a></li>
+						<li><a href="index/joblist.jsp?type=4">强鹰实习生</a></li>
+						<li><a href="index/job.jsp?id=1">名誉学员</a></li>
+						<li><a href="index/job.jsp?id=2">强鹰学员</a></li>
 					</ul>
 				</div>
 			</li>
@@ -64,4 +64,6 @@
 		</div>
 	</div>
 </footer>
-<script src="resources/js/common.js"></script>
+  <div class="back-top">
+  	<span class="back-top-icon fa fa-chevron-up"></span>
+  </div>

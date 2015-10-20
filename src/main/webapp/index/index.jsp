@@ -150,7 +150,6 @@ section{
     width: 640px;
     float: left;
     height: 420px;
-    z-index: 0;
 }
 
 .news-block {
@@ -433,6 +432,7 @@ section{
 	<div style="line-height:0; margin:0; padding:0; height:0; font-size:0; clear:both;"></div>
 </div>
 <%@include file="foot.jsp"%>
+<%@include file="script.jsp"%>
 <script type="text/javascript" src="resources/js/jquery.slides.min.js"></script>
 <script type="text/javascript">
 	$().ready(function(){
