@@ -130,6 +130,9 @@ qry(true);
 
 //查询方法
 		function qry(initPageFlag){
+
+	
+
             $.ajax({
                 url:'news/search',
                 data: {'pageNo':$('#pageNo').val(),'pageSize':$('#pageSize').val(),'key':$(".key-word").html()},
@@ -144,12 +147,15 @@ qry(true);
                     	$.each(data.list, function(i, item) {
 
                 		var $str = '<div class="result-warp">'+
-									'<div class="result-title"><strong><a href="index/news?id='+item.id+'">'+item.title+'</a></strong></div>'+
-									'<div class="result-content"><a href="index/news?id='+item.id+'">'+item.brief+'</a></div></div>'
+									'<div class="result-title"><strong><a href="index/news.jsp?id='+item.id+'">'+item.title+'</a></strong></div>'+
+									'<div class="result-content"><a href="index/news.jsp?id='+item.id+'">'+item.brief+'</a></div></div>'
 
 
                 		 $(".content-body").append($str);
-                		 $("#amount").val(data.amount);
+                		
+                  		});
+
+                  		 $("#amount").val(data.amount);
                 		 $(".result-count").html(data.resultcount);
 
 	                	if(initPageFlag){
@@ -162,17 +168,13 @@ qry(true);
 							  current_page: 0, 
 							  num_edge_entries: 2,
 							  link_to:"javascript:void(0);",
-							  callback:pageSelectCallback,
 							  callback:pageSelectCallback
 								
 							});
 	                	}
 
-                		
-                  		});
- 
 						$(".result-warp").textSearch($(".key-word").html());
-                    }
+                    }//end else
                 	
 
                 }

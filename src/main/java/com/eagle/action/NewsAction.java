@@ -30,12 +30,18 @@ public class NewsAction {
 	@ResponseBody
 	public Serializable add(HttpServletRequest request, News news) {
 		news.setTime(new Date());
+		if (news.getWeight()==null) {
+			news.setWeight(11);
+		}
 		return ns.add(news);
 	}
 
 	@RequestMapping("/update")
 	@ResponseBody
 	public boolean update(HttpServletRequest request, News news) {
+		if (news.getWeight()==null) {
+			news.setWeight(11);
+		}
 		return ns.update(news);
 	}
 

@@ -11,7 +11,15 @@
 	<base href="<%=basePath%>">
 	<title>Eagle</title>
 	<style type="text/css">
-
+span.fa.fa-thumb-tack {
+    transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    -moz-transform: rotate(30deg);
+    -webkit-transform: rotate(30deg);
+    -o-transform: rotate(30deg);
+    padding-right: 10px;
+    font-size: 16px;
+}
 
 
 </style>
@@ -134,11 +142,11 @@ function getUrlParam(name) {
 									'<div class="result-title"><a href="index/news.jsp?id='+item.id+'"></span><strong>';
 
 						if (item.weight==0) {
-							$str = $str +'<span class="top-flag">[顶] </span>'	+ item.id+' '+item.typeValue+' '+item.title+'</strong></a></div>'+
-									'<div class="result-content"><a href="index/news?id='+item.id+'">'+item.brief+'</a></div></div>';
+							$str = $str +'<span class="fa fa-thumb-tack"></span>'+item.typeValue+' '+item.title+'</strong></a></div>'+
+									'<div class="result-content"><a href="index/news.jsp?id='+item.id+'">'+item.brief+'</a></div></div>';
 						}else{
 							$str = $str	+ item.id+' '+item.typeValue+' ' + item.title+'</strong></a></div>'+
-									'<div class="result-content"><a href="index/news?id='+item.id+'">'+item.brief+'</a></div></div>';
+									'<div class="result-content"><a href="index/news.jsp?id='+item.id+'">'+item.brief+'</a></div></div>';
 						}
 
 

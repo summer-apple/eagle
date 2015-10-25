@@ -243,7 +243,7 @@ footer{
 }
 .menu-label{
     width: 210px;
-    height: 45px;
+    height: 50px;
     background-color: #09C;
     padding-right: 15px;
     text-align: right;
@@ -314,7 +314,7 @@ footer{
     height: auto;
 }
 .result-warp{
-    height: 100px;
+    height: 120px;
     width: 97%;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -322,8 +322,8 @@ footer{
     clear: both;
 }
 .result-headimg{
-    height: 100px;
-    min-width: 120px;
+    height: 120px;
+    max-width: 150px;
     float: left;
 }
 .result-headimg img{

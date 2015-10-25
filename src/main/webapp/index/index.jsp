@@ -50,7 +50,7 @@ section{
     text-align: right;
     font-size: 13px;
     height: 20px;
-    line-height: 20px;
+    line-height: 10px;
     display: block;
 }
 #s1{	
@@ -165,10 +165,11 @@ section{
     width: 100%;
     height: 30px;
     margin-bottom: 5px;
-    font-size: 14px;
+    font-size: 15px;
     line-height: 30px;
     color: #666;
     text-indent: 20px;
+    font-weight: bold;
 }
 .news-block a:hover {
 	color: #09C !important;
@@ -454,12 +455,12 @@ section{
 				        play: {
 				          active: true,
 				          auto: true,
-				          interval: 2000,
+				          interval: 4000,
 				          swap: false
 				        },
 				        effect:{
 				        	slide:{
-				        		speed:1000
+				        		speed:3000
 				        	}
 				        }
 				      });
@@ -544,7 +545,7 @@ section{
 						var t = Math.floor(i/5); 
 
 						$(".partner-1 .partner-line-"+t).prepend('<div class="coo-warp">'+
-																			'<a href="cooperation.jsp?id='+item.id+'">'+
+																			'<a href="index/cooperation.jsp?id='+item.id+'">'+
 																				'<div class="coo-name">'+item.name+'</div>'+
 																				'<div class="coo-position">'+item.position+'</div>'+
 																				'<div class="coo-headimg">'+
@@ -628,9 +629,8 @@ section{
 				        }
 				      });
 
-				
 
-//class="partner-1-label partner-label-selected"
+
 
 				$(".partner-1-label").click(function(){
 					$("#s3").show();
@@ -653,6 +653,9 @@ section{
 				$(document).on("click","#s1 .slidesjs-pagination-item,.slidesjs-pagination-item a",function(){
 					$("#s1 .slidesjs-play").click();
 				});
+
+
+
 
 
 //日期转换方法

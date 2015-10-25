@@ -68,7 +68,7 @@
 <div class="qry-from-warp">
 	<form id="qry-form">
 		<input id="pageNo" name="pageNo" type="hidden" value="0">
-		<input id="pageSize" name="pageSize" type="hidden" value="10">
+		<input id="pageSize" name="pageSize" type="hidden" value="20">
 	</form>
 </div>
 

@@ -108,6 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									
 									<div class="col-sm-10">
 										<input name="title" type="text" class="form-control" id="title" placeholder="标题,20字以内">
+										
 									</div>
 								</div>
 								
@@ -136,7 +137,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<label class="col-sm-2 control-label">权&nbsp;&nbsp;&nbsp;重</label>
 									
 									<div class="col-sm-10">
-										<input name="weight" type="number" min="0" max="10" class="form-control" id="weight" placeholder="0-10数字，0为置顶标志，越小越靠前，首页展示前五个">
+										<input name="weight" type="number" min="0" max="10" class="form-control" id="weight" placeholder="0-10数字，0为置顶标志，越小越靠前，首页展示前十个(非必填，默认值11，按时间倒序)">
 									</div>
 								</div>
 								
@@ -167,7 +168,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="form-group">
 									<label class="col-sm-2 control-label" for="content">概&nbsp;&nbsp;&nbsp;要</label>
 									<div class="col-sm-10">
-										<textarea name="brief" id="brief" class="form-control" placeholder="内容概要，150字以内"></textarea>
+										<textarea name="brief" id="brief" class="form-control" placeholder="内容概要，150字以内(非必填，默认截取详情前150字)"></textarea>
 									</div>
 									
 								</div>
@@ -326,6 +327,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<script type="text/javascript">
 	$().ready(function(){
+//字符计数器
+
+function textCount(input,max){
+	input.after('<div class="text-count">0/'+max+'</div>');
+
+	input.keyup(function(){
+		if (input.val().length==max || input.val().length>max) {
+			input.val(input.val().substring(0,max));
+		}
+		input.next(".text-count").html(input.val().length+'/'+max);
+	});
+}
+
+textCount($("#title"),20);
+textCount($("#brief"),150);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 var um = UM.getEditor('editor');
 
@@ -515,14 +544,14 @@ $("#qry-type").change(function(){
 								},
 								
 								weight: {
-									required: true,
+									//required: true,
 									number:true,
-									max:10,
+									max:11,
 									min:0
 								},
 								
 								brief: {
-									required: true,
+									//required: true,
 									maxlength:150
 								},
 								
@@ -538,14 +567,14 @@ $("#qry-type").change(function(){
 								},
 								
 								weight: {
-									required: '必填项目',
+									//required: '必填项目',
 									number:'必须为非负整数',
-									max:'最大值为10',
+									max:'最大值为11',
 									min:'最小值为0'
 								},
 
 								brief: {
-									required: '必填项目',
+									//required: '必填项目',
 									maxlength:'最多150个汉字'
 								},
 								
@@ -558,6 +587,16 @@ $("#qry-type").change(function(){
 							submitHandler: function(form)
 							{
 								$("#content").val($("#editor").html());
+
+
+								if ($("#brief").val()=="") {
+									var $brief = $("#content").val().replace(/(\n)/g, "").replace(/(\t)/g, "").replace(/(\r)/g, "").replace(/<\/?[^>]*>/g, "").replace(/\s*/g, "").substring(0,149);
+									$("#brief").val($brief);
+								}
+
+
+
+
 								var $url ='';
 
 								if ($("#id").val()==0) {
@@ -584,6 +623,10 @@ $("#qry-type").change(function(){
 					            });
 							}
 						});
+
+
+
+
 //删除
 
 	window.del = function(id){
@@ -613,6 +656,7 @@ $("#qry-type").change(function(){
 		$("#add-form")[0].reset();
 		$(".img-show").html("	");
 		$(".add-panel .panel-title").html("新增新闻");
+		$("#editor").html("");
 		$("#add-btn").show();
 		$("#update-btn").hide();
 		$(".add-panel").show();
@@ -696,7 +740,7 @@ $("#qry-type").change(function(){
 	        'onUploadComplete' : function(file, data) { //文件上传成功后执行 
 	        			var basePath = "<%=basePath%>";
 						var url = basePath + $.parseJSON(data);
-						$("#editor").append('<img alt="" data-cke-saved-src="'+url+'" src="'+url+'">');
+						$("#editor").append('<p><br><img alt="" data-cke-saved-src="'+url+'" src="'+url+'"></p>');
 						$(".content-line #real-input:first").remove();
 	        	}
 	        	

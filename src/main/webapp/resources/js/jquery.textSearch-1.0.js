@@ -58,7 +58,7 @@
 			var t = $(this);
 			str = $.trim(str);
 			if(str === ""){
-				alert("关键字为空");	
+				//alert("关键字为空");	
 				return false;
 			}else{
 				//将关键字push到数组之中
@@ -98,7 +98,7 @@
 			$(this).html(new_html);
 			
 			if(test === 0 && sets.nullReport){
-				alert("没有搜索结果");	
+				//alert("没有搜索结果");	
 				return false;
 			}
 			

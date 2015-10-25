@@ -19,3 +19,6 @@ src: url('fonts/msyh/msyh.ttf'),
 *:not(.fa,i){
 font-family:myFirstFont !important;
 }
+.error {
+    color: #F00 !important;
+}
