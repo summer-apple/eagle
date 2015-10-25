@@ -240,6 +240,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="resources/js/jquery.uploadifive.js"></script>
 	<script type="text/javascript">
 	$().ready(function(){
+//字符计数器
+
+function textCount(input,max){
+	input.after('<div class="text-count">0/'+max+'</div>');
+
+	input.keyup(function(){
+		if (input.val().length==max || input.val().length>max) {
+			input.val(input.val().substring(0,max));
+		}
+		input.next(".text-count").html(input.val().length+'/'+max);
+	});
+}
+
+textCount($("#title"),20);
+
 //首次进入时刷新
 		qry(true);
 

@@ -300,6 +300,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<script type="text/javascript">
 	$().ready(function(){
+//字符计数器
+
+function textCount(input,max){
+	input.after('<div class="text-count">0/'+max+'</div>');
+
+	input.keyup(function(){
+		if (input.val().length==max || input.val().length>max) {
+			input.val(input.val().substring(0,max));
+		}
+		input.next(".text-count").html(input.val().length+'/'+max);
+	});
+}
+
+textCount($("#title"),20);
+textCount($("#brief"),150);
 
 		var um = UM.getEditor('editor');
 
@@ -426,7 +441,7 @@ $("#qry-type").change(function(){
 								},
 								
 								brief: {
-									required: true,
+									//required: true,
 									maxlength:150
 								}
 							},
@@ -439,7 +454,7 @@ $("#qry-type").change(function(){
 								
 
 								brief: {
-									required: '必填项目',
+									//required: '必填项目',
 									maxlength:'最多150个汉字'
 								}
 							},
@@ -448,6 +463,14 @@ $("#qry-type").change(function(){
 							submitHandler: function(form)
 							{
 								$("#content").val($("#editor").html());
+
+
+								if ($("#brief").val()=="") {
+									var $brief = $("#content").val().replace(/(\n)/g, "").replace(/(\t)/g, "").replace(/(\r)/g, "").replace(/<\/?[^>]*>/g, "").replace(/\s*/g, "").substring(0,149);
+									$("#brief").val($brief);
+								}
+
+
 								var $url ='';
 
 								if ($("#id").val()==0) {
@@ -504,6 +527,7 @@ $("#qry-type").change(function(){
 		$(".add-panel .panel-title").html("新增招聘");
 		$("#add-btn").show();
 		$("#update-btn").hide();
+		$("#type").val($("#qry-type").val());
 		$(".add-panel").show();
 	});
 

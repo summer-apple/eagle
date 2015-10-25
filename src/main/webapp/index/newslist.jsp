@@ -145,7 +145,7 @@ function getUrlParam(name) {
 							$str = $str +'<span class="fa fa-thumb-tack"></span>'+item.typeValue+' '+item.title+'</strong></a></div>'+
 									'<div class="result-content"><a href="index/news.jsp?id='+item.id+'">'+item.brief+'</a></div></div>';
 						}else{
-							$str = $str	+ item.id+' '+item.typeValue+' ' + item.title+'</strong></a></div>'+
+							$str = $str	+ item.typeValue+' ' + item.title+'</strong></a></div>'+
 									'<div class="result-content"><a href="index/news.jsp?id='+item.id+'">'+item.brief+'</a></div></div>';
 						}
 

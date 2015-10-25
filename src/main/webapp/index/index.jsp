@@ -171,7 +171,7 @@ section{
     text-indent: 20px;
     font-weight: bold;
 }
-.news-block a:hover {
+.news-block a:not(.more):hover {
 	color: #09C !important;
 }
 .news-block-selected{
