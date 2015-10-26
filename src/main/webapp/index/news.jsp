@@ -175,7 +175,7 @@ $.ajax({
             		$(".menu-item a[title="+data.type+"]").parent().addClass("menu-item-selected");
 
 
-                	$(".content-title").html("<span class='content-title-line'></span>"+data.id+data.title);
+                	$(".content-title").html("<span class='content-title-line'></span>"+data.title);
                 	$(".news-time").html(transTime(data.time,false));
                     $(".content-body-inner").html(data.content);
 

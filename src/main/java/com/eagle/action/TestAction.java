@@ -105,4 +105,10 @@ public class TestAction {
 		return newslist;
 	}
 	
+	@RequestMapping("/translate")
+	@ResponseBody
+	public void translate(HttpServletRequest request){	
+		ts.translate();
+	}
+	
 }

@@ -116,7 +116,7 @@ section{
 	background-color: #F2F2F2;
 }
 
-#s2>div {
+#s2>div:not(.bottom-border-warp) {
 	height: 100%;
 	float: left;
 	background-color: #FFF;
@@ -231,7 +231,6 @@ section{
     width: 1000px; 
     float: left;
     height: 300px;
-    margin-top: 10px;
     position: relative;
 }
 .partner-warp .slidesjs-navigation{
@@ -267,7 +266,7 @@ section{
     float: left;
     margin-left: 27px;
     margin-bottom: 10px;
-    margin-top: 10px;
+    margin-top: 20px;
     border: 1px solid #DDD;
 }
 .coo-warp>a{
@@ -321,6 +320,35 @@ section{
 .slidesjs-play,.slidesjs-stop{
 	display: none !important;
 }
+
+
+
+.bottom-border-warp{
+	height: 3px;
+	width: 100%;
+}
+.bottom-border{
+	height: 3px;
+	background-color: #AFAFAF;
+	float: left;
+}
+.label-bottom-border{
+	width: 180px;
+}
+#s1 .content-bottom-border,#s3 .content-bottom-border{
+	width: 1000px;
+    margin-left: 20px;
+}
+#s2 .content-bottom-border{
+	width: 640px;
+	margin-left: 20px;
+}
+#s2 .about-bottom-border{
+	width: 340px;
+	margin-left: 20px;
+}
+
+
 </style>
 <script src="resources/js/jquery-1.11.1.min.js"></script>
 
@@ -338,6 +366,10 @@ section{
 
 		</div>
 		<div class="slide-warp"></div>
+		<div class="bottom-border-warp">
+			<div class="bottom-border label-bottom-border"></div>
+			<div class="bottom-border content-bottom-border"></div>
+		</div>
 	</section>
 	<div style="line-height:0; margin:0; padding:0; height:0; font-size:0; clear:both;"></div>
 	<section id="s2">
@@ -377,6 +409,12 @@ section{
 			</div>
 			<a class="more" style="width:140px;position: absolute; bottom: 18px;" href="index/about.jsp?id=1">>>more</a>
 		</div>
+		<div class="bottom-border-warp">
+			<div class="bottom-border label-bottom-border"></div>
+			<div class="bottom-border content-bottom-border"></div>
+			<div class="bottom-border about-bottom-border"></div>
+			
+		</div>
 	</section>
 	<div style="line-height:0; margin:0; padding:0; height:0; font-size:0; clear:both;"></div>
 	<section id="s3">
@@ -403,6 +441,10 @@ section{
 			</div>
 			<div class="more"><a href="index/coolist.jsp?type=1"> >>more </a></div>
 		</div>
+		<div class="bottom-border-warp">
+			<div class="bottom-border label-bottom-border"></div>
+			<div class="bottom-border content-bottom-border"></div>
+		</div>
 	</section>
 
 	<section id="s4">
@@ -428,6 +470,10 @@ section{
               	<a href="#" class="slidesjs-next slidesjs-navigation"><i class="fa fa-chevron-right"></i></a>
 			</div>
 			<div class="more"><a href="index/coolist.jsp?type=2"> >>more </a></div>
+		</div>
+		<div class="bottom-border-warp">
+			<div class="bottom-border label-bottom-border"></div>
+			<div class="bottom-border content-bottom-border"></div>
 		</div>
 	</section>
 	<div style="line-height:0; margin:0; padding:0; height:0; font-size:0; clear:both;"></div>
