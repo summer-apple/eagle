@@ -425,12 +425,12 @@ section{
 				<div class="lb-en">Partners</div>
 			</div>
 			<div class="partner-label">
-				<a class="partner-1-label partner-label-selected" href="javascript:void(0);">会 员</a>
-				<a class="partner-2-label" href="javascript:void(0);">名誉学员</a>
+				<a id="partner-1-label" class="partner-1-label partner-label-selected" href="javascript:void(0);">会 员</a>
+				<a id="partner-2-label" class="partner-2-label" href="javascript:void(0);">名誉学员</a>
 			</div>
 		</div>
 		<div class="partner-warp">
-			<div class="partner partner-1">
+			<div class="partner">
 				<div class="partner-line partner-line-0"></div>
 				<div class="partner-line partner-line-1"></div>
 				<div class="partner-line partner-line-2"></div>
@@ -447,35 +447,6 @@ section{
 		</div>
 	</section>
 
-	<section id="s4">
-		<div class="label-warp">
-			<div class="menu-label">
-				<div class="lb-zh">合作伙伴</div>
-				<div class="lb-en">Partners</div>
-			</div>
-			<div class="partner-label">
-				<a class="partner-1-label" href="javascript:void(0);">会 员</a>
-				<a class="partner-2-label partner-label-selected" href="javascript:void(0);">名誉学员</a>
-			</div>
-		</div>
-		<div class="partner-warp">
-			
-			<div class="partner partner-2">
-				<div class="partner-line partner-line-0"></div>
-				<div class="partner-line partner-line-1"></div>
-				<div class="partner-line partner-line-2"></div>
-				<div class="partner-line partner-line-3"></div>
-
-				<a href="#" class="slidesjs-previous slidesjs-navigation"><i class="fa fa-chevron-left"></i></a>
-              	<a href="#" class="slidesjs-next slidesjs-navigation"><i class="fa fa-chevron-right"></i></a>
-			</div>
-			<div class="more"><a href="index/coolist.jsp?type=2"> >>more </a></div>
-		</div>
-		<div class="bottom-border-warp">
-			<div class="bottom-border label-bottom-border"></div>
-			<div class="bottom-border content-bottom-border"></div>
-		</div>
-	</section>
 	<div style="line-height:0; margin:0; padding:0; height:0; font-size:0; clear:both;"></div>
 </div>
 <%@include file="foot.jsp"%>
@@ -578,123 +549,86 @@ section{
 
 //合作伙伴
 
+				getCooperation("会员");
 
+				$("#partner-1-label").click(function(){
 
-
-			$.ajax({
-				url:"cooperation/get-top?type=会员",
-				type:"post",
-				dataType:"json",
-				success:function(data){
-
-					$.each(data,function(i,item){
-						var t = Math.floor(i/5); 
-
-						$(".partner-1 .partner-line-"+t).prepend('<div class="coo-warp">'+
-																			'<a href="index/cooperation.jsp?id='+item.id+'">'+
-																				'<div class="coo-name">'+item.name+'</div>'+
-																				'<div class="coo-position">'+item.position+'</div>'+
-																				'<div class="coo-headimg">'+
-																					'<img src="'+item.headimg+'">'+
-																				'</div>'+
-																			'</a>'+
-																		'</div>');
-
-
-					});
-
-				}
-			});
-
-
-			$('.partner-1').slidesjs({
-				        width: 1000,
-				        height: 250,
-				       	navigation: false,
-				       	pagination:false,
-				        play: {
-				          active: true,
-				          auto: true,
-				          interval: 4000,
-				          swap: false,
-				          pauseOnHover: false
-				        },
-				        effect:{
-				        	slide:{
-				        		speed:3000
-				        	}
-				        }
-				      });
-
-
-
-
-			$.ajax({
-				url:"cooperation/get-top?type=名誉学员",
-				type:"post",
-				dataType:"json",
-				success:function(data){
-
-					$.each(data,function(i,item){
-						var t = Math.floor(i/5); 
-
-						$(".partner-2 .partner-line-"+t).prepend('<div class="coo-warp">'+
-																			'<a href="cooperation.jsp?id='+item.id+'">'+
-																				'<div class="coo-name">'+item.name+'</div>'+
-																				'<div class="coo-position">'+item.position+'</div>'+
-																				'<div class="coo-headimg">'+
-																					'<img src="'+item.headimg+'">'+
-																				'</div>'+
-																			'</a>'+
-																		'</div>');
-
-
-					});
-
-				}
-			});
-
-
-
-
-				$('.partner-2').slidesjs({
-				        width: 1000,
-				        height: 250,
-				       	navigation: false,
-				       	pagination:false,
-				        play: {
-				          active: true,
-				          auto: true,
-				          interval: 4000,
-				          swap: false
-				        },
-				        effect:{
-				        	slide:{
-				        		speed:3000
-				        	}
-				        }
-				      });
-
-
-
-
-				$(".partner-1-label").click(function(){
-					$("#s3").show();
-					$("#s4").hide();
-					$("#s3 .slidesjs-play").click();
+					getCooperation("会员");
+					$(this).addClass("partner-label-selected");
+					$("#partner-2-label").removeClass("partner-label-selected");
+					$("#s3 .more a").attr("href","index/coolist.jsp?type=1");
 				});
 
-				$(".partner-2-label").click(function(){
-					$("#s4").show();
-					$("#s3").hide();
-					$("#s4 .slidesjs-play").click();
+				$("#partner-2-label").click(function(){
+					getCooperation("名誉学员");
+					$(this).addClass("partner-label-selected");
+					$("#partner-1-label").removeClass("partner-label-selected");
+					$("#s3 .more a").attr("href","index/coolist.jsp?type=2");
 				});
+				
+
+
+
+
+			function getCooperation(type){
+					$.ajax({
+					url:"cooperation/get-top?type="+type,
+					type:"post",
+					dataType:"json",
+					success:function(data){
+
+						$.each(data,function(i,item){
+							var t = Math.floor(i/5); 
+
+							$(".partner .partner-line-"+t).prepend('<div class="coo-warp">'+
+																				'<a href="index/cooperation.jsp?id='+item.id+'">'+
+																					'<div class="coo-name">'+item.name+'</div>'+
+																					'<div class="coo-position">'+item.position+'</div>'+
+																					'<div class="coo-headimg">'+
+																						'<img src="'+item.headimg+'">'+
+																					'</div>'+
+																				'</a>'+
+																			'</div>');
+
+
+						});
+
+
+						$('.partner').slidesjs({
+					        width: 1000,
+					        height: 250,
+					       	navigation: false,
+					       	pagination:false,
+					        play: {
+					          active: true,
+					          auto: true,
+					          interval: 4000,
+					          swap: false,
+					          pauseOnHover: false
+					        },
+					        effect:{
+					        	slide:{
+					        		speed:3000
+					        	}
+					        }
+					      });
+
+					}
+				});
+			}	
+
+			
+
+
+			
+
+
+
+
+
 
 				$(document).on("click","#s3 .slidesjs-navigation",function(){
 					$("#s3 .slidesjs-play").click();
-				});
-				$(document).on("click","#s4 .slidesjs-navigation",function(){
-					$("#s4 .slidesjs-play").click();
 				});
 				$(document).on("click","#s1 .slidesjs-pagination-item,.slidesjs-pagination-item a",function(){
 					$("#s1 .slidesjs-play").click();
