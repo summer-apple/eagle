@@ -45,22 +45,6 @@ span.fa.fa-thumb-tack {
 		</div>
 		<div class="content-body">
 			<!-- ajax 添加-->
-
-			<div class="result-warp">
-				<div class="result-headimg">
-					<img src="#">
-				</div>
-				<div class="result-title">
-					<a href="index/news.jsp?id=10">
-						<span class="fa fa-caret-right"></span>
-						<strong>习近平访英部分食谱曝光  不吃参鲍鱼翅</strong>
-					</a>
-				</div>
-				<div class="result-content">
-					<a href="index/news?id=10">习近平访英部分食谱曝光  不吃参鲍鱼翅,babab鲍鱼翅,babab鲍鱼翅,babab鲍鱼翅,babab鲍鱼翅,b鲍鱼翅,babab鲍鱼翅,babababab鲍鱼翅,bababbab</a>
-				</div>
-			</div>
-
 		</div>
 	</div>
 
@@ -142,10 +126,10 @@ function getUrlParam(name) {
 									'<div class="result-title"><a href="index/news.jsp?id='+item.id+'"></span><strong>';
 
 						if (item.weight==0) {
-							$str = $str +'<span class="fa fa-thumb-tack"></span>'+item.typeValue+' '+item.title+'</strong></a></div>'+
+							$str = $str +'<span class="fa fa-thumb-tack"></span>'+' '+item.title+'</strong></a></div>'+
 									'<div class="result-content"><a href="index/news.jsp?id='+item.id+'">'+item.brief+'</a></div></div>';
 						}else{
-							$str = $str	+ item.typeValue+' ' + item.title+'</strong></a></div>'+
+							$str = $str +' ' + item.title+'</strong></a></div>'+
 									'<div class="result-content"><a href="index/news.jsp?id='+item.id+'">'+item.brief+'</a></div></div>';
 						}
 

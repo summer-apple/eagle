@@ -130,21 +130,21 @@ section{
 .news-label {
     display: block;
     width: 180px;
-    height: 40px;
+    height: 45px;
     color: #666;
     text-align: center;
-    line-height: 40px;
+    line-height: 45px;
     margin-bottom: 10px;
-    background-color: #DDD;
+    background-color: #E4E4E4;
     font-size: 14px;
 }
-.new-label-selected{
+.news-label-selected{
 	color: #FFF !important;
-	background-color: #CCC !important;	
+	background-color: #A1A1A1 !important;	
 }
 .news-label:hover{
 	color: #FFF !important;
-    background-color: #CCC !important;
+    background-color: #A1A1A1 !important;
 }
 .news-warp {
     width: 640px;
@@ -215,17 +215,17 @@ section{
 .partner-label a{
 	display: block;
 	width: 180px;
-	height: 40px;
+	height: 45px;
 	color: #666;
 	text-align: center;
-	line-height: 40px;
+	line-height: 45px;
 	margin-bottom: 10px;
-	background-color: #DDD;
+	background-color: #E4E4E4;
 	font-size: 14px;
 }
 .partner-label a:hover,.partner-label-selected{
 	color: #FFF !important;
-	background-color: #CCC !important;
+	background-color: #A1A1A1 !important;
 }
 .partner-warp {
     width: 1000px; 
@@ -381,19 +381,11 @@ section{
 				</div>
 
 				<div class="news-label-warp">
-					<a class="news-label news-label-0 partner-label-selected" href="javascript:void(0);"></a>
-					<a class="news-label news-label-1" href="javascript:void(0);"></a>
-					<a class="news-label news-label-2" href="javascript:void(0);"></a>
-					<a class="news-label news-label-3" href="javascript:void(0);"></a>
-					<a class="news-label news-label-4" href="javascript:void(0);"></a>
+					<!--ajax-->
 				</div>
 			</div>
 			<div class="news-warp">
-				<div class="news-block news-block-0 news-block-selected"></div>
-				<div class="news-block news-block-1"></div>
-				<div class="news-block news-block-2"></div>
-				<div class="news-block news-block-3"></div>
-				<div class="news-block news-block-4"></div>
+				<!--ajax-->
 			</div>
 
 
@@ -491,7 +483,6 @@ section{
 
 
 
-
 //news
 	
 		$.ajax({
@@ -502,7 +493,16 @@ section{
 
 					$.each(data,function(i,item){
 						//label
-						$(".news-label-"+i).html(item.name);
+						$(".news-label-warp").append('<a class="news-label news-label-'+i+'" href="javascript:void(0);">'+item.name+'</a>');
+				
+						//news-block
+						$(".news-warp").append('<div class="news-block news-block-'+i+'"></div>');
+
+						//add selected class
+						if (i==0) {
+							$(".news-label-0").addClass("news-label-selected");
+							$(".news-block-0").addClass("news-block-selected");
+						}
 
 						//news
 						$.each(item.newslist,function(j,jtem){
@@ -516,8 +516,8 @@ section{
 
 						$(".news-label-"+i).click(function(){
 
-							$(".news-label").removeClass("new-label-selected");
-							$(".news-label-"+i).addClass("new-label-selected");
+							$(".news-label").removeClass("news-label-selected");
+							$(".news-label-"+i).addClass("news-label-selected");
 
 							$(".news-block").removeClass("news-block-selected");
 							$(".news-block-"+i).addClass("news-block-selected");
@@ -526,7 +526,6 @@ section{
 					});	
 				}
 			});
-
 
 
 
