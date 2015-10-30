@@ -31,12 +31,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 .content-line #uploadifive-file_upload,.content-line #uploadifive-content_upload {
 	display: none !important;
 }
-.edui-btn-image{
-	display: none !important;
-}
-#editor,.edui-container{
-	width: 100% !important;
-}
 </style>
 
 
@@ -148,7 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div class="col-sm-2">
 										<input id="file_upload" type="file" name="upload" style="display:none;" />
 										<div id="tip-queue" style="display:none;"></div>
-										<div>建议120*100像素</div>
+										<div>建议150*100像素</div>
 									</div>
 									<div class="col-sm-4 img-show">
 										
@@ -180,10 +174,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div class="col-sm-10 content-line">
 										<input id="content_upload" type="file" name="upload" style="display:none;" />
 										<div id="tip-queue-2" style="display:none;"></div>
-										<textarea name="content" id="content" style="display:none;"></textarea>
-										<div style="width: 100% !important:;">
-											<script type="text/plain" id="editor"></script>
+										<div id="uploadContainer">
+										    <input type="button" value="选择文件" id="btnBrowse"/>
 										</div>
+
+										<textarea name="content" id="content" style='height:500px;'></textarea>
 									</div>
 									
 								</div>
@@ -319,14 +314,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="resources/js/multiselect/js/jquery.multi-select.js"></script>
 
 
-	<link type="text/css"
-		href="resources/js/umeditor/themes/default/css/umeditor.min.css"
-		rel="stylesheet" />
-	<script type="text/javascript" src="resources/js/umeditor/umeditor.config.js"></script>
-	<script type="text/javascript" src="resources/js/umeditor/umeditor.min.js"></script>
+	<link rel="stylesheet" href="resources/js/wangEditor/css/wangEditor-1.3.12.css">
+	<script src="resources/js/wangEditor/js/wangEditor-1.3.12.min.js"></script>
 
 	<script type="text/javascript">
 	$().ready(function(){
+//获取新闻类型
+ 		$.ajax({
+                url:'newstype/qry',
+                type:'post',
+                dataType:'json',
+                success:function(data){
+                	$.each(data, function(i, item) {
+                		 $("#type,#qry-type").append(
+                			'<option value="'+item.id+'">'+item.name+'</option>'
+                		 );
+                  	});
+
+                  	$("#qry-type").selectBoxIt().on('open', function(){
+						$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+					});
+
+					$("#type").selectBoxIt().on('open', function(){
+						$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+					});
+
+
+					//首次进入时刷新
+					qry(true);
+
+                }
+            });
+
+
+
+
+
 //字符计数器
 
 function textCount(input,max){
@@ -346,17 +369,51 @@ textCount($("#brief"),150);
 
 
 
+//获取dom节点
+    var $uploadContainer = $('#uploadContainer');
 
+    var editor = $('#content').wangEditor({
+        //重要：传入 uploadImgComponent 参数，值为 $uploadContainer
+        'uploadImgComponent': $uploadContainer,
+        'menuConfig': [
+						    ['viewSourceCode'],
+						    ['bold', 'underline', 'italic', 'foreColor', 'backgroundColor', 'strikethrough'],
+						    ['blockquote', 'fontFamily', 'fontSize', 'setHead', 'list', 'justify'],
+						    ['createLink', 'unLink', 'insertTable'],
+						    ['insertImage', 'insertVideo', 'insertLocation','insertCode'],
+						    ['undo', 'redo', 'fullScreen']
+						]
+    });
 
+  	 //添加内容图片
 
+ 	  
+  	  $('#content_upload').uploadifive({
+  			'width'           : 75,                 // The width of the button
+  			'height'          : 30,                 // The height of the button
+  	        'auto' : true,   //取消自动上传 
+  	        'uploadScript' : 'util/upload-image', //处理上传文件Action路径 
+  	        'fileObjName'  : 'file',        //文件对象
+	        'buttonText'   : ' 上传详情图片 ',   //按钮显示文字 
+	        'queueID'      : 'tip-queue-2', //drug and drop box's ID 
+	        'fileType'     : 'image/jpg,image/jpeg,image/png',   //允许上传文件类型 
+	        'fileSizeLimit'   : '20MB',                  // Maximum allowed size of files to upload
+	        'formData'     : {"folder":"news"},//The other data want to send
+	        'queueSizeLimit'  : 100,                  //The maximum number of files in drup and drop box 
+            'simUploadLimit'  : 100,                  // The maximum number of files to upload at once
+            'uploadLimit'     : 100,                  // The maximum number of files you can upload
+	        'onUploadComplete' : function(file, data) { //文件上传成功后执行 
+	        			var basePath = "<%=basePath%>";
+						var url = basePath + $.parseJSON(data);
+						editor.command(event, 'insertHTML', '<img src="' + url + '"/>');
+						$(".content-line #real-input:first").remove();
+	        	}
+		});
 
+	  	$(document).on("click","#btnBrowse",function(){
+						$(".content-line #real-input:last").click();
+					});
 
-
-
-
-
-
-var um = UM.getEditor('editor');
 
 
 //日期转换方法
@@ -429,32 +486,7 @@ var um = UM.getEditor('editor');
 	}
 
 
-//获取新闻类型
- 		$.ajax({
-                url:'newstype/qry',
-                type:'post',
-                dataType:'json',
-                success:function(data){
-                	$.each(data, function(i, item) {
-                		 $("#type,#qry-type").append(
-                			'<option value="'+item.id+'">'+item.name+'</option>'
-                		 );
-                  	});
 
-                  	$("#qry-type").selectBoxIt().on('open', function(){
-						$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
-					});
-
-					$("#type").selectBoxIt().on('open', function(){
-						$(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
-					});
-
-
-					//首次进入时刷新
-					qry(true);
-
-                }
-            });
 
 
 
@@ -525,16 +557,7 @@ $("#qry-type").change(function(){
 			 qry(false);
 		}
 
-//上传图片图标		
-		setTimeout(function(){
-						var $s = '<div class="edui-btn" unselectable="on" onmousedown="return false" data-original-title="图片"> <div unselectable="on" class="edui-icon-image edui-icon"></div><div class="edui-tooltip" unselectable="on" onmousedown="return false"><div class="edui-tooltip-arrow" unselectable="on" onmousedown="return false"></div><div class="edui-tooltip-inner" unselectable="on" onmousedown="return false"></div></div><div class="edui-tooltip" unselectable="on" onmousedown="return false" style="z-index: 1000; display: none; top: 22px; left: -7px;"><div class="edui-tooltip-arrow" unselectable="on" onmousedown="return false"></div><div class="edui-tooltip-inner" unselectable="on" onmousedown="return false">图片</div></div></div>';
 
-						$(".edui-btn-toolbar").append($s);
-					},3000);
-
-					$(document).on("click",".edui-icon-image",function(){
-						$(".content-line #real-input:last").click();
-					});
 //添加
 	$("#add-form").validate({
 							rules: {
@@ -586,8 +609,7 @@ $("#qry-type").change(function(){
 							// Form Processing via AJAX
 							submitHandler: function(form)
 							{
-								$("#content").val($("#editor").html());
-
+								
 
 								if ($("#brief").val()=="") {
 									var $brief = $("#content").val().replace(/(\n)/g, "").replace(/(\t)/g, "").replace(/(\r)/g, "").replace(/<\/?[^>]*>/g, "").replace(/\s*/g, "").substring(0,149);
@@ -656,7 +678,8 @@ $("#qry-type").change(function(){
 		$("#add-form")[0].reset();
 		$(".img-show").html("	");
 		$(".add-panel .panel-title").html("新增新闻");
-		$("#editor").html("");
+		$("#content").val("");
+		$(".wangEditor-textarea").html("");
 		$("#add-btn").show();
 		$("#update-btn").hide();
 		$(".add-panel").show();
@@ -680,7 +703,7 @@ $("#qry-type").change(function(){
                 	$("#brief").val(data.brief);
                 	$("#weight").val(data.weight);
                 	$("#content").val(data.content);
-                	$("#editor").html(data.content);
+                	$(".wangEditor-textarea").html(data.content);
                 	$("#headimg").val(data.headimg);
                 	$(".img-show").html('<img src="'+data.headimg+'" style="width:100%;">');
                 	$("#typeSelectBoxItText").attr("data-val",data.type).html(data.typeValue);
@@ -720,32 +743,6 @@ $("#qry-type").change(function(){
 
 				});
 
-//添加内容图片
-
- 	  
-  	  $('#content_upload').uploadifive({
-  			'width'           : 75,                 // The width of the button
-  			'height'          : 30,                 // The height of the button
-  	        'auto' : true,   //取消自动上传 
-  	        'uploadScript' : 'util/upload-image', //处理上传文件Action路径 
-  	        'fileObjName'  : 'file',        //文件对象
-	        'buttonText'   : '上传详情图片',   //按钮显示文字 
-	        'queueID'      : 'tip-queue-2', //drug and drop box's ID 
-	        'fileType'     : 'image/jpg,image/jpeg,image/png',   //允许上传文件类型 
-	        'fileSizeLimit'   : '20MB',                  // Maximum allowed size of files to upload
-	        'formData'     : {"folder":"news"},//The other data want to send
-	        'queueSizeLimit'  : 100,                  //The maximum number of files in drup and drop box 
-            'simUploadLimit'  : 100,                  // The maximum number of files to upload at once
-            'uploadLimit'     : 100,                  // The maximum number of files you can upload
-	        'onUploadComplete' : function(file, data) { //文件上传成功后执行 
-	        			var basePath = "<%=basePath%>";
-						var url = basePath + $.parseJSON(data);
-						$("#editor").append('<p><br><img alt="" data-cke-saved-src="'+url+'" src="'+url+'"></p>');
-						$(".content-line #real-input:first").remove();
-	        	}
-	        	
-
-		});
 
 });	
 

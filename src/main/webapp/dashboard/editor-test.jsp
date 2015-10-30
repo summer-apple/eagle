@@ -28,6 +28,9 @@
 #uploadifive-file_upload, #uploadifive-content_upload,.edui-btn-image {
 	display: none !important;
 }
+#editor,.edui-container{
+	width: 100% !important;
+}
 </style>
 
 
@@ -133,9 +136,11 @@
 
 								<div id="uploadContainer">
 								    <input type="button" value="选择文件" id="btnBrowse"/>
+								    <input type="button" value="上传文件" id="btnUpload">
+								    <ul id="fileList"></ul>
 								</div>
 
-								<textarea name="content" id="content" style='height:500px;'></textarea>
+								<textarea name="content" id="content" style='height:400px;'></textarea>
 									
 
 							</div>
@@ -201,7 +206,9 @@
 
 					
     //获取dom节点
-    var $uploadContainer = $('#uploadContainer');
+    var $uploadContainer = $('#uploadContainer'),
+            $fileList = $('#fileList'),
+          $btnUpload = $('#btnUpload');
 
     var editor = $('#content').wangEditor({
         //重要：传入 uploadImgComponent 参数，值为 $uploadContainer

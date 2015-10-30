@@ -130,7 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<input id="file_upload" type="file" name="upload" style="display:none;" />
 										<div id="tip-queue" style="display:none;"></div>
 										<input name="img" type="hidden" class="form-control" id="img">
-										<div>建议500*300像素</div>
+										<div>建议900*480像素</div>
 									</div>
 									<div class="col-sm-8 img-show">
 										

@@ -323,13 +323,14 @@ footer{
     clear: both;
 }
 .result-headimg{
-    height: 120px;
+    height: 100px;
     max-width: 150px;
     float: left;
 }
 .result-headimg img{
-    height: 80%;
-    padding-right: 10px;
+    height: 100%;
+    width: 100%;
+    padding-right: 15px;
 }
 .result-title{
     height: 35px;
