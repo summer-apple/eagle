@@ -408,6 +408,9 @@ footer{
     padding-left: 10px;
     padding-right: 50px;
 }
+.content-body-inner img{
+    max-width: 100%;
+}
 .attachment-link:hover{
     color:#666;
 }

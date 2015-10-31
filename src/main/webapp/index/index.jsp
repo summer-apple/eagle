@@ -195,12 +195,23 @@ section{
     text-align: left;
     line-height: 24px;
 }
-
+#cooblock{
+	position: relative;
+	width: 1200px;
+    height: 300px;
+}
 #s3,#s4{
 	height: 300px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+#s3{
+	z-index: 200;
 }
 #s4{
-	display: none;
+	z-index: 100;
+	/*display: none;*/
 }
 
 .label-warp {
@@ -233,7 +244,7 @@ section{
     height: 300px;
     position: relative;
 }
-.partner-warp .slidesjs-navigation{
+.partner-warp .unslider-arrow{
 	position: absolute;
     top: 30px;
     display: block;
@@ -246,10 +257,10 @@ section{
     color: #FFF;
     text-align: center;
 }
-.partner-warp .slidesjs-previous{
+.partner-warp .prev{
 	left: 12px;
 }
-.partner-warp .slidesjs-next{
+.partner-warp .next{
 	right: 40px;
 }
 
@@ -258,8 +269,12 @@ section{
 }
 .partner{
 	width: 1000px;
-	height: 250px;
+	height: 250px !important;
+	position: relative; 
+	overflow: auto;
 }
+.partner li { list-style: none; }
+.partner ul li { float: left; }
 .coo-warp {
     width: 160px;
     height: 220px;
@@ -335,7 +350,7 @@ section{
 .label-bottom-border{
 	width: 180px;
 }
-#s1 .content-bottom-border,#s3 .content-bottom-border{
+#s1 .content-bottom-border,#s3 .content-bottom-border,#s4 .content-bottom-border{
 	width: 1000px;
     margin-left: 20px;
 }
@@ -409,6 +424,7 @@ section{
 		</div>
 	</section>
 	<div style="line-height:0; margin:0; padding:0; height:0; font-size:0; clear:both;"></div>
+	<div  id="cooblock">
 	<section id="s3">
 
 		<div class="label-warp">
@@ -423,13 +439,10 @@ section{
 		</div>
 		<div class="partner-warp">
 			<div class="partner">
-				<div class="partner-line partner-line-0"></div>
-				<div class="partner-line partner-line-1"></div>
-				<div class="partner-line partner-line-2"></div>
-				<div class="partner-line partner-line-3"></div>
-
-				<a href="#" class="slidesjs-previous slidesjs-navigation"><i class="fa fa-chevron-left"></i></a>
-              	<a href="#" class="slidesjs-next slidesjs-navigation"><i class="fa fa-chevron-right"></i></a>
+				<ul>
+				</ul>
+              	<a href="javascript:void(0);" class="unslider-arrow prev"><i class="fa fa-chevron-left"></i></a>
+				<a href="javascript:void(0);" class="unslider-arrow next"><i class="fa fa-chevron-right"></i></a>
 			</div>
 			<div class="more"><a href="index/coolist.jsp?type=1"> >>more </a></div>
 		</div>
@@ -439,11 +452,46 @@ section{
 		</div>
 	</section>
 
+	<section id="s4">
+
+		<div class="label-warp">
+			<div class="menu-label">
+				<div class="lb-zh">合作伙伴</div>
+				<div class="lb-en">Partners</div>
+			</div>
+			<div class="partner-label">
+				<a id="partner-1-label" class="partner-1-label" href="javascript:void(0);">会 员</a>
+				<a id="partner-2-label" class="partner-2-label partner-label-selected" href="javascript:void(0);">名誉学员</a>
+			</div>
+		</div>
+		<div class="partner-warp">
+			<div class="partner">
+				<ul>
+				</ul>
+              	<a href="javascript:void(0);" class="unslider-arrow prev"><i class="fa fa-chevron-left"></i></a>
+				<a href="javascript:void(0);" class="unslider-arrow next"><i class="fa fa-chevron-right"></i></a>
+			</div>
+			<div class="more"><a href="index/coolist.jsp?type=2"> >>more </a></div>
+		</div>
+		<div class="bottom-border-warp">
+			<div class="bottom-border label-bottom-border"></div>
+			<div class="bottom-border content-bottom-border"></div>
+		</div>
+	</section> 
+	</div>
+
+
+
+
+
+
+
 	<div style="line-height:0; margin:0; padding:0; height:0; font-size:0; clear:both;"></div>
 </div>
 <%@include file="foot.jsp"%>
 <%@include file="script.jsp"%>
 <script type="text/javascript" src="resources/js/jquery.slides.min.js"></script>
+<script type="text/javascript" src="resources/js/unslider.min.js"></script>
 <script type="text/javascript">
 	$().ready(function(){
 //轮播图
@@ -549,20 +597,22 @@ section{
 //合作伙伴
 
 				getCooperation("会员");
+				getCooperation("名誉学员");
 
-				$("#partner-1-label").click(function(){
-
-					getCooperation("会员");
-					$(this).addClass("partner-label-selected");
-					$("#partner-2-label").removeClass("partner-label-selected");
-					$("#s3 .more a").attr("href","index/coolist.jsp?type=1");
+				$("#s4 #partner-1-label").click(function(){
+					$("#s4").css("z-index","100");
+					$("#s3").css("z-index","200");
+					
+					//$(".partner").css("height","250px !important");
+		
 				});
 
-				$("#partner-2-label").click(function(){
-					getCooperation("名誉学员");
-					$(this).addClass("partner-label-selected");
-					$("#partner-1-label").removeClass("partner-label-selected");
-					$("#s3 .more a").attr("href","index/coolist.jsp?type=2");
+				$("#s3 #partner-2-label").click(function(){
+					$("#s3").css("z-index","100");
+					$("#s4").css("z-index","200");
+					//$(".partner").css("height","250px !important");
+					
+					
 				});
 				
 
@@ -570,16 +620,30 @@ section{
 
 
 			function getCooperation(type){
+
+					var $partner;
+						if (type=="名誉学员") {
+							$partner = $("#s3 .partner");
+						}else{
+							$partner = $("#s4 .partner");
+						}
+
+
 					$.ajax({
 					url:"cooperation/get-top?type="+type,
 					type:"post",
 					dataType:"json",
 					success:function(data){
-
+						var a = 0;
 						$.each(data,function(i,item){
 							var t = Math.floor(i/5); 
 
-							$(".partner .partner-line-"+t).prepend('<div class="coo-warp">'+
+							if (t==a) {
+								$partner.find("ul").append('<li class="partner-line partner-line-'+t+'"></li>');
+								a++;
+							}
+
+							$partner.find(".partner-line-"+t).append('<div class="coo-warp">'+
 																				'<a href="index/cooperation.jsp?id='+item.id+'">'+
 																					'<div class="coo-name">'+item.name+'</div>'+
 																					'<div class="coo-position">'+item.position+'</div>'+
@@ -592,25 +656,24 @@ section{
 
 						});
 
+						var unslider = $partner.unslider({
+												speed: 1500,               //  The speed to animate each slide (in milliseconds)
+												delay: 3000,				//  The delay between slide animations (in milliseconds)
+												init: 0,             
+												complete: function() {},  //  A function that gets called after every slide animation
+												keys: true,               //  Enable keyboard (left, right) arrow shortcuts
+												dots: false,               //  Display dot navigation
+												fluid: false,              //  Support responsive design. May break non-responsive designs
 
-						$('.partner').slidesjs({
-					        width: 1000,
-					        height: 250,
-					       	navigation: false,
-					       	pagination:false,
-					        play: {
-					          active: true,
-					          auto: true,
-					          interval: 4000,
-					          swap: false,
-					          pauseOnHover: false
-					        },
-					        effect:{
-					        	slide:{
-					        		speed:3000
-					        	}
-					        }
-					      });
+											});
+
+
+					    $('.unslider-arrow').click(function() {
+					        var fn = this.className.split(' ')[1];
+
+					        //  Either do unslider.data('unslider').next() or .prev() depending on the className
+					        unslider.data('unslider')[fn]();
+					    });
 
 					}
 				});
@@ -626,9 +689,7 @@ section{
 
 
 
-				$(document).on("click","#s3 .slidesjs-navigation",function(){
-					$("#s3 .slidesjs-play").click();
-				});
+				
 				$(document).on("click","#s1 .slidesjs-pagination-item,.slidesjs-pagination-item a",function(){
 					$("#s1 .slidesjs-play").click();
 				});
