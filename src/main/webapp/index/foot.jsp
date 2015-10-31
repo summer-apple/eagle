@@ -22,10 +22,7 @@
 			<li class="foot-nav-item">
 				<div class="foot-nav-btn-group">
 					<a href="javascript:void(0);">强鹰动态</a>
-					<ul class="foot-dropdown">
-						<li><a href="#">强鹰新闻</a></li>
-						<li><a href="#">媒体报道</a></li>
-						<li><a href="#">会员新闻</a></li>
+					<ul class="foot-dropdown foot-news-warp">
 					</ul>
 				</div>
 			</li>

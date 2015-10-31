@@ -62,6 +62,10 @@
 		dataType:"json",
 		success:function(data){
 			$.each(data,function(i,item){
+				if (i<3) {
+					$(".foot-news-warp").append('<li><a href="index/newslist.jsp?type='+item.id+'">'+item.name+'</a></li>');
+				}
+
 				$("#news-type-group").append('<li><a href="index/newslist.jsp?type='+item.id+'">'+item.name+'</a></li>');
 			});
 		}
