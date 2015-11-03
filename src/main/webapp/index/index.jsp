@@ -9,7 +9,7 @@
 <html>
 <head>
 	<base href="<%=basePath%>">
-	<title>Eagle</title>
+<%@ include file="meta.jsp" %>
 	<link rel="stylesheet" type="text/css" href="resources/css/index-general.css">
 	<link rel="stylesheet" href="resources/css/fonts/fontawesome/css/font-awesome.min.css">
 	<style type="text/css">
@@ -169,10 +169,11 @@ section{
     line-height: 30px;
     color: #666;
     text-indent: 20px;
-    font-weight: bold;
+    
 }
 .news-block a:not(.more):hover {
 	color: #09C !important;
+	font-weight: bold;
 }
 .news-block-selected{
 	display: block !important;
@@ -623,9 +624,9 @@ section{
 
 					var $partner;
 						if (type=="名誉学员") {
-							$partner = $("#s3 .partner");
-						}else{
 							$partner = $("#s4 .partner");
+						}else{
+							$partner = $("#s3 .partner");
 						}
 
 

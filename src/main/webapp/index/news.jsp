@@ -9,7 +9,8 @@
 <html>
 <head>
 	<base href="<%=basePath%>">
-	<title>Eagle</title>
+<%@ include file="meta.jsp" %>
+
 	<style type="text/css">
 
 

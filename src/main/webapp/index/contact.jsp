@@ -9,7 +9,7 @@
 <html>
 <head>
 	<base href="<%=basePath%>">
-	<title>Eagle</title>
+<%@ include file="meta.jsp" %>
 	<style type="text/css">
 .contact-logo {
     text-align: center;
@@ -40,20 +40,20 @@
 	margin-bottom: 40px;
 }
 .qrcode-warp {
-    width: 150px;
-    margin-right: 100px;
-    margin-left: 160px;
+    width: 100%;
     margin-top: 50px;
     float: left;
+    text-align: center;
+    padding-right: 250px;
 }
 .qrcode-warp img {
 	width: 150px;
 }
-.qrcode-label{
-	width: 150px;
-	height: 25px;
-	line-height: 25px;
-	text-align: center;
+.qrcode-label {
+    width: 100%;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
 }
 </style>
 <%@include file="css.jsp"%>
@@ -88,12 +88,8 @@
 				<div class="fallow-title"><span class="fa fa-caret-right"></span>关注我们</div>
 				<div class="fallow-qrcode">
 					<div class="qrcode-warp">
-						<img src="resources/images/contact-qrcode-1.png">
-						<div class="qrcode-label">标签</div>
-					</div>
-					<div class="qrcode-warp">
-						<img src="resources/images/contact-qrcode-1.png">
-						<div class="qrcode-label">标签</div>
+						<img src="resources/images/contact-qrcode.jpg">
+						<div class="qrcode-label">时代强鹰微信公众号</div>
 					</div>
 				</div>
 			</div>

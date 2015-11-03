@@ -14,15 +14,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html lang="en">
 <head>
 <base href="<%=basePath%>">
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Xenon Boostrap Admin Panel" />
-<meta name="author" content="" />
-
-<title>Eagle - Dashboard</title>
-
+<%@ include file="meta.jsp" %>
 <%@ include file="css.jsp" %>
 
 
@@ -78,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 				<div class="row">
 					<div class="col-sm-12">
-						<a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class="btn btn-primary btn-single btn-sm add-new-btn" style="float:left; margin-right:10px;">新建服务</a>
+						<a href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class="btn btn-primary btn-single btn-sm add-new-btn" style="float:left; margin-right:10px;">新建新闻类型</a>
 						<h5>主页展示权重排名前五项的新闻类型</h5>
 					</div>
 				</div>	
@@ -173,6 +166,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 <!--新增表单结束-->
 
+
+<div class="modal fade" id="modal-1" aria-hidden="true" style="display: none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title">操作提示</h4>
+				</div>
+				
+				<div class="modal-body">
+					确定要删除该条内容吗？该操作不可撤销！
+				</div>
+				
+				<div class="del-id"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-white del-confirm-btn" data-dismiss="modal">删除</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal">取消</button>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<%@ include file="script.jsp" %>
 	<script type="text/javascript">
 	$().ready(function(){
@@ -265,21 +282,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 //删除
 
 	window.del = function(id){
-		$.ajax({
-                url:'newstype/del?id='+id,
+		$(".del-id").html(id);
+		jQuery('#modal-1').modal('show', {backdrop: 'fade'});
+	}
+
+	$(".del-confirm-btn").click(function(){
+		var $id = $(".del-id").html();
+			$.ajax({
+                url:'newstype/del?id='+$id,
                 type:'post',
                 dataType:'json',
                 success:function(data){
                 	if (data==true) {
                     	alert("删除成功...");
-                   		qry();
+                   		qry(true);
                     }else{
-                    	alert("该服务已被引用，无法删除...");
-                    };
+                    	alert("无法删除...");
+
+                    }
                    
                 }
-            });
-	}
+            });		
+	});
 
 //编辑
 

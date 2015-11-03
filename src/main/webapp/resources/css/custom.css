@@ -22,3 +22,6 @@ font-family:myFirstFont !important;
 .error {
     color: #F00 !important;
 }
+.del-id{
+    display: none;
+}

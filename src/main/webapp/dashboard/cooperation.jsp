@@ -14,15 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html lang="en">
 <head>
 <base href="<%=basePath%>">
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Xenon Boostrap Admin Panel" />
-<meta name="author" content="" />
-
-<title>Eagle - Dashboard</title>
-
+<%@ include file="meta.jsp" %>
 <%@ include file="css.jsp" %>
 <style type="text/css">
 #uploadifive-file_upload, #uploadifive-content_upload {
@@ -315,6 +307,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="loader-2"></div>
 	</div>
 
+	<div class="modal fade" id="modal-1" aria-hidden="true" style="display: none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title">操作提示</h4>
+				</div>
+				
+				<div class="modal-body">
+					确定要删除该条内容吗？该操作不可撤销！
+				</div>
+				
+				<div class="del-id"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-white del-confirm-btn" data-dismiss="modal">删除</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal">取消</button>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
 	<link rel="stylesheet" href="resources/js/select2/select2.css">
 	<link rel="stylesheet" href="resources/js/select2/select2-bootstrap.css">
 	<link rel="stylesheet" href="resources/js/cropper/cropper.min.css">
@@ -558,8 +576,14 @@ textCount($("#position"),16);
 //删除
 
 	window.del = function(id){
-		$.ajax({
-                url:'cooperation/del?id='+id,
+		$(".del-id").html(id);
+		jQuery('#modal-1').modal('show', {backdrop: 'fade'});
+	}
+
+	$(".del-confirm-btn").click(function(){
+		var $id = $(".del-id").html();
+			$.ajax({
+                url:'cooperation/del?id='+$id,
                 type:'post',
                 dataType:'json',
                 success:function(data){
@@ -572,8 +596,9 @@ textCount($("#position"),16);
                     }
                    
                 }
-            });
-	}
+            });		
+	});
+
 
 //关闭新增商店面板
 	$(".close-panel").click(function(){
