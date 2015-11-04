@@ -135,7 +135,7 @@ section{
     text-align: center;
     line-height: 45px;
     margin-bottom: 10px;
-    background-color: #E4E4E4;
+    background-color: #DDD;
     font-size: 14px;
 }
 .news-label-selected{
@@ -168,7 +168,8 @@ section{
     font-size: 15px;
     line-height: 30px;
     color: #666;
-    text-indent: 20px;
+    text-indent: 15px;
+    font-weight: normal;
     
 }
 .news-block a:not(.more):hover {
@@ -179,7 +180,15 @@ section{
 	display: block !important;
 	z-index: 999;
 }
-
+span.fa.fa-thumb-tack {
+    transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    -moz-transform: rotate(30deg);
+    -webkit-transform: rotate(30deg);
+    -o-transform: rotate(30deg);
+    padding-right: 10px;
+    color: #F00 !important;
+}
 #about{
 	width: 340px;
 	position: relative;
@@ -232,7 +241,7 @@ section{
 	text-align: center;
 	line-height: 45px;
 	margin-bottom: 10px;
-	background-color: #E4E4E4;
+	background-color: #DDD;
 	font-size: 14px;
 }
 .partner-label a:hover,.partner-label-selected{
@@ -555,7 +564,15 @@ section{
 
 						//news
 						$.each(item.newslist,function(j,jtem){
-							$(".news-block-"+i).append('<a class="" href = "index/news.jsp?id='+jtem.id+'">'+transTime(jtem.time)+' '+jtem.title+'</a>');
+							var $str ;
+
+							if(jtem.weight==0){
+								$str = '<a class="" href = "index/news.jsp?id='+jtem.id+'"><span class="fa fa-thumb-tack"></span> '+transTime(jtem.time)+' '+jtem.title+'</a>';
+							}else{
+								$str = '<a class="" href = "index/news.jsp?id='+jtem.id+'"><span style="display:block; width:39px; height:10px; float:left;"></span> '+transTime(jtem.time)+' '+jtem.title+'</a>';
+							}
+
+							$(".news-block-"+i).append($str);
 						});
 
 						//more

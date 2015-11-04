@@ -7,5 +7,5 @@
 <meta name="title" content="时代强鹰·杭州创业发展促进会" />
 <meta name="description" content="以“推动青年创新创业，引领青年正能量”为使命的专注青年创新创业的社会组织和公益平台。" />
 <meta name="keywords" content="时代强鹰，强鹰，杭州创业发展促进会，求是强鹰，创业，促进，求是，孵化器，青年，青年圈" />
-<link rel="shortcut icon" href="<%=basePath%>/resources/images/favicon.ico" type="image/x-icon" />
-<title>时代强鹰</title>
+<link rel="shortcut icon" href="<%=basePath%>resources/images/favicon.ico" type="image/x-icon" />
+<title>时代强鹰·杭州创业发展促进会</title>

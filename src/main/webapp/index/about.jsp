@@ -40,10 +40,10 @@
 			<a href="index/about.jsp?id=2" title="2">校园联盟</a>
 		</div>
 		<div class="menu-item">
-			<a href="index/about.jsp?id=3" title="3">强鹰青年圈</a>
+			<a href="index/about.jsp?id=3" title="3">强鹰·青年圈</a>
 		</div>
 		<div class="menu-item">
-			<a href="index/about.jsp?id=4" title="4">强鹰孵化器</a>
+			<a href="index/about.jsp?id=4" title="4">强鹰孵化平台</a>
 		</div>
 	</div>
 	<div class="content-warp">

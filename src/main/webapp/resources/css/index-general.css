@@ -20,7 +20,7 @@ body{
 	text-align: center;
 	margin-right: auto;
 	margin-left: auto;
-	background-color: #F2F2F2;
+	background-color: #F0EAEA;
 }
 .main{
     width: 1200px;
@@ -242,7 +242,7 @@ footer{
     margin-top: 20px;
 }
 .menu-label{
-    width: 210px;
+    width: 180px;
     height: 50px;
     background-color: #09C;
     padding-right: 15px;
@@ -250,11 +250,11 @@ footer{
     margin-bottom: 45px;
 }
 .menu-item {
-    width: 210px;
+    width: 180px;
     height: 45px;
     line-height: 45px;
     text-align: center;
-    background-color: #E4E4E4;
+    background-color: #DDD;
     margin-bottom: 10px;
     font-size: 14px;
 }

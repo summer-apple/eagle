@@ -72,7 +72,7 @@
 	<div class="content-warp">
 		<div class="content-body">
 			<div  class="contact-logo">
-				<img src="resources/images/contact-logo.png">
+				<img src="resources/images/contact-logo.jpg">
 			</div>
 			<div class="contact-contact">
 				<div class="contact-title"><span class="fa fa-caret-right"></span>联系我们</div>

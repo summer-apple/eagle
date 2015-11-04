@@ -15,8 +15,8 @@
 					<ul class="dropdown">
 						<li><a href="index/about.jsp?id=1">时代强鹰</a></li>
 						<li><a href="index/about.jsp?id=2">校园联盟</a></li>
-						<li><a href="index/about.jsp?id=3">强鹰青年圈</a></li>
-						<li><a href="index/about.jsp?id=4">强鹰孵化器</a></li>
+						<li><a href="index/about.jsp?id=3">强鹰·青年圈</a></li>
+						<li><a href="index/about.jsp?id=4">强鹰孵化平台</a></li>
 					</ul>
 				</div>
 			</li>
