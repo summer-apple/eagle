@@ -33,6 +33,8 @@
 .contact-body {
     margin-top: 5px;
     margin-bottom: 40px;
+    font-size: 16px;
+    line-height: 24px;
 }
 #allmap{
 	width: 90%;
@@ -77,10 +79,10 @@
 			<div class="contact-contact">
 				<div class="contact-title"><span class="fa fa-caret-right"></span>联系我们</div>
 				<div class="contact-body">
-					地址：浙江省杭州市下城区绍兴路337号野风现代之星4F<br>
-					电话：0571-56608979<br>
-					传真：0571-56608979  3669*1<br>
-					邮箱：eliteeagle@163.com
+					地址：浙江省杭州市下城区绍兴路野风现代之星4F<br>
+					电话：0571-87552487<br>
+					传真：0571-87552487<br>
+					邮箱：eliteeagle@eliteeagle.org
 				</div>
 			</div>
 			<div id="allmap"></div>

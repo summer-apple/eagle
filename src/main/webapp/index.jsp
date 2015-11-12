@@ -8,6 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <base href="<%=basePath%>">
+<meta name="baidu-site-verification" content="Y2m2CqEu51" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <script src="resources/js/jquery-1.11.1.min.js" type="text/javascript"></script>
     <script src="resources/js/ajaxfileupload.js" type="text/javascript"></script>

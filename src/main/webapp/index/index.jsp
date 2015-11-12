@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta name="baidu-site-verification" content="Y2m2CqEu51" />
 	<base href="<%=basePath%>">
 <%@ include file="meta.jsp" %>
 	<link rel="stylesheet" type="text/css" href="resources/css/index-general.css">
@@ -109,6 +110,28 @@ section{
 }
 .active{
 	color: #09C !important;
+}
+#s1 a.slidesjs-previous,#s1 a.slidesjs-next{
+	display: block !important;
+    position: absolute;
+    z-index: 99999;
+    top: 230px;
+    font-size: 50px;
+    color: #FFF;
+    width: 29px;
+    height: 50px;
+    line-height: 41px;
+    opacity: 0.8;
+    border-radius: 5px;
+}
+#s1 a.slidesjs-previous:hover,#s1 a.slidesjs-next:hover{
+	background-color: #7B7A7A;
+}
+#s1 a.slidesjs-previous{
+    left: 200px;
+}
+#s1 a.slidesjs-next {
+    left: 1144px;
 }
 
 #s2{
@@ -421,7 +444,7 @@ span.fa.fa-thumb-tack {
 					<div class="lb-en">About</div>
 			</div>
 			<div class="about-warp">
-				“时代强鹰”源起于浙江大学的求是强鹰俱乐部，是中国最早推出创业导师和“浙商带徒”模式的公益平台，以“推动青年创新创业，引领青年正能量”作为组织使命，以“社会企业”作为组织发展模式，立足于创新创业青年人才培养、青年创业项目孵化服务、汇聚全球华人青年创业者，培养具有创新能力、富有创业精神和有较高综合素质的复合型人才，引领中国未来发展的青年健康力量。
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“时代强鹰”源起于浙江大学的求是强鹰俱乐部，是中国最早推出创业导师和“浙商带徒”模式的公益平台，以“推动青年创新创业，引领青年正能量”作为组织使命，以“社会企业”作为组织发展模式，立足于创新创业青年人才培养、青年创业项目孵化服务、汇聚全球华人青年创业者，培养具有创新能力、富有创业精神和有较高综合素质的复合型人才，引领中国未来发展的青年健康力量。
 “时代强鹰”目前在创业热土——中国杭州，正式注册“杭州创业发展促进会”，以民间社团的机制，开启全新的篇章。
 			</div>
 			<a class="more" style="width:140px;position: absolute; bottom: 18px;" href="index/about.jsp?id=1">>>more</a>
@@ -500,7 +523,7 @@ span.fa.fa-thumb-tack {
 </div>
 <%@include file="foot.jsp"%>
 <%@include file="script.jsp"%>
-<script type="text/javascript" src="resources/js/jquery.slides.min.js"></script>
+<script type="text/javascript" src="resources/js/jquery.slides.js"></script>
 <script type="text/javascript" src="resources/js/unslider.min.js"></script>
 <script type="text/javascript">
 	$().ready(function(){
@@ -525,6 +548,10 @@ span.fa.fa-thumb-tack {
 				          interval: 4000,
 				          swap: false
 				        },
+				        navigation: {
+      					active: true,
+      					effect: "slide"
+      					},
 				        effect:{
 				        	slide:{
 				        		speed:3000
@@ -567,9 +594,9 @@ span.fa.fa-thumb-tack {
 							var $str ;
 
 							if(jtem.weight==0){
-								$str = '<a class="" href = "index/news.jsp?id='+jtem.id+'"><span class="fa fa-thumb-tack"></span> '+transTime(jtem.time)+' '+jtem.title+'</a>';
+								$str = '<a class="" href = "index/news.jsp?id='+jtem.id+'"><span class="fa fa-thumb-tack"></span> '+transTime(jtem.time)+' '+cutTitle(jtem.title)+'</a>';
 							}else{
-								$str = '<a class="" href = "index/news.jsp?id='+jtem.id+'"><span style="display:block; width:39px; height:10px; float:left;"></span> '+transTime(jtem.time)+' '+jtem.title+'</a>';
+								$str = '<a class="" href = "index/news.jsp?id='+jtem.id+'"><span style="display:block; width:39px; height:10px; float:left;"></span> '+transTime(jtem.time)+' '+cutTitle(jtem.title)+'</a>';
 							}
 
 							$(".news-block-"+i).append($str);
@@ -784,7 +811,15 @@ span.fa.fa-thumb-tack {
 			return "--";
 		}
 	}
+//截断首页新闻标题
 
+	function cutTitle(title){
+		if (title.length>28) {
+			return title.substring(0,28)+"...";
+		}else{
+			return title;
+		}
+	}
 
 	});
 </script>

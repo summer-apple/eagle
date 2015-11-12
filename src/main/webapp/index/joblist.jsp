@@ -34,10 +34,7 @@
 			<a href="index/job.jsp?id=2" title="2">强鹰学员</a>
 		</div>
 		<div class="menu-item">
-			<a href="index/joblist.jsp?type=3" title="3">强鹰专职</a>
-		</div>
-		<div class="menu-item">
-			<a href="index/joblist.jsp?type=4" title="4">强鹰实习生</a>
+			<a href="index/joblist.jsp?type=3" title="3">职位招聘</a>
 		</div>
 	</div>
 	<div class="content-warp">
@@ -94,10 +91,7 @@ function getUrlParam(name) {
 		$typeValue = "强鹰学员";
 	}
 	else if ($type==3) {
-		$typeValue = "强鹰专职";
-	}
-	else if ($type==4) {
-		$typeValue = "强鹰实习生";
+		$typeValue = "职位招聘";
 	}
 	$(".menu-item a[title="+$type+"]").parent().addClass("menu-item-selected");
 

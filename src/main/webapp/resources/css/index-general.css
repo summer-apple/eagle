@@ -139,14 +139,17 @@ nav ul{
     position: absolute;
     top: 34px;
     right: 15px;
-    color: #CCC;
+    color: #09C;
+}
+.search-icon:hover{
+    color: #09C;
 }
 
 .sub-btn {
     position: absolute;
     top: 34px;
     right: 15px;
-    color: #999;
+    color: #09C;
 }
 /**
 ***********以上为 header
@@ -292,7 +295,6 @@ footer{
     height: auto;
     float: left;
     text-align: left;
-    color: #888;
     margin-bottom: 80px;
 }
 .content-warp a{
@@ -408,6 +410,7 @@ footer{
     padding-bottom: 30px;
     padding-left: 10px;
     padding-right: 50px;
+    font-size: 16px;
 }
 .content-body-inner img{
     max-width: 100%;

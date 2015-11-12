@@ -37,8 +37,8 @@ public class CooperationAction {
 
 	@RequestMapping("/qry")
 	@ResponseBody
-	public Map<String, Object> qry(HttpServletRequest request, String type, int pageNo, int pageSize) {
-		return cs.qryAll("Cooperation", type, pageNo, pageSize);
+	public Map<String, Object> qry(HttpServletRequest request, String type, int pageNo, int pageSize,String keyword) {
+		return cs.qryAll("Cooperation", type,keyword, pageNo, pageSize);
 	}
 
 	@RequestMapping("/del")

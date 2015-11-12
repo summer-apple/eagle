@@ -188,14 +188,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</script>
 									<div class="col-sm-12">
 										<select name="type" class="form-control" id="qry-type" style="display: none;">
-											<option value="强鹰专职">强鹰专职</option>
-											<option value="强鹰实习生">强鹰实习生</option>
+											<option value="职位招聘">职位招聘</option>
+											
 											<option value="强鹰学员">强鹰学员</option>
 											<option value="名誉学员">名誉学员</option>
 											
 										</select>
 									</div>
 								</div>
+
+							
 							<div class="form-group"> 
 								<input id="pageNo" name="pageNo" class="form-control" type="hidden" value="0" placeholder="页码">
 							</div>
@@ -399,12 +401,9 @@ $("#qry-type").change(function(){
 
 	}else{
 
-		if($qrytype=="强鹰专职"){
-			$("#type").val("强鹰专职");
-		}else{
-			$("#type").val("强鹰实习生");
-		}
-
+		
+		$("#type").val("职位招聘");
+	
 		$(".open-panel").show();
 	}
 
@@ -433,7 +432,7 @@ $("#qry-type").change(function(){
 									'	<td class="job-brief" style="max-width:400px;">'+item.brief.substring(0,20)+'</a></td>'+
 									'	<td class="job-attachment">'+attachment(item.attachment)+'</td>';
 
-						if (item.type=="强鹰专职" || item.type=="强鹰实习生") {
+						if (item.type=="职位招聘") {
 							$str += '	<td style="min-width:115px;"><a class="edit-btn btn btn-primary btn-single btn-sm" onclick="edit('+item.id+')">编辑</a><a class="del-btn btn btn-primary btn-single btn-sm" onclick=del('+item.id+')>删除</a></td>'+
 								'</tr>';
 						}else{

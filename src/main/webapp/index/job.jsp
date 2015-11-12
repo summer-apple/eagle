@@ -34,10 +34,7 @@
 			<a href="index/job.jsp?id=2" title="2">强鹰学员</a>
 		</div>
 		<div class="menu-item">
-			<a href="index/joblist.jsp?type=3" title="3">强鹰专职</a>
-		</div>
-		<div class="menu-item">
-			<a href="index/joblist.jsp?type=4" title="4">强鹰实习生</a>
+			<a href="index/joblist.jsp?type=3" title="3">职位招聘</a>
 		</div>
 	</div>
 	<div class="content-warp">
@@ -91,6 +88,9 @@ function getUrlParam(name) {
 			
 	var $id = getUrlParam("id");
 
+	if ($id==1 || $id==2) {
+		$(".send-email").hide();
+	}
 
 	$.ajax({
             url:'job/get-one?id='+$id,
@@ -103,10 +103,8 @@ function getUrlParam(name) {
             			$type = 1;
             		}else if (data.type=="强鹰学员") {
             			$type = 2;
-            		}else if (data.type=="强鹰专职") {
+            		}else if (data.type=="职位招聘") {
             			$type = 3;
-            		}else{
-            			$type = 4;
             		}
             		$(".menu-item a[title="+$type+"]").parent().addClass("menu-item-selected");
 

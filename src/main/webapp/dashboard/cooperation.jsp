@@ -216,7 +216,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 						<form class="form-inline" id="qry-form" action="" method="post">
 							<div class="row">
-							<div class="form-group col-sm-12">
+							<div class="form-group col-sm-4">
 									
 									<script type="text/javascript">
 										jQuery(document).ready(function($)
@@ -236,6 +236,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</div>
 								</div>
 							<div class="form-group"> 
+								<input id="keyword" name="keyword" class="form-control" type="text" placeholder="关键字">
+							</div>
+							<div class="form-group">
+								<button id="qry-btn" type="button" class="btn btn-primary btn-single btn-sm">查 询</button>
+							</div>
+							<div class="form-group"> 
 								<input id="pageNo" name="pageNo" class="form-control" type="hidden" value="0" placeholder="页码">
 							</div>
 							<div class="form-group"> 
@@ -249,7 +255,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</form>
  
 					</div>
-					<div class="col-sm-8">
+
+					<div class="col-sm-6">
 						<a href="javascript:void(0);" class="open-panel btn btn-primary btn-single btn-sm" style="float:left; margin-right:10px;">新建合作</a>
 						<h5>主页展示权重排名前二十项的合作</h5>
 					</div>
@@ -257,7 +264,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
 				
 				</div>
-
+				<br>
 				
 				<div class="row">
 					<div class="col-sm-12">
@@ -442,7 +449,7 @@ textCount($("#position"),16);
 		function qry(initPageFlag){
             $.ajax({
                 url:'cooperation/qry',
-                data: {'pageNo':$('#pageNo').val(),'pageSize':$('#pageSize').val(),'type':$("#qry-type").val()},
+                data: {'pageNo':$('#pageNo').val(),'pageSize':$('#pageSize').val(),'type':$("#qry-type").val(),'keyword':$("#keyword").val()},
                 type:'post',
                 dataType:'json',
                 success:function(data){
@@ -492,7 +499,11 @@ textCount($("#position"),16);
 			 qry(false);
 		}
 	
-		
+//输入关键字查询
+
+		$("#qry-btn").click(function(){
+			qry(true);
+		});		
 
 //添加
 	$("#add-form").validate({

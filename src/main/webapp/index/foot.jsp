@@ -39,8 +39,7 @@
 				<div class="foot-nav-btn-group">
 					<a href="javascript:void(0);">加入强鹰</a>
 					<ul class="foot-dropdown">
-						<li><a href="index/joblist.jsp?type=3">强鹰专职</a></li>
-						<li><a href="index/joblist.jsp?type=4">强鹰实习生</a></li>
+						<li><a href="index/joblist.jsp?type=3">职位招聘</a></li>
 						<li><a href="index/job.jsp?id=1">名誉学员</a></li>
 						<li><a href="index/job.jsp?id=2">强鹰学员</a></li>
 					</ul>

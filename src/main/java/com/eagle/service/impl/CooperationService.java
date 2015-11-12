@@ -4,12 +4,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import com.eagle.dao.BaseDao;
 import com.eagle.entity.Cooperation;
 import com.eagle.service.ICooperationService;
+
+
+
+
 
 @Service
 public class CooperationService extends BaseService<Cooperation>implements ICooperationService {
@@ -24,9 +30,26 @@ public class CooperationService extends BaseService<Cooperation>implements ICoop
 	}
 
 	@Override
-	public Map<String, Object> qryAll(String tableName, String type, int pageNo, int pageSize) {
-		String hql = "FROM Cooperation WHERE type='" + type + "' ORDER BY weight ASC ,id DESC";
+	public Map<String, Object> qryAll(String tableName, String type, String keyword,int pageNo, int pageSize) {
+		
+		String hql = "";
+		
+		if (StringUtils.isNotBlank(keyword)) {
+			hql = "FROM Cooperation WHERE type='" + type + "' AND name LIKE '%"+keyword+"%' OR position LIKE '%"+keyword+"%' ORDER BY weight ASC ,id DESC";
+		}else {
+			hql = "FROM Cooperation WHERE type='" + type + "' ORDER BY weight ASC ,id DESC";
+		}
+		
+		
 
+		
+		
+		
+		
+		
+		
+		
+		
 		List<Cooperation> list =  dao.findByPage(hql, pageNo, pageSize);
 		long amount = dao.findCount("SELECT COUNT(*) "+hql);
 		Map<String,Object> map = new HashMap<>();
