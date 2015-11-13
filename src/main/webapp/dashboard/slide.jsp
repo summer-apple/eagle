@@ -101,7 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<label class="col-sm-2 control-label" for="link">链&nbsp;&nbsp;&nbsp;接</label>
 									
 									<div class="col-sm-10">
-										<input name="link" type="text" class="form-control" id="link" placeholder="连接-如：http://www.baidu.com">
+										<input name="link" type="text" class="form-control" id="link" placeholder="链接-如：http://www.baidu.com">
 									</div>
 								</div>
 								

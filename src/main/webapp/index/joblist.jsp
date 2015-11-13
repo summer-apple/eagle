@@ -28,14 +28,15 @@
 			<span class="lb-en">Join</span>
 		</div>
 		<div class="menu-item">
+			<a href="index/joblist.jsp?type=3" title="3">职位招聘</a>
+		</div>
+		<div class="menu-item">
 			<a href="index/job.jsp?id=1" title="1">名誉学员</a>
 		</div>
 		<div class="menu-item">
 			<a href="index/job.jsp?id=2" title="2">强鹰学员</a>
 		</div>
-		<div class="menu-item">
-			<a href="index/joblist.jsp?type=3" title="3">职位招聘</a>
-		</div>
+		
 	</div>
 	<div class="content-warp">
 		<div class="content-title">
@@ -87,15 +88,18 @@ function getUrlParam(name) {
 	var $typeValue = "";
 	if ($type==1) {
 		$typeValue = "名誉学员";
+		$(".content-title").html("<span class='content-title-line'></span>"+$typeValue+"招募");
 	}else if ($type==2) {
 		$typeValue = "强鹰学员";
+		$(".content-title").html("<span class='content-title-line'></span>"+$typeValue+"招募");
 	}
 	else if ($type==3) {
 		$typeValue = "职位招聘";
+		$(".content-title").html("<span class='content-title-line'></span>"+$typeValue);
 	}
 	$(".menu-item a[title="+$type+"]").parent().addClass("menu-item-selected");
 
-	$(".content-title").html("<span class='content-title-line'></span>"+$typeValue+"招聘");
+	
 	qry(true);
 
 //查询方法

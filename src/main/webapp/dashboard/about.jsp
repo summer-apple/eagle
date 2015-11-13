@@ -92,7 +92,7 @@
 											<option value="1">时代强鹰</option>
 											<option value="2">校园联盟</option>
 											<option value="3">强鹰青年圈</option>
-											<option value="4">强鹰孵化器</option>
+											<option value="4">强鹰孵化平台</option>
 										</select>
 									</div>
 								</div>

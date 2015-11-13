@@ -28,14 +28,15 @@
 			<span class="lb-en">Join</span>
 		</div>
 		<div class="menu-item">
+			<a href="index/joblist.jsp?type=3" title="3">职位招聘</a>
+		</div>
+		<div class="menu-item">
 			<a href="index/job.jsp?id=1" title="1">名誉学员</a>
 		</div>
 		<div class="menu-item">
 			<a href="index/job.jsp?id=2" title="2">强鹰学员</a>
 		</div>
-		<div class="menu-item">
-			<a href="index/joblist.jsp?type=3" title="3">职位招聘</a>
-		</div>
+		
 	</div>
 	<div class="content-warp">
 		<div class="content-title">
@@ -101,25 +102,32 @@ function getUrlParam(name) {
             		var $type;
             		if (data.type=="名誉学员") {
             			$type = 1;
+            			$(".content-title").html("<span class='content-title-line'></span>"+data.type+"招募");
             		}else if (data.type=="强鹰学员") {
             			$type = 2;
+            			$(".content-title").html("<span class='content-title-line'></span>"+data.type+"招募");
             		}else if (data.type=="职位招聘") {
             			$type = 3;
+            			$(".content-title").html("<span class='content-title-line'></span>"+data.type);
             		}
             		$(".menu-item a[title="+$type+"]").parent().addClass("menu-item-selected");
 
 
 
-                	$(".content-title").html("<span class='content-title-line'></span>"+data.type+"招聘");
+                	
                     $(".content-body-inner").html(data.content);
-                    $(".content-body").append("附件："+attachment(data.attachment));
+
+                    
+                    $(".content-body").append(attachment(data.attachment));
+                    
+                    
                 }
            });
 
 	//附件方法
 	function attachment(attachment){
-		if (attachment!=null) {
-			return '<a class="attachment-link" href="'+attachment+'">'+attachment.substring(attachment.lastIndexOf("/")+1,attachment.lenght)+'</a>';
+		if (attachment!=null && attachment!="") {
+			return '附件：<a class="attachment-link" href="'+attachment+'">'+attachment.substring(attachment.lastIndexOf("/")+1,attachment.lenght)+'</a>';
 		}else{
 			return "";
 		}
