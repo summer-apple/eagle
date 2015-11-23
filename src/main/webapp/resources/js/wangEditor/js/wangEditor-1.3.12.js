@@ -2,10 +2,20 @@ var BMap; //百度地图构造函数（为了应对jshint检查，其实没有�
 var define;
 
 (function (factory) {
-    if (typeof define === "function" && define.amd) {
-        // AMD模式
-        define('wangEditor', ["jquery"], factory);
-    } else {
+	if (typeof define === 'function') {
+		if (define.amd) {
+			// AMD模式
+			define('wangEditor', ["jquery"], factory);
+		} else if (define.cmd) {
+			// CMD模式
+			define(function(require, exports, module){
+				return factory;
+			});
+		} else {
+			// 全局模式
+        	factory(window.jQuery);
+		}
+	} else {
         // 全局模式
         factory(window.jQuery);
     }
@@ -220,7 +230,7 @@ $.extend($E, {
     'styleConfig': {
         'fontFamilyOptions': [
             '宋体', '黑体', '楷体', '隶书', '幼圆', '微软雅黑', 
-            'Arial', 'Verdana', 'Georgia', 'Times New Roman', 
+            'Arial', 'Verdana', 'Georgia', 'Times New Roman', 'Microsoft JhengHei',
             'Trebuchet MS', 'Courier New', 'Impact', 'Comic Sans MS'
         ],
         'colorOptions': {
@@ -313,7 +323,7 @@ $.extend($E, {
         //代码块
         'codePre': '<pre style="border:1px solid #ccc; background-color: #f5f5f5; padding: 10px; margin: 5px 0px; line-height: 1.4; font-size: 0.8em; font-family: Menlo, Monaco, Consolas; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;"><code>{content}</code></pre><p><br></p>',
         //代码块（highlight插件）
-        'codePreWidthHightLight': '<pre><code class="{lang}">{content}</code></pre>'
+        'codePreWidthHightLight': '<pre><code class="{lang}">{content}</code></pre><p><br></p>'
     },
     
     //表情配置（1.gif, 2.gif, 3.gif ... 100.gif）
@@ -352,7 +362,7 @@ $.extend($E, {
 	    	langUpload = langConfig.common.upload;
 
 	    var content =   '<form id="' + formId + '" method="post" enctype="multipart/form-data" target="' + iframeId + '">'+
-	                    '   <p>' +langChoose+ '：<input type="file" name="' + fileInputName + '" id="' + fileId + '"/></p>' +
+	                    '   <p>' +langChoose+ '：<input type="file" accept="image/*" name="' + fileInputName + '" id="' + fileId + '"/></p>' +
 	                    '   <p>' +langTitle+ '：<input type="text" id="' + titleTxtId + '" style="width:250px;"/></p>' +
 	                    '   <p><button id="' + btnId + '"  type="button" class="wangEditor-modal-btn">' +langUpload+ '</button></p>' +
 	                    '   <span stype="color:red;" id="' + infoId + '"></span>' +
@@ -892,7 +902,9 @@ $.extend($E, {
             isFnKeys,
             hideDropMenu,
             hideDropPanel,
-            showToolTip;
+            showToolTip,
+
+            $editorContainer = editor.$editorContainer;
 
         if(typeof command === 'string'){
             command = $.trim(command);
@@ -1020,6 +1032,19 @@ $.extend($E, {
                 editor.hideModal();   //先视图隐藏目前显示的modal
 
                 $dropPanel.css('display', 'inline-block');
+
+                // 计算dropPanel的位置
+                var containerLeft = $editorContainer.offset().left,
+                    containerWidth = $editorContainer.outerWidth(),
+                    panelLeft = $dropPanel.offset().left,
+                    panelWidth = $dropPanel.outerWidth(),
+                    diff = (panelLeft + panelWidth) - (containerLeft + containerWidth);
+
+                if (diff > 0) {
+                    // 说明panel溢出了container之外
+                    $dropPanel.css('margin-left', 0 - diff);
+                }
+
                 e.preventDefault();
                 $btn.focus();  //for 360急速浏览器
                 
@@ -1067,8 +1092,9 @@ $.extend($E, {
                 $modal.css('margin-left', (editorContainerLeft - modalLeft) + (editorContainerWidth/2 - modalWidth/2));
 
                 //计算margin-top，让modal紧靠在$txt上面
-                var txtTop = editor.$txt.offset().top,
+                var txtTop = editor.$txtContainer.offset().top,
                     modalContainerTop = $modal.offset().top;
+
                 $modal.css('margin-top', txtTop - modalContainerTop + 5);
 
                 //最后阻止默认时间、阻止冒泡
@@ -2166,6 +2192,8 @@ $.extend($E.fn, {
             var url = $.trim($('#' + urlTxtId).val()),
                 title = $.trim($('#' + titleTxtId).val()),
                 isBlank = $('#' + blankCheckId).is(':checked'),
+                hasSelectContent = editor.hasSelectionContent(),
+                linkHtml,
                 link_callback = function(){
                     //create link callback
                     $('#' + urlTxtId).val('');
@@ -2178,7 +2206,15 @@ $.extend($E.fn, {
                     alert( langUnsafe );
                     return;
                 }
-                if(title === '' && !isBlank){
+                if (hasSelectContent === false) {
+                    // 如果没有选中任何内容，则将标题当做链接内容插入
+                    if (title === '') {
+                        // 如果没有填写标题，只能将url当做内容插入
+                        title = url;
+                    }
+                    linkHtml = '<a href="' + url + '" target="_blank">' + title + '</a>';
+                    editor.command(e, 'insertHTML', linkHtml, link_callback);
+                }else if(title === '' && !isBlank){
                     editor.command(e, 'createLink', url, link_callback);
                 }else{
                     editor.command(e, 'customCreateLink', {'url':url, 'title':title, 'isBlank':isBlank}, link_callback);
@@ -3118,6 +3154,20 @@ $.extend($E.fn, {
         if(range){
             editor.saveSelection(range);
         }
+    },
+
+    // 判断是否选择了内容
+    'hasSelectionContent': function () {
+        var editor = this,
+            range = this.currentRange();
+
+        if (supportRange) {
+            if(range.endContainer === range.startContainer && range.endOffset === range.startOffset) {
+                // 说明没有选中任何内容
+                return false;
+            }
+        }
+        return true;
     }
     
 });

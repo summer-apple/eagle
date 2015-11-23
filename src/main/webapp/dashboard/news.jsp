@@ -24,6 +24,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 .content-line #uploadifive-file_upload,.content-line #uploadifive-content_upload {
 	display: none !important;
 }
+
+/* .wangEditor-modal-container .wangEditor-modal{
+	margin-top:-3637px !important;
+} */
 </style>
 
 
@@ -94,7 +98,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<label class="col-sm-2 control-label" for="title">标&nbsp;&nbsp;&nbsp;题</label>
 									
 									<div class="col-sm-10">
-										<input name="title" type="text" class="form-control" id="title" placeholder="标题,20字以内">
+										<input name="title" type="text" class="form-control" id="title" placeholder="标题,30字以内">
 										
 									</div>
 								</div>
@@ -380,7 +384,7 @@ function textCount(input,max){
 	});
 }
 
-textCount($("#title"),20);
+textCount($("#title"),30);
 textCount($("#brief"),150);
 
 
@@ -580,7 +584,7 @@ $("#qry-type").change(function(){
 							rules: {
 								title: {
 									required: true,
-									maxlength:20
+									maxlength:30
 								},
 								
 								weight: {
@@ -603,7 +607,7 @@ $("#qry-type").change(function(){
 							messages: {
 								title: {
 									required: '必填项目',	
-									maxlength:'最多20个汉字'
+									maxlength:'最多30个汉字'
 								},
 								
 								weight: {

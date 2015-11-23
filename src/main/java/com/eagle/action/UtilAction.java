@@ -79,13 +79,11 @@ public class UtilAction {
 	@RequestMapping("/upload-file")
 	@ResponseBody
 	public String uploadFile(HttpServletRequest request,@RequestParam MultipartFile file,String folder) {
-
-		String hz = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 		
-		String filename = new SimpleDateFormat("yyyyMMddhhmmss")
-				.format(new Date())
-				+ us.getRandomString(16)
-				+ hz;
+		String filename = file.getOriginalFilename();
+		
+		
+		
 		logger.info("filename=" + filename);
 		String url = "resources/"+ folder +"/"+ filename;
 		logger.info("url=" + url);

@@ -20,6 +20,9 @@
 #uploadifive-file_upload, #uploadifive-content_upload,.edui-btn-image {
 	display: none !important;
 }
+/* .wangEditor-modal-container .wangEditor-modal{
+	margin-top:-570px !important;
+} */
 </style>
 
 

@@ -24,6 +24,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 .content-line #uploadifive-file_upload,.content-line #uploadifive-content_upload {
 	display: none !important;
 }
+.wangEditor-modal-container .wangEditor-modal{
+
+margin-top:-3235px !important;
+
+}
+/* .wangEditor-modal-container .wangEditor-modal{
+margin-top:-1420px !important;
+} */
 </style>
 
 
@@ -211,12 +219,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="panel panel-default">
 				
 				<div class="row">
-				<div class="col-sm-4">
+				<div class="col-sm-6">
 						
 	
 						<form class="form-inline" id="qry-form" action="" method="post">
 							<div class="row">
-							<div class="form-group col-sm-4">
+							<div class="form-group col-sm-4" style="min-width: 150px;">
 									
 									<script type="text/javascript">
 										jQuery(document).ready(function($)

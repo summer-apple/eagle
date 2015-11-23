@@ -24,6 +24,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 .content-line #uploadifive-file_upload,.content-line #uploadifive-content_upload {
 	display: none !important;
 }
+/* .wangEditor-modal-container .wangEditor-modal{
+	margin-top:-1350px !important;
+} */
 </style>
 
 
