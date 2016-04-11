@@ -29,8 +29,8 @@
 			<span class="lb-en">News</span>
 		</div>
 
-		
-		
+
+
 	</div>
 	<div class="content-warp">
 		<div class="content-title">
@@ -53,10 +53,10 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="pagination"></div>
-		</div>				
+		</div>
 	</div>
-	
-	
+
+
 
 
 	<div style="line-height:0; margin:0; padding:0; height:0; font-size:0; clear:both;"></div>
@@ -81,15 +81,15 @@ $().ready(function(){
         myTime: {
             /**
              * 当前时间戳
-             * @return <int>        unix时间戳(秒)  
+             * @return <int>        unix时间戳(秒)
              */
             CurTime: function(){
                 return Date.parse(new Date())/1000;
             },
-            /**              
+            /**
              * 日期 转换为 Unix时间戳
-             * @param <string> 2014-01-01 20:20:20  日期格式              
-             * @return <int>        unix时间戳(秒)              
+             * @param <string> 2014-01-01 20:20:20  日期格式
+             * @return <int>        unix时间戳(秒)
              */
             DateToUnix: function(string) {
                 var f = string.split(' ', 2);
@@ -104,11 +104,11 @@ $().ready(function(){
                         parseInt(t[2], 10) || null
                         )).getTime() / 1000;
             },
-            /**              
-             * 时间戳转换日期              
-             * @param <int> unixTime    待时间戳(秒)              
-             * @param <bool> isFull    返回完整时间(Y-m-d 或者 Y-m-d H:i:s)              
-             * @param <int>  timeZone   时区              
+            /**
+             * 时间戳转换日期
+             * @param <int> unixTime    待时间戳(秒)
+             * @param <bool> isFull    返回完整时间(Y-m-d 或者 Y-m-d H:i:s)
+             * @param <int>  timeZone   时区
              */
             UnixToDate: function(unixTime, isFull, timeZone) {
                 if (typeof (timeZone) == 'number')
@@ -145,13 +145,13 @@ $().ready(function(){
 	}
 
 //获取地址栏参数 调用getUrlParam(name)方法
-	
+
 function getUrlParam(name) {
 	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
 	var r = window.location.search.substr(1).match(reg);
 	if (r!=null) return unescape(r[2]); return null;
 }
-			
+
 	var $id = getUrlParam("id");
 
 //获取类型
@@ -159,9 +159,9 @@ function getUrlParam(name) {
                 url:'newstype/qry',
                 type:'post',
                 dataType:'json',
-                success:function(data){ 
+                success:function(data){
                 $.each(data, function(i, item){
-                		var $str = '<div class="menu-item"><a href="index/newslist.jsp?type='+item.id+'" title="'+item.id+'">'+item.name+'</a></div>';         
+                		var $str = '<div class="menu-item"><a href="index/newslist.jsp?type='+item.id+'" title="'+item.id+'">'+item.name+'</a></div>';
                 		$(".menu-warp").append($str);
                   	});
                 }
@@ -201,10 +201,11 @@ $.ajax({
 
 
 
-	
-		
+
+
 
 	});
 </script>
+<link rel="stylesheet" type="text/css" href="resources/css/font.css">
 </body>
 </html>

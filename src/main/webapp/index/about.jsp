@@ -59,10 +59,10 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="pagination"></div>
-		</div>				
+		</div>
 	</div>
-	
-	
+
+
 
 
 	<div style="line-height:0; margin:0; padding:0; height:0; font-size:0; clear:both;"></div>
@@ -81,13 +81,13 @@
 $().ready(function(){
 
 //获取地址栏参数 调用getUrlParam(name)方法
-	
+
 function getUrlParam(name) {
 	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
 	var r = window.location.search.substr(1).match(reg);
 	if (r!=null) return unescape(r[2]); return null;
 }
-			
+
 	var $id = getUrlParam("id");
 
 	$(".menu-item a[title="+$id+"]").parent().addClass("menu-item-selected");
@@ -97,18 +97,19 @@ function getUrlParam(name) {
             type:'post',
             dataType:'json',
             success:function(data){
-                	
+
                     $(".content-body-inner").html(data.content);
 
                 }
            });
 
 
-		
-	
-		
+
+
+
 
 	});
 </script>
+<link rel="stylesheet" type="text/css" href="resources/css/font.css">
 </body>
 </html>

@@ -54,7 +54,7 @@ section{
     line-height: 10px;
     display: block;
 }
-#s1{	
+#s1{
 	height: 480px;
 	position: relative;
 }
@@ -94,7 +94,7 @@ section{
     border-right: 1px solid #DDD;
     border-left: 1px solid #DDD;
     font-size: 14px;
-    
+
     text-align: left;
 }
 #s1 .slidesjs-pagination-item a:hover {
@@ -105,7 +105,7 @@ section{
 	width: 160px;
 	height: 57px;
 	padding:10px;
-	
+
 	color: #666;
 }
 .active{
@@ -163,7 +163,7 @@ section{
 }
 .news-label-selected{
 	color: #FFF !important;
-	background-color: #A1A1A1 !important;	
+	background-color: #A1A1A1 !important;
 }
 .news-label:hover{
 	color: #FFF !important;
@@ -193,7 +193,7 @@ section{
     color: #666;
     text-indent: 15px;
     font-weight: normal;
-    
+
 }
 .news-block a:not(.more):hover {
 	color: #09C !important;
@@ -272,7 +272,7 @@ span.fa.fa-thumb-tack {
 	background-color: #A1A1A1 !important;
 }
 .partner-warp {
-    width: 1000px; 
+    width: 1000px;
     float: left;
     height: 300px;
     position: relative;
@@ -303,7 +303,7 @@ span.fa.fa-thumb-tack {
 .partner{
 	width: 1000px;
 	height: 250px !important;
-	position: relative; 
+	position: relative;
 	overflow: auto;
 }
 .partner li { list-style: none; }
@@ -453,7 +453,7 @@ span.fa.fa-thumb-tack {
 			<div class="bottom-border label-bottom-border"></div>
 			<div class="bottom-border content-bottom-border"></div>
 			<div class="bottom-border about-bottom-border"></div>
-			
+
 		</div>
 	</section>
 	<div style="line-height:0; margin:0; padding:0; height:0; font-size:0; clear:both;"></div>
@@ -510,7 +510,7 @@ span.fa.fa-thumb-tack {
 			<div class="bottom-border label-bottom-border"></div>
 			<div class="bottom-border content-bottom-border"></div>
 		</div>
-	</section> 
+	</section>
 	</div>
 
 
@@ -533,12 +533,12 @@ span.fa.fa-thumb-tack {
 				type:"post",
 				dataType:"json",
 				success:function(data){
-					
+
 					$.each(data,function(i,item){
 						$(".slide-warp").append('<a href="'+item.link+'"><img src="'+ item.img +'"/></a>');
 					});
 
-		
+
 		    		 $('.slide-warp').slidesjs({
 				        width: 900,
 				        height: 480,
@@ -569,7 +569,7 @@ span.fa.fa-thumb-tack {
 
 
 //news
-	
+
 		$.ajax({
 				url:"news/get-top",
 				type:"post",
@@ -579,7 +579,7 @@ span.fa.fa-thumb-tack {
 					$.each(data,function(i,item){
 						//label
 						$(".news-label-warp").append('<a class="news-label news-label-'+i+'" href="javascript:void(0);">'+item.name+'</a>');
-				
+
 						//news-block
 						$(".news-warp").append('<div class="news-block news-block-'+i+'"></div>');
 
@@ -616,7 +616,7 @@ span.fa.fa-thumb-tack {
 							$(".news-block-"+i).addClass("news-block-selected");
 						});
 
-					});	
+					});
 				}
 			});
 
@@ -647,19 +647,19 @@ span.fa.fa-thumb-tack {
 				$("#s4 #partner-1-label").click(function(){
 					$("#s4").css("z-index","100");
 					$("#s3").css("z-index","200");
-					
+
 					//$(".partner").css("height","250px !important");
-		
+
 				});
 
 				$("#s3 #partner-2-label").click(function(){
 					$("#s3").css("z-index","100");
 					$("#s4").css("z-index","200");
 					//$(".partner").css("height","250px !important");
-					
-					
+
+
 				});
-				
+
 
 
 
@@ -681,7 +681,7 @@ span.fa.fa-thumb-tack {
 					success:function(data){
 						var a = 0;
 						$.each(data,function(i,item){
-							var t = Math.floor(i/5); 
+							var t = Math.floor(i/5);
 
 							if (t==a) {
 								$partner.find("ul").append('<li class="partner-line partner-line-'+t+'"></li>');
@@ -704,7 +704,7 @@ span.fa.fa-thumb-tack {
 						var unslider = $partner.unslider({
 												speed: 1500,               //  The speed to animate each slide (in milliseconds)
 												delay: 3000,				//  The delay between slide animations (in milliseconds)
-												init: 0,             
+												init: 0,
 												complete: function() {},  //  A function that gets called after every slide animation
 												keys: true,               //  Enable keyboard (left, right) arrow shortcuts
 												dots: false,               //  Display dot navigation
@@ -722,19 +722,19 @@ span.fa.fa-thumb-tack {
 
 					}
 				});
-			}	
-
-			
-
-
-			
+			}
 
 
 
 
 
 
-				
+
+
+
+
+
+
 				$(document).on("click","#s1 .slidesjs-pagination-item,.slidesjs-pagination-item a",function(){
 					$("#s1 .slidesjs-play").click();
 				});
@@ -749,15 +749,15 @@ span.fa.fa-thumb-tack {
         myTime: {
             /**
              * 当前时间戳
-             * @return <int>        unix时间戳(秒)  
+             * @return <int>        unix时间戳(秒)
              */
             CurTime: function(){
                 return Date.parse(new Date())/1000;
             },
-            /**              
+            /**
              * 日期 转换为 Unix时间戳
-             * @param <string> 2014-01-01 20:20:20  日期格式              
-             * @return <int>        unix时间戳(秒)              
+             * @param <string> 2014-01-01 20:20:20  日期格式
+             * @return <int>        unix时间戳(秒)
              */
             DateToUnix: function(string) {
                 var f = string.split(' ', 2);
@@ -772,11 +772,11 @@ span.fa.fa-thumb-tack {
                         parseInt(t[2], 10) || null
                         )).getTime() / 1000;
             },
-            /**              
-             * 时间戳转换日期              
-             * @param <int> unixTime    待时间戳(秒)              
-             * @param <bool> isFull    返回完整时间(Y-m-d 或者 Y-m-d H:i:s)              
-             * @param <int>  timeZone   时区              
+            /**
+             * 时间戳转换日期
+             * @param <int> unixTime    待时间戳(秒)
+             * @param <bool> isFull    返回完整时间(Y-m-d 或者 Y-m-d H:i:s)
+             * @param <int>  timeZone   时区
              */
             UnixToDate: function(unixTime, isFull, timeZone) {
                 if (typeof (timeZone) == 'number')
@@ -823,5 +823,6 @@ span.fa.fa-thumb-tack {
 
 	});
 </script>
+<link rel="stylesheet" type="text/css" href="resources/css/font.css">
 </body>
 </html>

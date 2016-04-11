@@ -58,10 +58,10 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="pagination"></div>
-		</div>				
+		</div>
 	</div>
-	
-	
+
+
 
 
 	<div style="line-height:0; margin:0; padding:0; height:0; font-size:0; clear:both;"></div>
@@ -80,13 +80,13 @@
 $().ready(function(){
 
 //获取地址栏参数 调用getUrlParam(name)方法
-	
+
 function getUrlParam(name) {
 	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
 	var r = window.location.search.substr(1).match(reg);
 	if (r!=null) return unescape(r[2]); return null;
 }
-			
+
 	var $type = getUrlParam("type");
 	var $typeValue = "";
 	if ($type==1) {
@@ -108,10 +108,10 @@ function getUrlParam(name) {
                 dataType:'json',
                 success:function(data){
                     $(".content-body").empty();
-                    
-                   
+
+
                     $.each(data.list, function(i, item) {
-			
+
                 		var $str = '<div class="coo-warp">'+
 										'<a href="index/cooperation.jsp?id='+item.id+'">'+
 
@@ -126,7 +126,7 @@ function getUrlParam(name) {
 											'<div class="coo-headimg">'+
 												'<img src="'+item.headimg+'">'+
 											'</div>'+
-											
+
 										'</a>'+
 									'</div>';
 
@@ -134,28 +134,28 @@ function getUrlParam(name) {
                 		 $(".content-body").append($str);
 
 	                	if(initPageFlag){
-	                		$(".pagination").pagination(data.amount, { 
-							  prev_text: '&laquo;', 
+	                		$(".pagination").pagination(data.amount, {
+							  prev_text: '&laquo;',
 							  next_text: '&raquo;',
-							  ellipse_text:"...", 
-							  items_per_page: 1, 
-							  num_display_entries: 6, 
-							  current_page: 0, 
+							  ellipse_text:"...",
+							  items_per_page: 1,
+							  num_display_entries: 6,
+							  current_page: 0,
 							  num_edge_entries: 2,
 							  link_to:"javascript:void(0);",
 							  callback:pageSelectCallback,
 							  callback:pageSelectCallback
-								
+
 							});
 	                	}
 
-                		
+
                   		});
- 
+
                 }
             });
-            
-            
+
+
 		}
 
 
@@ -165,11 +165,12 @@ function getUrlParam(name) {
 			$("#pageNo").val(current_page+1);
 			 qry(false);
 		}
-		
-	
-		
+
+
+
 
 	});
 </script>
+<link rel="stylesheet" type="text/css" href="resources/css/font.css">
 </body>
 </html>

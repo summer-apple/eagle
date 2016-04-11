@@ -103,10 +103,10 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="pagination"></div>
-		</div>				
+		</div>
 	</div>
-	
-	
+
+
 
 
 	<div style="line-height:0; margin:0; padding:0; height:0; font-size:0; clear:both;"></div>
@@ -125,13 +125,14 @@
 	var map = new BMap.Map("allmap");
 	map.centerAndZoom(new BMap.Point(116.331398,39.897445),11);
 	map.enableScrollWheelZoom(true);
-	
-	map.clearOverlays(); 
+
+	map.clearOverlays();
 	var new_point = new BMap.Point(120.1744560000,30.3032000000);
 	var marker = new BMap.Marker(new_point);  // 创建标注
 	map.addOverlay(marker);              // 将标注添加到地图中
-	map.panTo(new_point);      
-	
+	map.panTo(new_point);
+
 </script>
+<link rel="stylesheet" type="text/css" href="resources/css/font.css">
 </body>
 </html>

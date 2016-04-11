@@ -58,7 +58,7 @@
 	if(t==0){
 	location="<%=basePath%>index/index.jsp"; //#设定跳转的链接地址
 	}
-	document.getElementById('show').innerHTML="该页不存在，"+t+"秒后跳转到首页"; // 显示倒计时
+	document.getElementById('show').innerHTML="系统出错，"+t+"秒后跳转到首页"; // 显示倒计时
 	t--; // 计数器递减
 	//本文转自：
 	}
@@ -72,7 +72,7 @@
 <div class="clear"></div>
 
 <div class="dialog">
-	<div id="show">该页不存在，5秒后跳转到首页</div>
+	<div id="show">系统出错，5秒后跳转到首页</div>
 	<div class="operation-line">
 		<a href="index/index.jsp">确定</a>
 	</div>

@@ -19,6 +19,7 @@ span.fa.fa-thumb-tack {
     -o-transform: rotate(30deg);
     padding-right: 10px;
     font-size: 16px;
+	color:#F00;
 }
 
 

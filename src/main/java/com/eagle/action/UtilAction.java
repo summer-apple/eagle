@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.eagle.service.impl.ImgCompress;
 import com.eagle.service.impl.UtilService;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonObjectFormatVisitor;
 
@@ -39,6 +40,8 @@ public class UtilAction {
 
 	@Autowired
 	private UtilService us;
+	@Autowired
+	private ImgCompress ic;
 
 	Logger logger = Logger.getLogger(UtilAction.class);
 
@@ -69,6 +72,14 @@ public class UtilAction {
 				}
 				// 转存文件
 				file.transferTo(new File(filePath));
+				
+				 //压缩图片
+				int width = 800;
+				if (folder.equals("slide")) {
+					width = 980;
+				}
+	            ic.compress(filePath, width, 0);
+	            
 			} catch (IOException e) {
 				logger.error(e);
 			}
@@ -154,6 +165,9 @@ public class UtilAction {
 	            BufferedImage bi = reader.read(0, param);  
 	            // 保存新图片  
 	            ImageIO.write(bi, hz, new File(srcpath));  
+	            
+	            //压缩图片
+	            ic.compress(srcpath, 200, 200);
 	            
 	            
 	            return "success";

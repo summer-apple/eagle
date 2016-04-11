@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.eagle.action.CooperationAction;
 import com.eagle.dao.BaseDao;
 import com.eagle.entity.News;
 import com.eagle.entity.Newstype;
@@ -21,7 +23,7 @@ public class NewsService extends BaseService<News>implements INewsService {
 	private BaseDao<News> dao;
 	@Autowired
 	private NewstypeService nts;
-
+	Logger logger = Logger.getLogger(NewsService.class);
 	/**
 	 * 用户新闻列表
 	 */
@@ -60,7 +62,10 @@ public class NewsService extends BaseService<News>implements INewsService {
 	public Map<String, Object> search(String keyword, int pageNo, int pageSize) {
 		Map<String,Object> map = new HashMap<>();
 		map.put("key", keyword);
-		
+logger.info("---------keyword before filter:"+keyword);
+		keyword = UtilService.StringFilter(keyword);
+	
+logger.info("---------keyword after filter:"+keyword);
 		keyword = "%" + keyword + "%";
 		int x = 0;
 		String hql = "FROM News WHERE ";
@@ -144,9 +149,17 @@ public class NewsService extends BaseService<News>implements INewsService {
 
 			String hql = "FROM News WHERE type= " + typeid + "  ORDER BY weight ASC,id DESC";
 
-			topnews.setTypeid(typeid);
 			topnews.setName(newstypelist.get(i).getName());
-			topnews.setNewslist(dao.findByPage(hql, 0, 10));
+			
+			List<News> newslist = dao.findByPage(hql, 0, 10);
+			
+			for (int j = 0; j < newslist.size(); j++) {
+				newslist.get(j).setContent(null);
+				newslist.get(j).setBrief(null);
+			}
+			
+			topnews.setTypeid(typeid);
+			topnews.setNewslist(newslist);
 			
 			topnewslist.add(topnews);
 		}

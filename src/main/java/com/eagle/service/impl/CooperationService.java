@@ -1,6 +1,7 @@
 package com.eagle.service.impl;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +27,11 @@ public class CooperationService extends BaseService<Cooperation>implements ICoop
 	@Override
 	public List<Cooperation> getTopCooperation(String type) {
 		String hql = "FROM Cooperation WHERE type='" + type + "' ORDER BY weight ASC ,id DESC";
-		return dao.findByPage(hql, 0, 20);
+		List<Cooperation> list =  dao.findByPage(hql, 0, 20);
+		for (Cooperation cooperation : list) {
+			cooperation.setContent(null);
+		}
+		return list;
 	}
 
 	@Override

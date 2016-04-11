@@ -110,7 +110,7 @@ margin-top:-1420px !important;
 									<label class="col-sm-2 control-label" for="position">职&nbsp;&nbsp;&nbsp;位</label>
 									
 									<div class="col-sm-10">
-										<input name="position" type="text" class="form-control" id="position" placeholder="16字以内">
+										<input name="position" type="text" class="form-control" id="position" placeholder="20字以内">
 									</div>
 									
 								</div>
@@ -400,7 +400,7 @@ function textCount(input,max){
 }
 
 textCount($("#name"),10);
-textCount($("#position"),16);
+textCount($("#position"),20);
 
 
 					
@@ -530,7 +530,7 @@ textCount($("#position"),16);
 								
 								position: {
 									required: true,
-									maxlength:16
+									maxlength:20
 								},
 								
 								headimg: {
@@ -553,7 +553,7 @@ textCount($("#position"),16);
 
 								position: {
 									required: '必填项目',
-									maxlength:'最多16个汉字'
+									maxlength:'最多20个汉字'
 								},
 								
 								headimg: {

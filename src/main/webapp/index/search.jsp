@@ -98,14 +98,14 @@
 			搜索关键字“<span class="key-word">${key}</span>”，一共有<span class="result-count">0</span>个结果。
 		</div>
 		<div class="content-body">
-			
+
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="pagination"></div>
-		</div>				
+		</div>
 	</div>
 
 	<div style="line-height:0; margin:0; padding:0; height:0; font-size:0; clear:both;"></div>
@@ -125,13 +125,13 @@
 <script type="text/javascript" src="resources/js/jquery.pagination.js"></script>
 <script type="text/javascript">
 $().ready(function(){
-		
+
 qry(true);
 
 //查询方法
 		function qry(initPageFlag){
 
-	
+
 
             $.ajax({
                 url:'news/search',
@@ -140,7 +140,7 @@ qry(true);
                 dataType:'json',
                 success:function(data){
                     $(".content-body").empty();
-                    
+
                     if (data.resultcount==0) {
                     	$(".content-title").html("对不起，没有搜做到\"<span class='key-word'>"+data.key+"</span>\"相关的内容");
                     }else{
@@ -152,35 +152,35 @@ qry(true);
 
 
                 		 $(".content-body").append($str);
-                		
+
                   		});
 
                   		 $("#amount").val(data.amount);
                 		 $(".result-count").html(data.resultcount);
 
 	                	if(initPageFlag){
-	                		$(".pagination").pagination(data.amount, { 
-							  prev_text: '&laquo;', 
+	                		$(".pagination").pagination(data.amount, {
+							  prev_text: '&laquo;',
 							  next_text: '&raquo;',
-							  ellipse_text:"...", 
-							  items_per_page: 1, 
-							  num_display_entries: 6, 
-							  current_page: 0, 
+							  ellipse_text:"...",
+							  items_per_page: 1,
+							  num_display_entries: 6,
+							  current_page: 0,
 							  num_edge_entries: 2,
 							  link_to:"javascript:void(0);",
 							  callback:pageSelectCallback
-								
+
 							});
 	                	}
 
 						$(".result-warp").textSearch($(".key-word").html());
                     }//end else
-                	
+
 
                 }
             });
-            
-            
+
+
 		}
 
 
@@ -190,11 +190,12 @@ qry(true);
 			$("#pageNo").val(current_page+1);
 			 qry(false);
 		}
-		
-	
-		
+
+
+
 
 	});
 </script>
+<link rel="stylesheet" type="text/css" href="resources/css/font.css">
 </body>
 </html>

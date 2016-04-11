@@ -45,15 +45,26 @@
 		}
 
 
-			$(document).on("click",".sub-btn",function(){
-				if ($key.val()!="") {
+			$(document).on("click",".sub-btn",function(){			
+				if ($key.val()!="") {		
 					$("#search-form").submit();
 				}
 			});
+			
+			
+			$("#key").keyup(function(){
+				$("#key").val(stripscript($("#key").val()));
+			});
 
 
-
-
+			function stripscript(s) {
+			    var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？%+_=]")
+			        var rs = "";
+			    for (var i = 0; i < s.length; i++) {
+			        rs = rs + s.substr(i, 1).replace(pattern, '');
+			    }
+			    return rs;
+			}
 
 //获取新闻导航栏类型
 	$.ajax({

@@ -1,5 +1,8 @@
 package com.eagle.action;
 
+
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -9,106 +12,53 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.eagle.entity.About;
-import com.eagle.entity.Cooperation;
-import com.eagle.entity.Job;
 import com.eagle.entity.News;
-import com.eagle.entity.Slide;
-import com.eagle.entity.Topnews;
-import com.eagle.service.IJobService;
-import com.eagle.service.ITestService;
-import com.eagle.service.impl.CooperationService;
-import com.eagle.service.impl.JobService;
+import com.eagle.service.impl.ImgCompress;
 import com.eagle.service.impl.NewsService;
-import com.eagle.service.impl.SlideService;
-
 
 @Controller 
 @RequestMapping("/test")
 public class TestAction {
 	@Resource
-	private ITestService ts;
+	private ImgCompress ic;
+	
 	@Autowired
-	private JobService js;
-	@Autowired
-	private NewsService ns;
-	@Autowired
-	private SlideService ss;
-	@Autowired
-	private CooperationService cs;
+	NewsService ns;
 	
 	Logger logger = Logger.getLogger(TestAction.class);
 	
-	@RequestMapping("/get-abouta")
+	@RequestMapping("/compress")
 	@ResponseBody
-	public About toIndex(HttpServletRequest request,Model model,int id){
+	public boolean compress(HttpServletRequest request,String folder,int w,int h) throws IOException{
 		
-		About about = ts.getAbout(id);
-		return about;
+		String path = request.getSession().getServletContext().getRealPath("/")+"resources/images/gallery/"+folder+"/";
+		File file = new File(path);
+		File[] list = file.listFiles();
+		
+		String filename = "";
+		
+			for (File file2 : list) {
+				filename = file2.getAbsolutePath();
+				logger.info("压缩--"+filename);
+				try {
+					ic.compress(filename, w, h);
+				} catch (Exception e) {
+					logger.error(e);
+					continue;
+				}
+					
+			}
+			return true;
 	}
 	
 	
-	@RequestMapping("/get-about")
-	public ModelAndView fuck(HttpServletRequest request,int id){
-		ModelAndView mv = new ModelAndView();
-		About about = ts.getAbout(id);
-		mv.addObject(about);
-		mv.setViewName("dashboard/get-about");
-		return mv;
-	}
-	
-	@RequestMapping("/get-job")
+	@RequestMapping("/filter")
 	@ResponseBody
-	public Map<String, Object> getJob(HttpServletRequest request,Model model){
-		
-		
-		Map<String, Object> map = js.qryAll("Job","全职",0,20);
-		
-		return map;
-	}
-	
-	
-	@RequestMapping("/get")
-	@ResponseBody
-	public Map<String, Object> get(HttpServletRequest request,Model model){
-	
-		Map<String, Object> map = js.qryAll("Job","全职", 1, 10);
-		return map;
-	}
-	
-	@RequestMapping("/get-newslist")
-	@ResponseBody
-	public List<Topnews> getNewsList(HttpServletRequest request,Model model){
-		
-		List<Topnews> newslist = ns.getTopNews();
-		return newslist;
-	}
-	
-	@RequestMapping("/get-slide")
-	@ResponseBody
-	public List<Slide> getSlide(HttpServletRequest request,Model model){
-		
-		List<Slide> newslist = ss.getTopSlide();
-		return newslist;
-	}
-	
-	@RequestMapping("/get-coo")
-	@ResponseBody
-	public List<Cooperation> getCoo(HttpServletRequest request,Model model){
-		
-		List<Cooperation> newslist = cs.getTopCooperation("名誉学员");
-		return newslist;
-	}
-	
-	@RequestMapping("/translate")
-	@ResponseBody
-	public void translate(HttpServletRequest request){	
-		ts.translate();
+	public Map<String, Object> filter(HttpServletRequest request,String key){
+		return ns.search(key, 0, 10);
 	}
 	
 }
