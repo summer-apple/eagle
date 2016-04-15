@@ -90,11 +90,14 @@ public class UtilService {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(getMD5("Eagle@016"));
-		
-		String   str   =   "*adCVs*34_a _09_b5*[/435^*&城池()^$$&*).{}+.|.)%%*(*.中国}34{45[]12.fd'*&999下面是中文的字符￥……{}【】。，；’“‘”？";     
-        System.out.println(str);     
-        System.out.println(StringFilter(str));   
+//		System.out.println(getMD5("Eagle@016"));
+//		
+//		String   str   =   "*adCVs*34_a _09_b5*[/435^*&城池()^$$&*).{}+.|.)%%*(*.中国}34{45[]12.fd'*&999下面是中文的字符￥……{}【】。，；’“‘”？";     
+//        System.out.println(str);     
+//        System.out.println(StringFilter(str));  
+//        
+        
+        System.out.println(getMD5("admin"));
 		
 		
 	}

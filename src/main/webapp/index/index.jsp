@@ -669,8 +669,10 @@ span.fa.fa-thumb-tack {
 					var $partner;
 						if (type=="名誉学员") {
 							$partner = $("#s4 .partner");
+							type = '%E5%90%8D%E8%AA%89%E5%AD%A6%E5%91%98';
 						}else{
 							$partner = $("#s3 .partner");
+							type = '%E4%BC%9A%E5%91%98';
 						}
 
 
