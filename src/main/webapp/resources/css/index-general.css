@@ -226,10 +226,15 @@ footer{
 }
 .cr-left {
     float: left;
-    width: 1050px;
+    width: 600px;
     text-align: left;
 }
-
+.cr-right{
+	float:left;
+	width:600px;
+	text-align: right;
+	
+}
 
 /**
 **************以上为footer

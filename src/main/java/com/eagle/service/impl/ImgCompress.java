@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.sun.image.codec.jpeg.*;  
 /** 
  * 图片压缩处理 
- * @author 崔素强 
  */  
 
 @Service

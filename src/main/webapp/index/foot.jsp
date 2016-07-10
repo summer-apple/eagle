@@ -56,7 +56,15 @@
 	<div class="copy-right-warp">
 		<div class="copy-right">
 			<div class="cr-left">版权所有 © 时代强鹰 · 杭州创业发展促进会</div>
-			<div class="cr-right"> ICP备15021436号</div>
+			<div class="cr-right"> 
+				 
+				<div style="padding:5px 0; text-aligh:right">
+		 			<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010302001875" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+		 			
+		 			<img src="resources/images/beian.png" style="float:left;"/>
+		 			<p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">浙公网安备 33010302001875号  浙ICP备15021436号</p></a>
+		 		</div>
+			</div>
 		</div>
 	</div>
 </footer>
